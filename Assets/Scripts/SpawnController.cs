@@ -5,27 +5,26 @@ using UnityEngine;
 
 public class SpawnController : MonoBehaviour
 {
-	Queue<int> preview = new Queue<int>();
-	Queue<int> bag9 = new Queue<int>();
+	Queue<int> spawnQueue = new Queue<int>();
+	Queue<int> preQueue = new Queue<int>();
 
-	int block_randomizer = -1;
-	int red_count = 3;
-	int yellow_count = 3;
-	int blue_count = 3;
-	int next_block = -1;
+	int redCount = 3;
+	int yellowCount = 3;
+	int blueCount = 3;
+	int nextBlock = -1;
 
 	// Start is called before the first frame update
 	void Start()
 	{
 		//initialization bag
-		preview.Clear();
-		bag9.Clear();
-		bag_generation();
+		spawnQueue.Clear();
+		preQueue.Clear();
+		refreshPreQueue();
 
-		//put elements from bag to preview
-		while(preview.Count < 5)
+		//put elements from bag to spawnQueue
+		while(spawnQueue.Count < 5)
 		{
-			fulfill_preview();
+			fulfillSpawnQueue();
 		}
 	}
 
@@ -39,9 +38,9 @@ public class SpawnController : MonoBehaviour
 		//}
 		
 		//refulfil bag while bag is empty 
-		if(bag9.Count == 0)
+		if(preQueue.Count == 0)
 		{
-			bag_generation();
+			refreshPreQueue();
 		}
 
 		//player control
@@ -53,55 +52,60 @@ public class SpawnController : MonoBehaviour
 	{
 		if (Input.GetKeyUp(KeyCode.DownArrow))
 		{
-			next_block = preview.Dequeue();
-			fulfill_preview();
-			Debug.Log(bag9.Count);
-			Debug.Log(preview.Count);
+			//check prequeue 
+			if(preQueue.Count == 0)
+			{
+				refreshPreQueue();
+			}
+			nextBlock = spawnQueue.Dequeue();
+			fulfillSpawnQueue();
+			Debug.Log(preQueue.Count);
+			Debug.Log(spawnQueue.Count);
 
 		}
 	}
 
-	void fulfill_preview()
+	void fulfillSpawnQueue()
 	{
-		int temp = bag9.Dequeue();
-		preview.Enqueue(temp);
+		int temp = preQueue.Dequeue();
+		spawnQueue.Enqueue(temp);
 	}
 
-	void bag_generation()
+	void refreshPreQueue()
 	{
 		// reset the count 
-		if (red_count == 0 && yellow_count == 0 && blue_count == 0)
+		if (redCount == 0 && yellowCount == 0 && blueCount == 0)
 		{
-			red_count = 3;
-			yellow_count = 3;
-			blue_count = 3;
+			redCount = 3;
+			yellowCount = 3;
+			blueCount = 3;
 		}
 
 		//get random number
-		while (red_count > 0 || yellow_count > 0 || blue_count > 0)
+		while (redCount > 0 || yellowCount > 0 || blueCount > 0)
 		{
-			block_randomizer = Random.Range(1, 4);
+			int block_randomizer = Random.Range(1, 4);
 			switch (block_randomizer)
 			{
 				case 1:
-					if(red_count > 0)
+					if(redCount > 0)
 					{
-						bag9.Enqueue(block_randomizer);
-						red_count--;
+						preQueue.Enqueue(block_randomizer);
+						redCount--;
 					}
 					break;
 				case 2:
-					if (yellow_count > 0)
+					if (yellowCount > 0)
 					{
-						bag9.Enqueue(block_randomizer);
-						yellow_count--;
+						preQueue.Enqueue(block_randomizer);
+						yellowCount--;
 					}
 					break;
 				case 3:
-					if(blue_count > 0)
+					if(blueCount > 0)
 					{
-						bag9.Enqueue(block_randomizer);
-						blue_count--;
+						preQueue.Enqueue(block_randomizer);
+						blueCount--;
 					}
 					break;
 			}
