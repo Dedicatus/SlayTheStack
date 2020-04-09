@@ -6,22 +6,25 @@ public class TowerMaterial : MonoBehaviour
 {
     enum MaterialType { Attack, Defense, Buff };
 
-    [SerializeField]
-    private MaterialType myType;
+    [SerializeField] private MaterialType myType;
 
-    [SerializeField]
-    private bool landed;
+    [SerializeField] private bool landed;
 
     private Tower myTowerScript;
 
-    [SerializeField]
-    private int curCol;
+    [SerializeField] private int curCol;
 
     private SpawnController mySpawnController;
 
     private float[] towersX;
 
     private float[] towersHeight;
+
+    [SerializeField] private float fallingSpeed;
+
+    [SerializeField] private float normalSpeed = 20.0f;
+
+    [SerializeField] private float accelerateSpeed = 40.0f;
 
     private void Start()
     {
@@ -30,11 +33,16 @@ public class TowerMaterial : MonoBehaviour
         mySpawnController = GameObject.FindWithTag("SpawnController").GetComponent<SpawnController>();
         towersX = mySpawnController.getTowersX();
         towersHeight = mySpawnController.getTowersHeight();
+        fallingSpeed = normalSpeed;
     }
 
     private void Update()
     {
-        if (!landed) { inputHandler(); }
+        if (!landed) 
+        { 
+            inputHandler();
+            gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0f, -fallingSpeed, 0f);
+        }
     }
 
     private void inputHandler()
@@ -68,6 +76,16 @@ public class TowerMaterial : MonoBehaviour
             {
                 return;
             }
+        }
+
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            fallingSpeed = normalSpeed;
+        }
+        
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            fallingSpeed = accelerateSpeed;
         }
     }
     private void OnCollisionEnter(Collision collision)

@@ -157,3 +157,6 @@ MonoBehaviour:
   myType: 2
   landed: 0
   curCol: 0
+  fallingSpeed: 0
+  normalSpeed: 15
+  accelerateSpeed: 40
