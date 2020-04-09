@@ -47,32 +47,15 @@ public class Tower : MonoBehaviour
     public void addMaterial(int typeCode)
     {
         myObjectList.Add(typeCode);
-        foreach (int objectCode in myObjectList)
+        topObjects[topIndex] = typeCode;
+        ++topIndex;
+
+        if (topIndex == topObjects.Length)
         {
-            if (objectCode == 0)
-            {
-                continue;
-            }
-            else
-            {
-                while (topIndex < topObjects.Length)
-                {
-                    if (topObjects[topIndex] == 0)
-                    {
-                        topObjects[topIndex] = objectCode;
-                        
-                        break;
-                    }
+            generatePart();
+            initiateTopVariables();
+        }  
 
-                    ++topIndex;
-
-                    if (topIndex == topObjects.Length - 1)
-                    {
-                        generatePart();
-                    }
-                }
-            }
-        }
     }
 
     private void generatePart()
@@ -98,22 +81,23 @@ public class Tower : MonoBehaviour
                     break;
             }
 
-            if (atkCount >= 2)
-            {
-                Debug.Log("Attack Part");
-            }
-            else if (defCount >= 2)
-            {
-                Debug.Log("Defense Part");
-            }
-            else if (buffCount >= 2)
-            {
-                Debug.Log("Buff Part");
-            }
-            else
-            {
-                Debug.Log("Random Part");
-            }
+        }
+
+        if (atkCount >= 2)
+        {
+            Debug.Log("Attack Part");
+        }
+        else if (defCount >= 2)
+        {
+            Debug.Log("Defense Part");
+        }
+        else if (buffCount >= 2)
+        {
+            Debug.Log("Buff Part");
+        }
+        else
+        {
+            Debug.Log("Random Part");
         }
     }
 }
