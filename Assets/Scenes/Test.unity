@@ -595,6 +595,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1610476727 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6952624726336200023, guid: 10ac8a74782a72e4cb53ad2a17614e82,
+    type: 3}
+  m_PrefabInstance: {fileID: 6952624727889557080}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2041128635
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,6 +1038,54 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2973501107750360485, guid: f464e5d58fb047241aa9ff254b539b48,
+        type: 3}
+      propertyPath: towerBases.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2973501107750360485, guid: f464e5d58fb047241aa9ff254b539b48,
+        type: 3}
+      propertyPath: towerMaterials.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2973501107750360485, guid: f464e5d58fb047241aa9ff254b539b48,
+        type: 3}
+      propertyPath: towerBases.Array.data[0]
+      value: 
+      objectReference: {fileID: 1610476727}
+    - target: {fileID: 2973501107750360485, guid: f464e5d58fb047241aa9ff254b539b48,
+        type: 3}
+      propertyPath: towerBases.Array.data[1]
+      value: 
+      objectReference: {fileID: 888548444}
+    - target: {fileID: 2973501107750360485, guid: f464e5d58fb047241aa9ff254b539b48,
+        type: 3}
+      propertyPath: towerBases.Array.data[2]
+      value: 
+      objectReference: {fileID: 36514252}
+    - target: {fileID: 2973501107750360485, guid: f464e5d58fb047241aa9ff254b539b48,
+        type: 3}
+      propertyPath: towerMaterials.Array.data[0]
+      value: 
+      objectReference: {fileID: 7486787524973398652, guid: 045da5cf5ce71654bb42b709d39548e9,
+        type: 3}
+    - target: {fileID: 2973501107750360485, guid: f464e5d58fb047241aa9ff254b539b48,
+        type: 3}
+      propertyPath: towerMaterials.Array.data[1]
+      value: 
+      objectReference: {fileID: 7486787524973398652, guid: 045da5cf5ce71654bb42b709d39548e9,
+        type: 3}
+    - target: {fileID: 2973501107750360485, guid: f464e5d58fb047241aa9ff254b539b48,
+        type: 3}
+      propertyPath: towerMaterials.Array.data[2]
+      value: 
+      objectReference: {fileID: 7486787524973398652, guid: 045da5cf5ce71654bb42b709d39548e9,
+        type: 3}
+    - target: {fileID: 2973501107750360485, guid: f464e5d58fb047241aa9ff254b539b48,
+        type: 3}
+      propertyPath: dropHeight
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2973501107750360487, guid: f464e5d58fb047241aa9ff254b539b48,
         type: 3}
