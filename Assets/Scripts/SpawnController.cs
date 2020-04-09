@@ -96,8 +96,8 @@ public class SpawnController : MonoBehaviour
 				myMaterial = GameObject.Instantiate(towerMaterials[nextBlock], startPosition, Quaternion.identity);
 			}
 
-			Debug.Log(preQueue.Count);
-			Debug.Log(spawnQueue.Count);
+			//Debug.Log(preQueue.Count);
+			//Debug.Log(spawnQueue.Count);
 
 		}
 	}
