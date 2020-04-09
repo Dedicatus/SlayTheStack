@@ -9,9 +9,9 @@ public class SpawnController : MonoBehaviour
 	Queue<int> preQueue = new Queue<int>();
 
 	int blockRandomizer = -1;
-	int redCount = 3;
-	int yellowCount = 3;
-	int blueCount = 3;
+	int attackCount = 3;
+	int buffCount = 3;
+	int defenseCount = 3;
 	int nextBlock = -1;
 
 	[SerializeField] private float dropHeight;
@@ -36,7 +36,7 @@ public class SpawnController : MonoBehaviour
 		myMaterial = null;
 
 		//put elements from bag to spawnQueue
-		while(spawnQueue.Count < 5)
+		while (spawnQueue.Count < 5)
 		{
 			fulfillSpawnQueue();
 		}
@@ -63,6 +63,7 @@ public class SpawnController : MonoBehaviour
 		{
 			refreshPreQueue();
 		}
+
 		if (myMaterial != null)
 		{
 
@@ -81,9 +82,6 @@ public class SpawnController : MonoBehaviour
 	{
 		if (Input.GetKeyUp(KeyCode.F))
 		{
-			nextBlock = spawnQueue.Dequeue();
-			fulfillSpawnQueue();
-
 			// set the start position of nextblock
 			Vector3 startPosition = new Vector3(towers[1].position.x, dropHeight, 0);
 
@@ -93,11 +91,13 @@ public class SpawnController : MonoBehaviour
 				{
 					towersHeight[i] = towers[i].GetComponent<Tower>().getCurHeight();
 				}
-					myMaterial = GameObject.Instantiate(towerMaterials[nextBlock], startPosition, Quaternion.identity);
+				nextBlock = spawnQueue.Dequeue();
+				fulfillSpawnQueue();
+				myMaterial = GameObject.Instantiate(towerMaterials[nextBlock], startPosition, Quaternion.identity);
 			}
 
-			//Debug.Log(preQueue.Count);
-			//Debug.Log(spawnQueue.Count);
+			Debug.Log(preQueue.Count);
+			Debug.Log(spawnQueue.Count);
 
 		}
 	}
@@ -111,38 +111,38 @@ public class SpawnController : MonoBehaviour
 	void refreshPreQueue()
 	{
 		// reset the count 
-		if (redCount == 0 && yellowCount == 0 && blueCount == 0)
+		if (attackCount == 0 && buffCount == 0 && defenseCount == 0)
 		{
-			redCount = 3;
-			yellowCount = 3;
-			blueCount = 3;
+			attackCount = 3;
+			buffCount = 3;
+			defenseCount = 3;
 		}
 
 		//get random number
-		while (redCount > 0 || yellowCount > 0 || blueCount > 0)
+		while (attackCount > 0 || buffCount > 0 || defenseCount > 0)
 		{
 			blockRandomizer = Random.Range(0, 3);
 			switch (blockRandomizer)
 			{
 				case 0:
-					if(redCount > 0)
+					if(attackCount > 0)
 					{
 						preQueue.Enqueue(blockRandomizer);
-						redCount--;
+						attackCount--;
 					}
 					break;
 				case 1:
-					if (yellowCount > 0)
+					if (buffCount > 0)
 					{
 						preQueue.Enqueue(blockRandomizer);
-						yellowCount--;
+						buffCount--;
 					}
 					break;
 				case 2:
-					if(blueCount > 0)
+					if(defenseCount > 0)
 					{
 						preQueue.Enqueue(blockRandomizer);
-						blueCount--;
+						defenseCount--;
 					}
 					break;
 			}
