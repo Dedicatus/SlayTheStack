@@ -10,6 +10,8 @@ public class Tower : MonoBehaviour
 
     private int topIndex;
 
+    [SerializeField] private float curHeight;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +32,16 @@ public class Tower : MonoBehaviour
     void Update()
     {
 
+    }
+
+    public void setCurHeight(float h)
+    {
+        curHeight = h;
+    }
+
+    public float getCurHeight()
+    {
+        return curHeight;
     }
 
     public void addMaterial(int typeCode)

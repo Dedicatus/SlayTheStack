@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2973501107750360485}
   m_Layer: 0
   m_Name: SpawnController
-  m_TagString: Untagged
+  m_TagString: SpawnController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropHeight: 60
-  towerBases:
+  towers:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

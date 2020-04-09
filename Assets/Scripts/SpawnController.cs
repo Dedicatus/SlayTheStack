@@ -15,12 +15,13 @@ public class SpawnController : MonoBehaviour
 	int nextBlock = -1;
 
 	[SerializeField] private float dropHeight;
-	[SerializeField] private Transform[] towerBases;
+	[SerializeField] private Transform[] towers = new Transform[3];
 	[SerializeField] private GameObject[] towerMaterials;
+	private float[] towersX = new float[3];
+	private float[] towersHeight = new float[3];
 	GameObject myMaterial;
 	GameObject myMaterialChild;
-	int startColumn = 1;
-	static int currentColumn = 1;
+	
 
 
 	// Start is called before the first frame update
@@ -39,6 +40,13 @@ public class SpawnController : MonoBehaviour
 		{
 			fulfillSpawnQueue();
 		}
+
+		for (int i = 0; i < towers.Length; ++i)
+		{
+			towersX[i] = (float)towers[i].position.x;
+			towersHeight[i] = 0f;
+		}
+
 	}
 
 	// Update is called once per frame
@@ -65,17 +73,11 @@ public class SpawnController : MonoBehaviour
 			}
 
 		}
-		else
-		{
-			
-		}
 
-		//player control
-		drop();
+		spawnMaterial();
 	}
 
-	// player controll
-	void drop()
+	void spawnMaterial()
 	{
 		if (Input.GetKeyUp(KeyCode.F))
 		{
@@ -83,13 +85,17 @@ public class SpawnController : MonoBehaviour
 			fulfillSpawnQueue();
 
 			// set the start position of nextblock
-			Vector3 startPosition = new Vector3(towerBases[startColumn].position.x, dropHeight, 0);
+			Vector3 startPosition = new Vector3(towers[1].position.x, dropHeight, 0);
 
 			if(myMaterial == null)
 			{
-				myMaterial = GameObject.Instantiate(towerMaterials[nextBlock], startPosition, Quaternion.identity);
-				currentColumn = startColumn;
+				for (int i = 0; i < towers.Length; ++i)
+				{
+					towersHeight[i] = towers[i].GetComponent<Tower>().getCurHeight();
+				}
+					myMaterial = GameObject.Instantiate(towerMaterials[nextBlock], startPosition, Quaternion.identity);
 			}
+
 			//Debug.Log(preQueue.Count);
 			//Debug.Log(spawnQueue.Count);
 
@@ -142,5 +148,15 @@ public class SpawnController : MonoBehaviour
 			}
 		}
 
+	}
+
+	public float[] getTowersX()
+	{
+		return towersX;
+	}
+
+	public float[] getTowersHeight()
+	{
+		return towersHeight;
 	}
 }
