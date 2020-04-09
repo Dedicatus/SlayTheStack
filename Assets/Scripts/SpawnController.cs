@@ -17,9 +17,10 @@ public class SpawnController : MonoBehaviour
 	[SerializeField] private float dropHeight;
 	[SerializeField] private Transform[] towerBases;
 	[SerializeField] private GameObject[] towerMaterials;
+	GameObject myMaterial;
+	GameObject myMaterialChild;
 	int startColumn = 1;
-	int currentColumn;
-	bool isSet = true;
+	static int currentColumn = 1;
 
 
 	// Start is called before the first frame update
@@ -30,8 +31,8 @@ public class SpawnController : MonoBehaviour
 		preQueue.Clear();
 		refreshPreQueue();
 
-		//initialize material's position
-		currentColumn = startColumn;
+		//initialize material's attributes
+		myMaterial = null;
 
 		//put elements from bag to spawnQueue
 		while(spawnQueue.Count < 5)
@@ -54,6 +55,20 @@ public class SpawnController : MonoBehaviour
 		{
 			refreshPreQueue();
 		}
+		if (myMaterial != null)
+		{
+
+			myMaterialChild = myMaterial.transform.GetChild(0).gameObject;
+			if (myMaterialChild.GetComponent<TowerMaterial>().isLanded())
+			{
+				myMaterial = null;
+			}
+
+		}
+		else
+		{
+			
+		}
 
 		//player control
 		drop();
@@ -70,7 +85,11 @@ public class SpawnController : MonoBehaviour
 			// set the start position of nextblock
 			Vector3 startPosition = new Vector3(towerBases[startColumn].position.x, dropHeight, 0);
 
-			Instantiate(towerMaterials[nextBlock], startPosition, Quaternion.identity);
+			if(myMaterial == null)
+			{
+				myMaterial = GameObject.Instantiate(towerMaterials[nextBlock], startPosition, Quaternion.identity);
+				currentColumn = startColumn;
+			}
 			//Debug.Log(preQueue.Count);
 			//Debug.Log(spawnQueue.Count);
 

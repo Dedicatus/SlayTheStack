@@ -50,4 +50,9 @@ public class TowerMaterial : MonoBehaviour
             myTowerScript = other.GetComponent<Tower>();
         }
     }
+
+	public bool isLanded()
+	{
+		return landed;
+	}
 }
