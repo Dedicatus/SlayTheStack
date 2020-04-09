@@ -12,9 +12,11 @@ GameObject:
   - component: {fileID: 6952624726336200022}
   - component: {fileID: 6952624726336200021}
   - component: {fileID: 6952624726336200020}
+  - component: {fileID: 1197831193937504005}
+  - component: {fileID: 4392240180532193291}
   m_Layer: 0
-  m_Name: Base
-  m_TagString: Untagged
+  m_Name: Tower
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -93,3 +95,28 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!65 &1197831193937504005
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6952624726336200019}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 79.205826, z: 1}
+  m_Center: {x: 0, y: 39.102913, z: 0}
+--- !u!114 &4392240180532193291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6952624726336200019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d6f413be66856547bf9fc859aac3538, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

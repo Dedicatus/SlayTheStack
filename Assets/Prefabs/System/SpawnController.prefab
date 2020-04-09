@@ -43,3 +43,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d00ffeab4a9fc6c43973ace920c98f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dropHeight: 60
+  towerBases:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  towerMaterials:
+  - {fileID: 7486787524973398652, guid: 045da5cf5ce71654bb42b709d39548e9, type: 3}
+  - {fileID: 3927933223733467747, guid: 25360555d0bb74e4c99a352c107a636c, type: 3}
+  - {fileID: 4810789654644623918, guid: 11c4a1f3376907f4e9135d7c34c34533, type: 3}
