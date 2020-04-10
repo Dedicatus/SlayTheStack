@@ -6,9 +6,11 @@ public class EnemyBullet : MonoBehaviour
 {
 
 	private Enemy myEnemy;
+	[SerializeField] private float dropSpeed = 40.0f;
 
-    // Start is called before the first frame update
-    void Start()
+
+	// Start is called before the first frame update
+	void Start()
     {
         myEnemy = GameObject.FindWithTag("System").transform.Find("EnemyController").GetComponent<Enemy>();
 	}
@@ -16,8 +18,8 @@ public class EnemyBullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
+		gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0f, -dropSpeed, 0f);
+	}
 
 	private void OnCollisionEnter(Collision collision)
 	{
