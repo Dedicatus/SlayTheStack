@@ -8,6 +8,8 @@ public class SpawnController : MonoBehaviour
 	Queue<int> spawnQueue = new Queue<int>();
 	Queue<int> preQueue = new Queue<int>();
 
+	int[] previewSlot = new int[5];
+
 	int blockRandomizer = -1;
 	int attackCount = 3;
 	int buffCount = 3;
@@ -40,6 +42,10 @@ public class SpawnController : MonoBehaviour
 		{
 			fulfillSpawnQueue();
 		}
+
+		//copy first spawnQueue Element for UI usage
+		spawnQueue.CopyTo(previewSlot, 0);
+
 
 		for (int i = 0; i < towers.Length; ++i)
 		{
@@ -94,7 +100,19 @@ public class SpawnController : MonoBehaviour
 				nextBlock = spawnQueue.Dequeue();
 				fulfillSpawnQueue();
 				myMaterial = GameObject.Instantiate(towerMaterials[nextBlock], startPosition, Quaternion.identity);
+				
+				// refresh the array of spawnQueue elements
+				spawnQueue.CopyTo(previewSlot, 0);
+
 			}
+
+
+			
+
+			//for (int i = 0; i < 5; i++)
+			//{
+			//	Debug.Log(previewSlot[i]);
+			//}
 
 			//Debug.Log(preQueue.Count);
 			//Debug.Log(spawnQueue.Count);
@@ -158,5 +176,10 @@ public class SpawnController : MonoBehaviour
 	public float[] getTowersHeight()
 	{
 		return towersHeight;
+	}
+
+	public int[] getSpawnQueueElements()
+	{
+		return previewSlot;
 	}
 }
