@@ -24,12 +24,12 @@ public class EnemyBullet : MonoBehaviour
 		if (collision.gameObject.tag == "TowerMaterial")
 		{
 			Debug.Log("collided");
-			Destroy(collision.gameObject);
+			Destroy(collision.gameObject.transform.parent.gameObject);
 		}
 
 		if (collision.gameObject.tag == "Tower")
 		{
-			Destroy(gameObject);
+			Destroy(transform.parent.gameObject);
 			myEnemy.resetAttackMaterial();
 		}
 	}
