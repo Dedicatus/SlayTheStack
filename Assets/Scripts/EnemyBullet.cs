@@ -5,8 +5,10 @@ using UnityEngine;
 public class EnemyBullet : MonoBehaviour
 {
 
+
 	private Enemy myEnemy;
 	[SerializeField] private float dropSpeed = 40.0f;
+	[SerializeField] private int attack = 30;
 
 
 	// Start is called before the first frame update
@@ -25,8 +27,18 @@ public class EnemyBullet : MonoBehaviour
 	{
 		if (collision.gameObject.tag == "TowerMaterial")
 		{
-			Debug.Log("collided");
-			Destroy(collision.gameObject.transform.parent.gameObject);
+			int currentTowerHealth = collision.gameObject.GetComponent<TowerMaterial>().getHealth();
+			if(attack >= currentTowerHealth)
+			{
+				Destroy(collision.gameObject.transform.parent.gameObject);
+				attack -= currentTowerHealth;
+			}
+			else
+			{
+				Destroy(transform.parent.gameObject);
+			}
+
+			
 		}
 
 		if (collision.gameObject.tag == "Tower")

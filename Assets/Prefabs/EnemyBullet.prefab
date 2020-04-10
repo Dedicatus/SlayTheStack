@@ -123,6 +123,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9ead53df6f393043a378d31693889df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dropSpeed: 40
+  attack: 30
 --- !u!1 &711694364396277555
 GameObject:
   m_ObjectHideFlags: 0

@@ -124,11 +124,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myType: 0
-  landed: 0
-  curCol: 0
-  fallingSpeed: 0
+  index: 0
   normalSpeed: 15
   accelerateSpeed: 40
+  towerHealth: 20
 --- !u!1 &7486787524973398652
 GameObject:
   m_ObjectHideFlags: 0

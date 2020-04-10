@@ -30,6 +30,8 @@ public class TowerMaterial : MonoBehaviour
 
     [SerializeField] private float accelerateSpeed = 40.0f;
 
+	[SerializeField] private int towerHealth = 20;
+
     private void Start()
     {
         landed = false;
@@ -138,4 +140,9 @@ public class TowerMaterial : MonoBehaviour
     {
         return index;
     }
+
+	public int getHealth()
+	{
+		return towerHealth;
+	}
 }

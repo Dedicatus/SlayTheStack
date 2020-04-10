@@ -9,6 +9,8 @@ public class Enemy : MonoBehaviour
 	[SerializeField] private float dropHeight;
 	GameObject attackMaterial;
 	float[] towerX = new float[3];
+	int lastAttacknumber = -1;
+	int thisAttackNumber = -1;
 
 	private SpawnController mySpawnController;
 
@@ -30,12 +32,21 @@ public class Enemy : MonoBehaviour
 	{
 		if (Input.GetKeyUp(KeyCode.Q))
 		{
-			Vector3 startPosition = new Vector3(towerX[Random.Range(0,3)], dropHeight, 0);
+			//enemy cannot attack a tower twice consecutively
+			while(thisAttackNumber == lastAttacknumber)
+			{
+				thisAttackNumber = Random.Range(0, 3);
+			}
+			
+
+			Vector3 startPosition = new Vector3(towerX[thisAttackNumber], dropHeight, 0);
 
 			if (attackMaterial == null)
 			{
 				attackMaterial = GameObject.Instantiate(attackMaterialPreafab, startPosition, Quaternion.identity);
 			}
+
+			lastAttacknumber = thisAttackNumber;
 		}
 	}
 
