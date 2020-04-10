@@ -103,7 +103,7 @@ public class Tower : MonoBehaviour
                 myObjectList[myObjectList.Count - i] = 4;
             }
 
-            GameObject attackPart = Instantiate(attackPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(-0.0001 * (myObjectList.Count - 1))), Quaternion.identity);
+            GameObject attackPart = Instantiate(attackPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(0.0001 * (myObjectList.Count - 1))), Quaternion.identity);
             attackPart.transform.GetChild(0).GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
             destoryUsedMaterials();
         }
@@ -115,7 +115,7 @@ public class Tower : MonoBehaviour
                 myObjectList[myObjectList.Count - i] = 5;
             }
 
-            GameObject defensePart = Instantiate(defensePartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(-0.0001 * (myObjectList.Count - 1))), Quaternion.identity);
+            GameObject defensePart = Instantiate(defensePartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(0.0001 * (myObjectList.Count - 1))), Quaternion.identity);
             defensePart.transform.GetChild(0).GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
             destoryUsedMaterials();
         }
@@ -127,7 +127,7 @@ public class Tower : MonoBehaviour
                 myObjectList[myObjectList.Count - i] = 6;
             }
 
-            GameObject buffPart = Instantiate(buffPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(-0.0001 * (myObjectList.Count - 1))), Quaternion.identity);
+            GameObject buffPart = Instantiate(buffPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(0.0001 * (myObjectList.Count - 1))), Quaternion.identity);
             buffPart.transform.GetChild(0).GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
             destoryUsedMaterials();
         }
@@ -145,7 +145,7 @@ public class Tower : MonoBehaviour
                 {
                     myObjectList[myObjectList.Count - i] = partType;
                 }
-                GameObject attackPart = Instantiate(attackPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(-0.0001 * (myObjectList.Count - 1))), Quaternion.identity);
+                GameObject attackPart = Instantiate(attackPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(0.0001 * (myObjectList.Count - 1))), Quaternion.identity);
                 attackPart.transform.GetChild(0).GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
             }
             else if (ran <= 2)
@@ -156,7 +156,7 @@ public class Tower : MonoBehaviour
                 {
                     myObjectList[myObjectList.Count - i] = partType;
                 }
-                GameObject defensePart = Instantiate(defensePartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(-0.0001 * (myObjectList.Count - 1))), Quaternion.identity);
+                GameObject defensePart = Instantiate(defensePartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(0.0001 * (myObjectList.Count - 1))), Quaternion.identity);
                 defensePart.transform.GetChild(0).GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
             }
             else
@@ -167,7 +167,7 @@ public class Tower : MonoBehaviour
                 {
                     myObjectList[myObjectList.Count - i] = partType;
                 }
-                GameObject buffPart = Instantiate(buffPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(-0.0001 * (myObjectList.Count - 1))), Quaternion.identity);
+                GameObject buffPart = Instantiate(buffPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(0.0001 * (myObjectList.Count - 1))), Quaternion.identity);
                 buffPart.transform.GetChild(0).GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
             }
             
