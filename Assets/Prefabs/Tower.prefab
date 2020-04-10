@@ -120,3 +120,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d6f413be66856547bf9fc859aac3538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myObjectList: 
+  curHeight: 0
+  partYOffset: -5
+  attackPartPrefab: {fileID: 7779858500460932063, guid: 36a2f36a52e945847a27f5409ad3fa51,
+    type: 3}
+  defensePartPrefab: {fileID: 3724688932148780711, guid: 3fc06a9b0e823634c83f06681c6904e1,
+    type: 3}
+  buffPartPrefab: {fileID: 1198419216617783406, guid: 3aad22fb76fb6904eb65403230af5d59,
+    type: 3}

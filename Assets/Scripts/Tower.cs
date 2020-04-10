@@ -6,9 +6,15 @@ public class Tower : MonoBehaviour
 {
     [SerializeField] private List<int> myObjectList = new List<int>();
 
-    private int topIndex;
+    [SerializeField] private int topIndex;
 
-    private float curHeight;
+    [SerializeField] private float curHeight;
+
+    [SerializeField] private float partYOffset = -7.5f;
+
+    [SerializeField] private GameObject attackPartPrefab;
+    [SerializeField] private GameObject defensePartPrefab;
+    [SerializeField] private GameObject buffPartPrefab;
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +45,7 @@ public class Tower : MonoBehaviour
         int materialCount = 1;
         while (topIndex < 2 && myObjectList.Count >= 3)
         {
-            if (myObjectList[myObjectList.Count - topIndex - 2] > 0 && myObjectList[myObjectList.Count - topIndex - 2] <= 4)
+            if (myObjectList[myObjectList.Count - topIndex - 2] > 0 && myObjectList[myObjectList.Count - topIndex - 2] <= 3)
             {
                 ++materialCount;
             }
@@ -86,41 +92,75 @@ public class Tower : MonoBehaviour
 
         if (atkCount >= 2)
         {
-            Debug.Log("Attack Part");
+            //Debug.Log("Attack Part");
             for (int i = 1; i <= 3; ++i)
             {
                 myObjectList[myObjectList.Count - i] = 4;
             }
 
+            Instantiate(attackPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, 0), Quaternion.identity);
             destoryUsedMaterials();
         }
         else if (defCount >= 2)
         {
-            Debug.Log("Defense Part");
+            //Debug.Log("Defense Part");
             for (int i = 1; i <= 3; ++i)
             {
                 myObjectList[myObjectList.Count - i] = 5;
             }
 
+            Instantiate(defensePartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, 0), Quaternion.identity);
             destoryUsedMaterials();
         }
         else if (buffCount >= 2)
         {
-            Debug.Log("Buff Part");
+            //Debug.Log("Buff Part");
             for (int i = 1; i <= 3; ++i)
             {
                 myObjectList[myObjectList.Count - i] = 6;
             }
 
+            Instantiate(buffPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, 0), Quaternion.identity);
             destoryUsedMaterials();
         }
         else
         {
-            Debug.Log("Random Part");
-            for (int i = 1; i <= 3; ++i)
+
+            int ran = Random.Range(0, 3);
+            int partType = 0;
+
+            if (ran <= 1)
             {
-                myObjectList[myObjectList.Count - i] = 7;
+               // Debug.Log("Random - Attack Part");
+                partType = 4;
+                for (int i = 1; i <= 3; ++i)
+                {
+                    myObjectList[myObjectList.Count - i] = partType;
+                }
+                Instantiate(attackPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, 0), Quaternion.identity);
             }
+            else if (ran <= 2)
+            {
+                //Debug.Log("Random - Defense Part");
+                partType = 5;
+                for (int i = 1; i <= 3; ++i)
+                {
+                    myObjectList[myObjectList.Count - i] = partType;
+                }
+                Instantiate(defensePartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, 0), Quaternion.identity);
+            }
+            else
+            {
+                //Debug.Log("Random - Buff Part");
+                partType = 6;
+                for (int i = 1; i <= 3; ++i)
+                {
+                    myObjectList[myObjectList.Count - i] = partType;
+                }
+                Instantiate(buffPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, 0), Quaternion.identity);
+            }
+            
+            
 
             destoryUsedMaterials();
         }
