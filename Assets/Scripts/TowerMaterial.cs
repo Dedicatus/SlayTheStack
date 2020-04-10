@@ -8,13 +8,15 @@ public class TowerMaterial : MonoBehaviour
 
     [SerializeField] private MaterialType myType;
 
-    [SerializeField] private bool landed;
+    private bool landed;
 
     private bool moved;
 
     private Tower myTowerScript;
 
-    [SerializeField] private int curCol;
+    private int curCol;
+
+    [SerializeField] private int index;
 
     private SpawnController mySpawnController;
 
@@ -22,7 +24,7 @@ public class TowerMaterial : MonoBehaviour
 
     private float[] towersHeight;
 
-    [SerializeField] private float fallingSpeed;
+    private float fallingSpeed;
 
     [SerializeField] private float normalSpeed = 20.0f;
 
@@ -122,6 +124,8 @@ public class TowerMaterial : MonoBehaviour
         if (other.gameObject.tag == "Tower")
         {
             myTowerScript = other.GetComponent<Tower>();
+            index = myTowerScript.getCurrentIndex();
+            transform.parent.parent = other.transform;
         }
     }
 
@@ -129,4 +133,9 @@ public class TowerMaterial : MonoBehaviour
 	{
 		return landed;
 	}
+
+    public int getIndex()
+    {
+        return index;
+    }
 }

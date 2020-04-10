@@ -43,7 +43,7 @@ public class SpawnController : MonoBehaviour
 		//put elements from bag to spawnQueue
 		while (spawnQueue.Count < 5)
 		{
-			fulfillSpawnQueue();
+			fillSpawnQueue();
 		}
 
 		//copy first spawnQueue Element for UI usage
@@ -67,7 +67,7 @@ public class SpawnController : MonoBehaviour
 		//	Debug.Log(test);
 		//}
 
-		//refulfil bag while bag is empty 
+		//refill bag while bag is empty 
 		if (preQueue.Count == 0)
 		{
 			refreshPreQueue();
@@ -101,7 +101,7 @@ public class SpawnController : MonoBehaviour
 					towersHeight[i] = towers[i].GetComponent<Tower>().getCurHeight();
 				}
 				nextBlock = spawnQueue.Dequeue();
-				fulfillSpawnQueue();
+				fillSpawnQueue();
 				myMaterial = GameObject.Instantiate(towerMaterials[nextBlock], startPosition, Quaternion.identity);
 				
 				// refresh the array of spawnQueue elements
@@ -125,7 +125,7 @@ public class SpawnController : MonoBehaviour
 		}
 	}
 
-	void fulfillSpawnQueue()
+	void fillSpawnQueue()
 	{
 		int temp = preQueue.Dequeue();
 		spawnQueue.Enqueue(temp);
