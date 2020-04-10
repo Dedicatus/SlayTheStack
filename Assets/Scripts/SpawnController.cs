@@ -8,7 +8,7 @@ public class SpawnController : MonoBehaviour
 	Queue<int> spawnQueue = new Queue<int>();
 	Queue<int> preQueue = new Queue<int>();
 
-	int[] previewSlot = new int[5];
+	int[] previewQueueCopy = new int[5];
 
 	int blockRandomizer = -1;
 	int attackCount = 3;
@@ -23,12 +23,15 @@ public class SpawnController : MonoBehaviour
 	private float[] towersHeight = new float[3];
 	GameObject myMaterial;
 	GameObject myMaterialChild;
-	
 
+	private PreviewController myPreviewController;
 
 	// Start is called before the first frame update
 	void Start()
 	{
+
+		myPreviewController = GameObject.FindWithTag("System").transform.Find("UIController").transform.Find("Preview").GetComponent<PreviewController>();
+
 		//initialization bag
 		spawnQueue.Clear();
 		preQueue.Clear();
@@ -44,7 +47,7 @@ public class SpawnController : MonoBehaviour
 		}
 
 		//copy first spawnQueue Element for UI usage
-		spawnQueue.CopyTo(previewSlot, 0);
+		spawnQueue.CopyTo(previewQueueCopy, 0);
 
 
 		for (int i = 0; i < towers.Length; ++i)
@@ -102,7 +105,9 @@ public class SpawnController : MonoBehaviour
 				myMaterial = GameObject.Instantiate(towerMaterials[nextBlock], startPosition, Quaternion.identity);
 				
 				// refresh the array of spawnQueue elements
-				spawnQueue.CopyTo(previewSlot, 0);
+				spawnQueue.CopyTo(previewQueueCopy, 0);
+
+				myPreviewController.refreshPreview();
 
 			}
 
@@ -111,7 +116,7 @@ public class SpawnController : MonoBehaviour
 
 			//for (int i = 0; i < 5; i++)
 			//{
-			//	Debug.Log(previewSlot[i]);
+			//	Debug.Log(previewQueueCopy[i]);
 			//}
 
 			//Debug.Log(preQueue.Count);
@@ -180,6 +185,6 @@ public class SpawnController : MonoBehaviour
 
 	public int[] getSpawnQueueElements()
 	{
-		return previewSlot;
+		return previewQueueCopy;
 	}
 }

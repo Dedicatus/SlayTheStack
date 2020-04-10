@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class PreviewController : MonoBehaviour
 {
-	[SerializeField] private GameObject[] previewSlot;
-	[SerializeField] private int numberOfSlots;
+	[SerializeField] private GameObject previewSlot;
+	[SerializeField] private GameObject[] newSlot;
 	[SerializeField] private Sprite[] towerSprites;
 	private SpawnController mySpawnController;
 	private int[] spawnQueueElement;
@@ -16,36 +16,42 @@ public class PreviewController : MonoBehaviour
     {
 		mySpawnController = GameObject.FindWithTag("System").transform.Find("SpawnController").GetComponent<SpawnController>();
 
-
+		drawPreview();
 
 	}
 
     // Update is called once per frame
-    void LateUpdate()
-    {
-		if (Input.GetKeyUp(KeyCode.F))
-		{
+ //   void LateUpdate()
+ //   {
+	//	if (Input.GetKeyUp(KeyCode.F))
+	//	{
+	//		refreshPreview();
 
-			drawPreview();
-
-			//for (int i = 0; i < 5; i++)
-			//{
-			//	Debug.Log(spawnQueueElement[i]);
-			//}
-		}
+	//		//for (int i = 0; i < 5; i++)
+	//		//{
+	//		//	Debug.Log(spawnQueueElement[i]);
+	//		//}
+	//	}
 
 
-	}
+	//}
 
 	void drawPreview()
 	{
-		spawnQueueElement = mySpawnController.getSpawnQueueElements();
-		GameObject newSlot;
-		for (int i = 0; i < numberOfSlots; i++)
+		for (int i = 0; i < newSlot.Length; i++)
 		{
-			newSlot = (GameObject)Instantiate(previewSlot[spawnQueueElement[i]], transform);
+			newSlot[i] = (GameObject)Instantiate(previewSlot, transform);
 		}
 	}
 
+	public void refreshPreview()
+	{
+		spawnQueueElement = mySpawnController.getSpawnQueueElements();
 
+		for (int i = 0; i < newSlot.Length; i++)
+		{
+			newSlot[i].GetComponent<Image>().sprite = towerSprites[spawnQueueElement[i]];
+		}
+
+	}
 }

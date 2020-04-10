@@ -207,7 +207,7 @@ GameObject:
   - component: {fileID: 320857622}
   m_Layer: 0
   m_Name: System
-  m_TagString: Untagged
+  m_TagString: System
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -642,6 +642,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 320857622}
     m_Modifications:
+    - target: {fileID: 398196007073915286, guid: 41914054c32fe5b44a365bf8eaa14440,
+        type: 3}
+      propertyPath: newSlot.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 398196008072351514, guid: 41914054c32fe5b44a365bf8eaa14440,
         type: 3}
       propertyPath: m_LocalPosition.x
