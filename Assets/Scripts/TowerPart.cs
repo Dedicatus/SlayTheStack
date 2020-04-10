@@ -19,4 +19,9 @@ public class TowerPart : MonoBehaviour
             myEnemy.underAttack(attack);
         }
     }
+
+	public int getHealth()
+	{
+		return health;
+	}
 }

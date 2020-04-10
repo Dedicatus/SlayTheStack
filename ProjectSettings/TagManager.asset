@@ -8,6 +8,7 @@ TagManager:
   - Tower
   - System
   - TowerPart
+  - Enemy
   layers:
   - Default
   - TransparentFX

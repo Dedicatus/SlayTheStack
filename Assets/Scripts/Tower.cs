@@ -184,4 +184,10 @@ public class Tower : MonoBehaviour
     {
         return myObjectList.Count - 1;
     }
+
+	public void listRemoveElement()
+	{
+		int currentSize = myObjectList.Count;
+		myObjectList.RemoveAt(currentSize - 1);
+	}
 }

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
 {
-
-
 	private Enemy myEnemy;
+
+	private Tower myTowerScript;
+
 	[SerializeField] private float dropSpeed = 40.0f;
 	[SerializeField] private int attack = 30;
 
@@ -23,6 +24,14 @@ public class EnemyBullet : MonoBehaviour
 		gameObject.GetComponent<Rigidbody>().velocity = new Vector3(0f, -dropSpeed, 0f);
 	}
 
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.gameObject.tag == "Tower")
+		{
+			myTowerScript = other.GetComponent<Tower>();
+		}
+	}
+
 	private void OnCollisionEnter(Collision collision)
 	{
 		if (collision.gameObject.tag == "TowerMaterial")
@@ -31,6 +40,8 @@ public class EnemyBullet : MonoBehaviour
 			if(attack >= currentTowerHealth)
 			{
 				Destroy(collision.gameObject.transform.parent.gameObject);
+				//remove tower material form tower list;
+				myTowerScript.listRemoveElement();
 				attack -= currentTowerHealth;
 			}
 			else
@@ -39,6 +50,26 @@ public class EnemyBullet : MonoBehaviour
 			}
 
 			
+		}
+
+		if(collision.gameObject.tag == "TowerPart")
+		{
+			int currentTowerHealth = collision.gameObject.GetComponent<TowerPart>().getHealth();
+			if (attack >= currentTowerHealth)
+			{
+				Destroy(collision.gameObject.transform.parent.gameObject);
+				//remove tower part from tower list
+				for(int i = 0; i < 3; i++)
+				{
+					myTowerScript.listRemoveElement();
+				}
+				attack -= currentTowerHealth;
+			}
+			else
+			{
+				Destroy(transform.parent.gameObject);
+			}
+
 		}
 
 		if (collision.gameObject.tag == "Tower")

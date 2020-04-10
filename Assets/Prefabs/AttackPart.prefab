@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7779858500460932062}
   m_Layer: 0
   m_Name: AttackPart
-  m_TagString: Untagged
+  m_TagString: TowerPart
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,6 +43,7 @@ GameObject:
   - component: {fileID: 7779858501341885799}
   - component: {fileID: 7779858501341885796}
   - component: {fileID: 7779858501341885797}
+  - component: {fileID: 7506207284332603715}
   m_Layer: 0
   m_Name: Cube
   m_TagString: TowerPart
@@ -124,3 +125,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7506207284332603715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7779858501341885802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f4aa531fc7fd94c83fa1a67ff4f936, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myType: 0
+  health: 30
+  attack: 20
