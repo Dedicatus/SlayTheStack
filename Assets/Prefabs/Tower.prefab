@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myObjectList: 
-  partYOffset: -11.46
+  partYOffset: -6.62
   attackPartPrefab: {fileID: 7779858500460932063, guid: 36a2f36a52e945847a27f5409ad3fa51,
     type: 3}
   defensePartPrefab: {fileID: 3724688932148780711, guid: 3fc06a9b0e823634c83f06681c6904e1,

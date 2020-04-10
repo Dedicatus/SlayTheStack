@@ -8,18 +8,18 @@ public class CountTextController : MonoBehaviour
 
 	private Text count;
 
-	private GameController myGameController;
+	private Enemy myEnemy;
 
 	// Start is called before the first frame update
 	void Start()
     {
-		myGameController = GameObject.FindWithTag("System").transform.Find("GameController").GetComponent<GameController>();
+		myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
 		count = gameObject.GetComponent<Text>();
 	}
 
     // Update is called once per frame
     void Update()
     {
-		count.text = "" + myGameController.getCount();
+		count.text = "" + myEnemy.getTimer();
     }
 }

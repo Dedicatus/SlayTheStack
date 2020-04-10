@@ -70,6 +70,7 @@ public class EnemyBullet : MonoBehaviour
 			else
 			{
 				Destroy(transform.parent.gameObject);
+				myGameController.gameSuspended = false;
 			}
 
 		}
