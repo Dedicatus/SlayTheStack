@@ -32,9 +32,12 @@ public class TowerMaterial : MonoBehaviour
 
 	[SerializeField] private int health = 20;
 
+    private bool zMoved;
+
     private void Start()
     {
         landed = false;
+        zMoved = false;
         curCol = 1;
         mySpawnController = GameObject.FindWithTag("System").transform.Find("SpawnController").GetComponent<SpawnController>();
         towersX = mySpawnController.getTowersX();
@@ -127,7 +130,11 @@ public class TowerMaterial : MonoBehaviour
         {
             myTowerScript = other.GetComponent<Tower>();
             index = myTowerScript.getCurrentIndex();
-            transform.position = new Vector3(transform.position.x, transform.position.y, (float)(transform.position.z + 0.01 * index));
+            if (!zMoved)
+            {
+                transform.parent.transform.position = new Vector3(transform.parent.transform.position.x, transform.parent.transform.position.y, (float)(transform.parent.transform.position.z + 0.02 * index));
+                zMoved = true;
+            }
             transform.parent.parent = other.transform;
         }
     }
