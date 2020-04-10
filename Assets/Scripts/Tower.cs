@@ -16,9 +16,12 @@ public class Tower : MonoBehaviour
     [SerializeField] private GameObject defensePartPrefab;
     [SerializeField] private GameObject buffPartPrefab;
 
+    private GameController myGameController;
+
     // Start is called before the first frame update
     void Start()
     {
+        myGameController = GameObject.FindWithTag("System").transform.Find("GameController").GetComponent<GameController>();
         topIndex = 0;
     }
 
@@ -51,6 +54,7 @@ public class Tower : MonoBehaviour
             }
             else
             {
+                myGameController.turnPassed();
                 return;
             }
             ++topIndex;
@@ -60,8 +64,9 @@ public class Tower : MonoBehaviour
         {
             generatePart();
             topIndex = 0;
-        }  
+        }
 
+        myGameController.turnPassed();
     }
 
     private void generatePart()

@@ -11,11 +11,13 @@ public class EnemyBullet : MonoBehaviour
 	[SerializeField] private float dropSpeed = 40.0f;
 	[SerializeField] private int attack = 30;
 
+	private GameController myGameController;
 
 	// Start is called before the first frame update
 	void Start()
     {
-        myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
+		myGameController = GameObject.FindWithTag("System").transform.Find("GameController").GetComponent<GameController>();
+		myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
 	}
 
     // Update is called once per frame
@@ -76,6 +78,7 @@ public class EnemyBullet : MonoBehaviour
 		{
 			Destroy(transform.parent.gameObject);
 			myEnemy.resetAttackMaterial();
+			myGameController.gameSuspended = false;
 		}
 	}
 }

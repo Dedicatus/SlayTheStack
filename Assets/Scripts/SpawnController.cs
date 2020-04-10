@@ -26,9 +26,12 @@ public class SpawnController : MonoBehaviour
 
 	private PreviewController myPreviewController;
 
+	private GameController myGameController;
+
 	// Start is called before the first frame update
 	void Start()
 	{
+		myGameController = GameObject.FindWithTag("System").transform.Find("GameController").GetComponent<GameController>();
 
 		myPreviewController = GameObject.FindWithTag("System").transform.Find("UIController").transform.Find("Preview").GetComponent<PreviewController>();
 
@@ -84,43 +87,34 @@ public class SpawnController : MonoBehaviour
 
 		}
 
-		spawnMaterial();
+		if (myGameController.gameStart) 
+		{ 
+			if (!myGameController.gameSuspended)
+			{ 
+				spawnMaterial();
+			}
+		}
 	}
 
 	void spawnMaterial()
 	{
-		if (Input.GetKeyUp(KeyCode.F))
+		// set the start position of nextblock
+		Vector3 startPosition = new Vector3(towers[1].position.x, dropHeight, 0);
+
+		if (myMaterial == null)
 		{
-			// set the start position of nextblock
-			Vector3 startPosition = new Vector3(towers[1].position.x, dropHeight, 0);
-
-			if(myMaterial == null)
+			for (int i = 0; i < towers.Length; ++i)
 			{
-				for (int i = 0; i < towers.Length; ++i)
-				{
-					towersHeight[i] = towers[i].GetComponent<Tower>().getCurHeight();
-				}
-				nextBlock = spawnQueue.Dequeue();
-				fillSpawnQueue();
-				myMaterial = GameObject.Instantiate(towerMaterials[nextBlock], startPosition, Quaternion.identity);
-				
-				// refresh the array of spawnQueue elements
-				spawnQueue.CopyTo(previewQueueCopy, 0);
-
-				myPreviewController.refreshPreview();
-
+				towersHeight[i] = towers[i].GetComponent<Tower>().getCurHeight();
 			}
+			nextBlock = spawnQueue.Dequeue();
+			fillSpawnQueue();
+			myMaterial = GameObject.Instantiate(towerMaterials[nextBlock], startPosition, Quaternion.identity);
 
+			// refresh the array of spawnQueue elements
+			spawnQueue.CopyTo(previewQueueCopy, 0);
 
-			
-
-			//for (int i = 0; i < 5; i++)
-			//{
-			//	Debug.Log(previewQueueCopy[i]);
-			//}
-
-			//Debug.Log(preQueue.Count);
-			//Debug.Log(spawnQueue.Count);
+			myPreviewController.refreshPreview();
 
 		}
 	}
