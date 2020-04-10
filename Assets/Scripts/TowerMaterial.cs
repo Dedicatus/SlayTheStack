@@ -127,6 +127,7 @@ public class TowerMaterial : MonoBehaviour
         {
             myTowerScript = other.GetComponent<Tower>();
             index = myTowerScript.getCurrentIndex();
+            transform.position = new Vector3(transform.position.x, transform.position.y, (float)(transform.position.z - 0.00001 * index));
             transform.parent.parent = other.transform;
         }
     }
