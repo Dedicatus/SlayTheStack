@@ -41,4 +41,8 @@ public class GameController : MonoBehaviour
         myEnemy.countTurn();
     }
 
+	public int getCount()
+	{
+		return turnCount;
+	}
 }
