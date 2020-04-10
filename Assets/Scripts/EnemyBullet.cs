@@ -15,7 +15,7 @@ public class EnemyBullet : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
     {
-        myEnemy = GameObject.FindWithTag("System").transform.Find("EnemyController").GetComponent<Enemy>();
+        myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
 	}
 
     // Update is called once per frame
