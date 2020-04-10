@@ -53,20 +53,9 @@ public class Enemy : MonoBehaviour
 		
 	}
 
-
-	private void OnCollisionEnter(Collision collision)
+	public void resetAttackMaterial()
 	{
-		if (collision.gameObject.tag == "TowerMaterial")
-		{
-			Debug.Log("collided");
-			Destroy(collision.gameObject);
-		}
-
-		if (collision.gameObject.tag == "Tower")
-		{
-			Destroy(attackMaterial.gameObject);
-			attackMaterial = null;
-		}
+		attackMaterial = null;
 	}
 
 	public void die()
