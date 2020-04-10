@@ -32,7 +32,7 @@ public class TowerMaterial : MonoBehaviour
     {
         landed = false;
         curCol = 1;
-        mySpawnController = GameObject.FindWithTag("SpawnController").GetComponent<SpawnController>();
+        mySpawnController = GameObject.FindWithTag("System").transform.Find("SpawnController").GetComponent<SpawnController>();
         towersX = mySpawnController.getTowersX();
         towersHeight = mySpawnController.getTowersHeight();
         fallingSpeed = normalSpeed;

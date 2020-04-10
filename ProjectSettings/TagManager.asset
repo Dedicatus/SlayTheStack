@@ -6,7 +6,7 @@ TagManager:
   tags:
   - TowerMaterial
   - Tower
-  - SpawnController
+  - System
   layers:
   - Default
   - TransparentFX

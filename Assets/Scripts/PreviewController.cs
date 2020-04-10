@@ -14,7 +14,7 @@ public class PreviewController : MonoBehaviour
 	// Start is called before the first frame update
 	void Awake()
     {
-		mySpawnController = GameObject.FindWithTag("SpawnController").GetComponent<SpawnController>();
+		mySpawnController = GameObject.FindWithTag("System").transform.Find("SpawnController").GetComponent<SpawnController>();
 
 
 
