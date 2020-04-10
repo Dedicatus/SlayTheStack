@@ -6,9 +6,9 @@ public class Tower : MonoBehaviour
 {
     [SerializeField] private List<int> myObjectList = new List<int>();
 
-    [SerializeField] private int topIndex;
+    private int topIndex;
 
-    [SerializeField] private float curHeight;
+    private float curHeight;
 
     [SerializeField] private float partYOffset = -7.5f;
 
