@@ -103,7 +103,8 @@ public class Tower : MonoBehaviour
                 myObjectList[myObjectList.Count - i] = 4;
             }
 
-            Instantiate(attackPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, 0), Quaternion.identity);
+            GameObject attackPart = Instantiate(attackPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(-0.0001 * (myObjectList.Count - 1))), Quaternion.identity);
+            attackPart.transform.GetChild(0).GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
             destoryUsedMaterials();
         }
         else if (defCount >= 2)
@@ -114,7 +115,8 @@ public class Tower : MonoBehaviour
                 myObjectList[myObjectList.Count - i] = 5;
             }
 
-            Instantiate(defensePartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, 0), Quaternion.identity);
+            GameObject defensePart = Instantiate(defensePartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(-0.0001 * (myObjectList.Count - 1))), Quaternion.identity);
+            defensePart.transform.GetChild(0).GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
             destoryUsedMaterials();
         }
         else if (buffCount >= 2)
@@ -125,7 +127,8 @@ public class Tower : MonoBehaviour
                 myObjectList[myObjectList.Count - i] = 6;
             }
 
-            Instantiate(buffPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, 0), Quaternion.identity);
+            GameObject buffPart = Instantiate(buffPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(-0.0001 * (myObjectList.Count - 1))), Quaternion.identity);
+            buffPart.transform.GetChild(0).GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
             destoryUsedMaterials();
         }
         else
@@ -142,7 +145,8 @@ public class Tower : MonoBehaviour
                 {
                     myObjectList[myObjectList.Count - i] = partType;
                 }
-                Instantiate(attackPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, 0), Quaternion.identity);
+                GameObject attackPart = Instantiate(attackPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(-0.0001 * (myObjectList.Count - 1))), Quaternion.identity);
+                attackPart.transform.GetChild(0).GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
             }
             else if (ran <= 2)
             {
@@ -152,7 +156,8 @@ public class Tower : MonoBehaviour
                 {
                     myObjectList[myObjectList.Count - i] = partType;
                 }
-                Instantiate(defensePartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, 0), Quaternion.identity);
+                GameObject defensePart = Instantiate(defensePartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(-0.0001 * (myObjectList.Count - 1))), Quaternion.identity);
+                defensePart.transform.GetChild(0).GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
             }
             else
             {
@@ -162,7 +167,8 @@ public class Tower : MonoBehaviour
                 {
                     myObjectList[myObjectList.Count - i] = partType;
                 }
-                Instantiate(buffPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, 0), Quaternion.identity);
+                GameObject buffPart = Instantiate(buffPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(-0.0001 * (myObjectList.Count - 1))), Quaternion.identity);
+                buffPart.transform.GetChild(0).GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
             }
             
             

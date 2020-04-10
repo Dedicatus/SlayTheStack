@@ -87,4 +87,9 @@ public class Enemy : MonoBehaviour
 	{
 		attackTimer--;
 	}
+
+	public int getHealth()
+	{
+		return health;
+	}
 }
