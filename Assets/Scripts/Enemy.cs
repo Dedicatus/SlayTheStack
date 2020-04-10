@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
 	[SerializeField] private int health;
+	private int fullHealth;
 	[SerializeField] private GameObject attackMaterialPreafab;
 	[SerializeField] private float dropHeight;
+
+	[SerializeField] private Image myEnemyHpBar;
+
 	GameObject attackMaterial;
 	float[] towerX = new float[3];
 	int lastAttacknumber = -1;
@@ -20,12 +25,14 @@ public class Enemy : MonoBehaviour
 		mySpawnController = GameObject.FindWithTag("System").transform.Find("SpawnController").GetComponent<SpawnController>();
 		attackMaterial = null;
 		towerX = mySpawnController.getTowersX();
+		fullHealth = health;
 	}
 
     // Update is called once per frame
     void Update()
     {
 		attack();
+		myEnemyHpBar.fillAmount = (float) health / fullHealth;
     }
 
 	void attack()
