@@ -10,6 +10,8 @@ public class TowerMaterial : MonoBehaviour
 
     [SerializeField] private bool landed;
 
+    private bool moved;
+
     private Tower myTowerScript;
 
     [SerializeField] private int curCol;
@@ -34,6 +36,7 @@ public class TowerMaterial : MonoBehaviour
         towersX = mySpawnController.getTowersX();
         towersHeight = mySpawnController.getTowersHeight();
         fallingSpeed = normalSpeed;
+        moved = false;
     }
 
     private void Update()
@@ -47,35 +50,34 @@ public class TowerMaterial : MonoBehaviour
 
     private void inputHandler()
     {
-        if (Input.GetKeyUp(KeyCode.A))
+        if (Input.GetKey(KeyCode.A))
         {
             if (curCol > 0)
             {
-                if (transform.position.y > towersHeight[curCol - 1])
+                if (transform.position.y > towersHeight[curCol - 1] && !moved)
                 {
                     curCol--;
                     gameObject.transform.position = new Vector3(towersX[curCol], transform.position.y, transform.position.z);
+                    moved = true;
                 }
             }
-            else
-            {
-                return;
-            }
         }
-        if (Input.GetKeyUp(KeyCode.D))
+        if (Input.GetKey(KeyCode.D))
         {
             if (curCol < 2)
             {
-                if (transform.position.y > towersHeight[curCol + 1])
+                if (transform.position.y > towersHeight[curCol + 1] && !moved)
                 {
                     ++curCol;
                     gameObject.transform.position = new Vector3(towersX[curCol], transform.position.y, transform.position.z);
+                    moved = true;
                 }
             }
-            else
-            {
-                return;
-            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))
+        {
+            moved = false;
         }
 
         if (Input.GetKeyUp(KeyCode.S))
