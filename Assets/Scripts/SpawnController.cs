@@ -38,7 +38,7 @@ public class SpawnController : MonoBehaviour
 	{
 		myGameController = GameObject.FindWithTag("System").transform.Find("GameController").GetComponent<GameController>();
 
-		myPreviewController = GameObject.FindWithTag("System").transform.Find("UIController").transform.Find("Preview").GetComponent<PreviewController>();
+		myPreviewController = GameObject.FindWithTag("System").transform.Find("UIController").transform.Find("UI-Screen").transform.Find("Preview").GetComponent<PreviewController>();
 
 		towerMaterials[0] = attackMaterials;
 		towerMaterials[1] = buffMaterials;
