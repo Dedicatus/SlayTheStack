@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - TowerBase
   - TowerArea
+  - TowerShield
   layers:
   - Default
   - TransparentFX

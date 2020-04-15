@@ -8,6 +8,7 @@ public class Tower : MonoBehaviour
 
     private int topIndex;
 
+	[SerializeField] private int defensePartShield;
     [SerializeField] private float curHeight;
 
     [SerializeField] private float partYOffset = -7.5f;
@@ -16,8 +17,10 @@ public class Tower : MonoBehaviour
     [SerializeField] private GameObject attackPartPrefab;
     [SerializeField] private GameObject defensePartPrefab;
     [SerializeField] private GameObject buffPartPrefab;
+	//[SerializeField] private GameObject towerShield;
 
     private GameController myGameController;
+	private TowerShield myTowerShieldScript;
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +28,8 @@ public class Tower : MonoBehaviour
         myGameController = GameObject.FindWithTag("System").transform.Find("GameController").GetComponent<GameController>();
         topIndex = 0;
         curHeight = transform.GetChild(0).transform.localScale.y;
+
+		myTowerShieldScript = gameObject.transform.Find("TowerShield").GetComponent<TowerShield>();
     }
 
     // Update is called once per frame
@@ -151,6 +156,7 @@ public class Tower : MonoBehaviour
                 break;
             case 5:
                 partPrefab = defensePartPrefab;
+				myTowerShieldScript.armorUp(defensePartShield);
                 break;
             case 6:
                 partPrefab = buffPartPrefab;
@@ -200,4 +206,5 @@ public class Tower : MonoBehaviour
     {
         return renderDepthOffset;
     }
+
 }

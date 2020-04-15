@@ -32,6 +32,22 @@ public class EnemyBullet : MonoBehaviour
 		{
 			myTowerScript = other.GetComponent<Tower>();
 		}
+
+		if (other.gameObject.tag == "TowerShield")
+		{
+			TowerShield myTowerShieldScript = other.gameObject.GetComponent<TowerShield>();
+			int currentArmor = myTowerShieldScript.getCurrentArmor();
+			if (currentArmor >= attack)
+			{
+				myTowerShieldScript.underAttack(attack);
+				Destroy(gameObject);
+			}
+			else
+			{
+				myTowerShieldScript.underAttack(currentArmor);
+				attack -= currentArmor;
+			}
+		}
 	}
 
 	private void OnCollisionEnter(Collision collision)
@@ -54,6 +70,8 @@ public class EnemyBullet : MonoBehaviour
 
 			
 		}
+		
+
 
 		if(collision.gameObject.tag == "TowerPart")
 		{
