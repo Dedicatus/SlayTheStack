@@ -41,6 +41,7 @@ public class EnemyBullet : MonoBehaviour
 			{
 				myTowerShieldScript.underAttack(attack);
 				Destroy(gameObject);
+				myGameController.gameSuspended = false;
 			}
 			else
 			{
@@ -66,6 +67,7 @@ public class EnemyBullet : MonoBehaviour
 			else
 			{
 				Destroy(gameObject);
+				myGameController.gameSuspended = false;
 			}
 
 			
