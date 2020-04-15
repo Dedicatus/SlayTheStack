@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TowerPart : MonoBehaviour
+public class TowerLevel : MonoBehaviour
 {
-    enum PartType { Attack, Defense, Buff };
+    enum PartType { Attack, Defense, Buff, AttackDefense, AttackBuff, DefenseBuff };
     [SerializeField] PartType myType;
 
     private Tower myTowerScript;
@@ -30,9 +30,9 @@ public class TowerPart : MonoBehaviour
     }
 
     public int getHealth()
-	{
-		return health;
-	}
+    {
+        return health;
+    }
 
     public void setIndex(int i)
     {
