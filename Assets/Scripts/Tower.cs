@@ -6,7 +6,7 @@ public class Tower : MonoBehaviour
 {
     [SerializeField] private List<int> myObjectList = new List<int>();
 
-    private int topIndex;
+    private int searchIndex;
 
 	[SerializeField] private int defensePartShield;
     [SerializeField] private float curHeight;
@@ -17,6 +17,13 @@ public class Tower : MonoBehaviour
     [SerializeField] private GameObject attackPartPrefab;
     [SerializeField] private GameObject defensePartPrefab;
     [SerializeField] private GameObject buffPartPrefab;
+	[SerializeField] private GameObject advAttackLevelPrefab;
+	[SerializeField] private GameObject advDefenseLevelPrefab;
+	[SerializeField] private GameObject advBuffLevelPrefab;
+	[SerializeField] private GameObject atkDefenseLevelPrefab;
+	[SerializeField] private GameObject atkBuffLevelPrefab;
+	[SerializeField] private GameObject defBuffLevelPrefabl;
+
 	//[SerializeField] private GameObject towerShield;
 
     private GameController myGameController;
@@ -26,7 +33,7 @@ public class Tower : MonoBehaviour
     void Start()
     {
         myGameController = GameObject.FindWithTag("System").transform.Find("GameController").GetComponent<GameController>();
-        topIndex = 0;
+        searchIndex = 0;
         curHeight = transform.GetChild(0).transform.localScale.y;
 
 		myTowerShieldScript = gameObject.transform.Find("TowerShield").GetComponent<TowerShield>();
@@ -51,11 +58,11 @@ public class Tower : MonoBehaviour
     public void addMaterial(int typeCode)
     {
         myObjectList.Add(typeCode);
-
+		// check two blocks below the current one
         int materialCount = 1;
-        while (topIndex < 2 && myObjectList.Count >= 3)
+        while (searchIndex < 2 && myObjectList.Count >= 3)
         {
-            if (myObjectList[myObjectList.Count - topIndex - 2] > 0 && myObjectList[myObjectList.Count - topIndex - 2] <= 3)
+            if (myObjectList[myObjectList.Count - searchIndex - 2] > 0 && myObjectList[myObjectList.Count - searchIndex - 2] <= 3)
             {
                 ++materialCount;
             }
@@ -64,15 +71,21 @@ public class Tower : MonoBehaviour
                 myGameController.turnPassed();
                 return;
             }
-            ++topIndex;
-        }
+            ++searchIndex;
+			
+		}
 
         if (materialCount >= 2)
         {
             generatePart();
-            topIndex = 0;
-        }
+			//check the block below current part 
+			if(myObjectList.Count >= 6 && myObjectList[myObjectList.Count - 4] >= 4 && myObjectList[myObjectList.Count - 4] <= 6)
+			{
+				generateLevel();
+			}
 
+            searchIndex = 0;
+        }
 
         myGameController.turnPassed();
     }
@@ -105,24 +118,27 @@ public class Tower : MonoBehaviour
 
         if (atkCount >= 2)
         {
-            spawnTowerPart(4);
-            destoryUsedMaterials();
+			destoryUsedMaterials();
+			spawnTowerPart(4);
+
         }
         else if (defCount >= 2)
         {
-            spawnTowerPart(5);
-            destoryUsedMaterials();
+			destoryUsedMaterials();
+			spawnTowerPart(5);
+
         }
         else if (buffCount >= 2)
         {
-            spawnTowerPart(6);
-            destoryUsedMaterials();
+			destoryUsedMaterials();
+			spawnTowerPart(6);
+
         }
         else
         {
             int ran = Random.Range(0, 3);
-
-            if (ran <= 1)
+			destoryUsedMaterials();
+			if (ran <= 1)
             {
                 spawnTowerPart(4);
             }
@@ -134,10 +150,7 @@ public class Tower : MonoBehaviour
             {
                 spawnTowerPart(6);
             }
-            
-            
 
-            destoryUsedMaterials();
         }
     }
 
@@ -166,11 +179,106 @@ public class Tower : MonoBehaviour
                 Debug.LogError("Invalid Type Code");
                 break;
         }
-        GameObject part = Instantiate(partPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(renderDepthOffset * (myObjectList.Count - 1))), Quaternion.identity);
+        GameObject part = Instantiate(partPrefab, new Vector3(transform.position.x, curHeight + (float)partPrefab.GetComponent<BoxCollider>().size.y, (float)(renderDepthOffset * (myObjectList.Count - 1))), Quaternion.identity);
         part.transform.parent = transform;
         part.GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
         curHeight += (float)part.GetComponent<BoxCollider>().size.y;
-    }
+		//GameObject part = Instantiate(partPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(renderDepthOffset * (myObjectList.Count - 1))), Quaternion.identity);
+		//part.transform.parent = transform;
+		//part.GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
+		//curHeight += (float)part.GetComponent<BoxCollider>().size.y;
+	}
+
+	private void generateLevel()
+	{
+		if (myObjectList.Count < 6) { return; }
+
+		int upperPartType = myObjectList[myObjectList.Count - 1];
+		int lowerPartType = myObjectList[myObjectList.Count - 4];
+		//16 -> 4 * 4 -> atk & atk = adv atk -> 7
+		//20 -> 4 * 5 -> atk & defense = atk def -> 10
+		//24 -> 4 * 6 -> atk & buff = atk buff -> 11
+		//25 -> 5 * 5 -> def & def = adv def -> 8
+		//30 -> 5 * 6 -> def & buff = def buff -> 12
+		//36 -> 6 * 6 -> buff & buff = adv buff -> 9
+		switch (upperPartType * lowerPartType)
+		{
+			case 16:
+				destoryUsedLevels();
+				spawnTowerLevel(7);
+
+				break;
+			case 20:
+				destoryUsedLevels();
+				spawnTowerLevel(10);
+
+				break;
+			case 24:
+				destoryUsedLevels();
+				spawnTowerLevel(11);
+
+				break;
+			case 25:
+				destoryUsedLevels();
+				spawnTowerLevel(8);
+
+				break;
+			case 30:
+				destoryUsedLevels();
+				spawnTowerLevel(12);
+
+				break;
+			case 36:
+				destoryUsedLevels();
+				spawnTowerLevel(9);
+
+				break;
+			default:
+				break;
+		}
+
+
+	}
+
+	private void spawnTowerLevel(int type)
+	{
+		for (int i = 1; i <= 6; ++i)
+		{
+			myObjectList[myObjectList.Count - i] = type;
+		}
+		GameObject partPrefab;
+		switch (type)
+		{
+			case 7:
+				partPrefab = advAttackLevelPrefab;
+				break;
+			case 8:
+				partPrefab = advDefenseLevelPrefab;
+				break;
+			case 9:
+				partPrefab = advBuffLevelPrefab;
+				break;
+			case 10:
+				partPrefab = atkDefenseLevelPrefab;
+				break;
+			case 11:
+				partPrefab = atkBuffLevelPrefab;
+				break;
+			case 12:
+				partPrefab = defBuffLevelPrefabl;
+				break;
+
+			default:
+				partPrefab = null;
+				Debug.LogError("Invalid Type Code");
+				break;
+		}
+		GameObject part = Instantiate(partPrefab, new Vector3(transform.position.x, curHeight + partPrefab.GetComponent<BoxCollider>().size.y, (float)(renderDepthOffset * (myObjectList.Count - 1))), Quaternion.identity);
+		part.transform.parent = transform;
+		part.GetComponent<TowerLevel>().setIndex(myObjectList.Count - 1);
+		curHeight += (float)part.GetComponent<BoxCollider>().size.y;
+	}
+
 
     private void destoryUsedMaterials()
     {
@@ -178,18 +286,40 @@ public class Tower : MonoBehaviour
         {
             if (matTransform.tag == "TowerMaterial")
             {
-                if (matTransform.GetComponent<TowerMaterial>().getIndex() >= myObjectList.Count - 3)
-                {
-                    curHeight -= (float)matTransform.gameObject.GetComponent<BoxCollider>().size.y;
-                    Destroy(matTransform.gameObject);
-                }
+				curHeight -= (float)matTransform.gameObject.GetComponent<BoxCollider>().size.y;
+				Destroy(matTransform.gameObject);
+				//if (matTransform.GetComponent<TowerMaterial>().getIndex() >= myObjectList.Count - 3)
+    //            {
+    //                curHeight -= (float)matTransform.gameObject.GetComponent<BoxCollider>().size.y;
+    //                Destroy(matTransform.gameObject);
+    //            }
             }
             else
             {
                 continue;
             }
+
         }
-    }
+	}
+	private void destoryUsedLevels()
+	{
+		foreach (Transform matTransform in transform)
+		{
+			if (matTransform.tag == "TowerPart")
+			{
+				curHeight -= (float)matTransform.gameObject.GetComponent<BoxCollider>().size.y;
+				Destroy(matTransform.gameObject);
+
+			}
+			else
+			{
+				continue;
+			}
+
+		}
+	}
+
+
 
     public int getCurrentIndex()
     {

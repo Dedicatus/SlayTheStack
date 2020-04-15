@@ -401,6 +401,18 @@ MonoBehaviour:
     type: 3}
   buffPartPrefab: {fileID: 6336025592990302433, guid: 3aad22fb76fb6904eb65403230af5d59,
     type: 3}
+  advAttackLevelPrefab: {fileID: 2525196802119326120, guid: 65bf8d72aa31fe048b2c31a31046c2cc,
+    type: 3}
+  advDefenseLevelPrefab: {fileID: 4914586618555247996, guid: 637cc9e1971e2764ca037bf42f8aa4ee,
+    type: 3}
+  advBuffLevelPrefab: {fileID: 4264508259092011141, guid: 2ccbd445e8e43c540ab14c561a4a03d9,
+    type: 3}
+  atkDefenseLevelPrefab: {fileID: 522279672534575511, guid: 1719a8ba4da15f44b9166eb97ed461d8,
+    type: 3}
+  atkBuffLevelPrefab: {fileID: 4266542203954990216, guid: 7edfe081963982a45afc74d3c00ad2d5,
+    type: 3}
+  defBuffLevelPrefabl: {fileID: 5209201506183653229, guid: 06fe3f891c6df6344b1299fe28efba3b,
+    type: 3}
 --- !u!1001 &3399701672625168258
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -416,7 +428,7 @@ PrefabInstance:
     - target: {fileID: 2674580620999864015, guid: 33493877545a0f144af4a10957377560,
         type: 3}
       propertyPath: yOffset
-      value: 3.08
+      value: 2.1
       objectReference: {fileID: 0}
     - target: {fileID: 2915619236928659043, guid: 33493877545a0f144af4a10957377560,
         type: 3}

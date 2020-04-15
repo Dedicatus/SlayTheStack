@@ -38,4 +38,9 @@ public class TowerPart : MonoBehaviour
     {
         index = i;
     }
+
+	public int getIndex()
+	{
+		return index;
+	}
 }
