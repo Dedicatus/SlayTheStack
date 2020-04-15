@@ -46,7 +46,7 @@ public class TowerMaterial : MonoBehaviour
         moved = false;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         if (!landed) 
         { 
@@ -66,6 +66,8 @@ public class TowerMaterial : MonoBehaviour
                     curCol--;
                     gameObject.transform.position = new Vector3(towersX[curCol], transform.position.y, transform.position.z);
                     moved = true;
+                    index = myTowerScript.getCurrentIndex() + 1;
+                    RenderOffset();
                 }
             }
         }
@@ -78,6 +80,8 @@ public class TowerMaterial : MonoBehaviour
                     ++curCol;
                     gameObject.transform.position = new Vector3(towersX[curCol], transform.position.y, transform.position.z);
                     moved = true;
+                    index = myTowerScript.getCurrentIndex() + 1;
+                    RenderOffset();
                 }
             }
         }
@@ -97,27 +101,35 @@ public class TowerMaterial : MonoBehaviour
             fallingSpeed = accelerateSpeed;
         }
     }
+
+    private void RenderOffset()
+    {
+        float offset = myTowerScript.getRenderDepthOffset();
+        transform.position = new Vector3(transform.position.x, transform.position.y, (float)(offset * index));
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (!landed)
         {
-            if (collision.gameObject.tag == "TowerMaterial" || collision.gameObject.tag == "TowerPart" || collision.gameObject.tag == "Tower")
+            if (collision.gameObject.tag == "TowerMaterial" || collision.gameObject.tag == "TowerPart" || collision.gameObject.tag == "TowerBase")
             {
                 landed = true;
+                gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 gameObject.GetComponent<Rigidbody>().isKinematic = true;
                 switch (myType)
                 {
                     case MaterialType.Attack:
                         myTowerScript.addMaterial(1);
-                        myTowerScript.setCurHeight((float)(transform.position.y + transform.localScale.y));
+                        myTowerScript.addCurHeight((float)gameObject.GetComponent<BoxCollider>().size.y);
                         break;
                     case MaterialType.Defense:
                         myTowerScript.addMaterial(2);
-                        myTowerScript.setCurHeight((float)(transform.position.y + transform.localScale.y));
+                        myTowerScript.addCurHeight((float)gameObject.GetComponent<BoxCollider>().size.y);
                         break;
                     case MaterialType.Buff:
                         myTowerScript.addMaterial(3);
-                        myTowerScript.setCurHeight((float)(transform.position.y + transform.localScale.y));
+                        myTowerScript.addCurHeight((float)gameObject.GetComponent<BoxCollider>().size.y);
                         break;
                 }
             }
@@ -126,16 +138,14 @@ public class TowerMaterial : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Tower")
+        if (other.gameObject.tag == "TowerArea")
         {
             myTowerScript = other.GetComponent<Tower>();
-            index = myTowerScript.getCurrentIndex();
-            if (!zMoved)
-            {
-                transform.parent.transform.position = new Vector3(transform.parent.transform.position.x, transform.parent.transform.position.y, (float)(transform.parent.transform.position.z + 0.02 * index));
-                zMoved = true;
-            }
-            transform.parent.parent = other.transform;
+            if (landed) { index = myTowerScript.getCurrentIndex(); }
+            else { index = myTowerScript.getCurrentIndex() + 1; }
+
+            RenderOffset();
+            transform.parent = other.transform;
         }
     }
 

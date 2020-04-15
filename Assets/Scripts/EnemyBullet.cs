@@ -28,7 +28,7 @@ public class EnemyBullet : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.tag == "Tower")
+		if (other.gameObject.tag == "TowerArea")
 		{
 			myTowerScript = other.GetComponent<Tower>();
 		}
@@ -41,14 +41,15 @@ public class EnemyBullet : MonoBehaviour
 			int currentTowerHealth = collision.gameObject.GetComponent<TowerMaterial>().getHealth();
 			if(attack >= currentTowerHealth)
 			{
-				Destroy(collision.gameObject.transform.parent.gameObject);
+				myTowerScript.addCurHeight(-1 * (float)collision.gameObject.GetComponent<BoxCollider>().size.y);
+				Destroy(collision.gameObject);
 				//remove tower material form tower list;
 				myTowerScript.listRemoveElement();
 				attack -= currentTowerHealth;
 			}
 			else
 			{
-				Destroy(transform.parent.gameObject);
+				Destroy(gameObject);
 			}
 
 			
@@ -59,7 +60,8 @@ public class EnemyBullet : MonoBehaviour
 			int currentTowerHealth = collision.gameObject.GetComponent<TowerPart>().getHealth();
 			if (attack >= currentTowerHealth)
 			{
-				Destroy(collision.gameObject.transform.parent.gameObject);
+				myTowerScript.addCurHeight(-1 * (float)collision.gameObject.GetComponent<BoxCollider>().size.y);
+				Destroy(collision.gameObject);
 				//remove tower part from tower list
 				for(int i = 0; i < 3; i++)
 				{
@@ -69,15 +71,15 @@ public class EnemyBullet : MonoBehaviour
 			}
 			else
 			{
-				Destroy(transform.parent.gameObject);
+				Destroy(gameObject);
 				myGameController.gameSuspended = false;
 			}
 
 		}
 
-		if (collision.gameObject.tag == "Tower")
+		if (collision.gameObject.tag == "TowerBase")
 		{
-			Destroy(transform.parent.gameObject);
+			Destroy(gameObject);
 			myEnemy.resetAttackMaterial();
 			myGameController.gameSuspended = false;
 		}

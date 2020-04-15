@@ -21,7 +21,7 @@ public class SpawnController : MonoBehaviour
 	[SerializeField] private GameObject[] towerMaterials;
 	private float[] towersX = new float[3];
 	private float[] towersHeight = new float[3];
-	GameObject myMaterial;
+	[SerializeField] GameObject myMaterial;
 	GameObject myMaterialChild;
 
 	private PreviewController myPreviewController;
@@ -79,8 +79,7 @@ public class SpawnController : MonoBehaviour
 		if (myMaterial != null)
 		{
 
-			myMaterialChild = myMaterial.transform.GetChild(0).gameObject;
-			if (myMaterialChild.GetComponent<TowerMaterial>().isLanded())
+			if (myMaterial.GetComponent<TowerMaterial>().isLanded())
 			{
 				myMaterial = null;
 			}
