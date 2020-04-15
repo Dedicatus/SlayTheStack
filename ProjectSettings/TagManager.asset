@@ -5,10 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - TowerMaterial
-  - Tower
   - System
   - TowerPart
   - Enemy
+  - TowerBase
+  - TowerArea
+  - TowerShield
   layers:
   - Default
   - TransparentFX

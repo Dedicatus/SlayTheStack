@@ -18,11 +18,16 @@ public class SpawnController : MonoBehaviour
 
 	[SerializeField] private float dropHeight;
 	[SerializeField] private Transform[] towers = new Transform[3];
-	[SerializeField] private GameObject[] towerMaterials;
+	[SerializeField] private GameObject attackMaterials;
+	[SerializeField] private GameObject buffMaterials;
+	[SerializeField] private GameObject deffenseMaterials;
+
 	private float[] towersX = new float[3];
 	private float[] towersHeight = new float[3];
-	GameObject myMaterial;
+	[SerializeField] GameObject myMaterial;
 	GameObject myMaterialChild;
+
+	private GameObject[] towerMaterials = new GameObject[3];
 
 	private PreviewController myPreviewController;
 
@@ -34,6 +39,10 @@ public class SpawnController : MonoBehaviour
 		myGameController = GameObject.FindWithTag("System").transform.Find("GameController").GetComponent<GameController>();
 
 		myPreviewController = GameObject.FindWithTag("System").transform.Find("UIController").transform.Find("Preview").GetComponent<PreviewController>();
+
+		towerMaterials[0] = attackMaterials;
+		towerMaterials[1] = buffMaterials;
+		towerMaterials[2] = deffenseMaterials;
 
 		//initialization bag
 		spawnQueue.Clear();
@@ -79,8 +88,7 @@ public class SpawnController : MonoBehaviour
 		if (myMaterial != null)
 		{
 
-			myMaterialChild = myMaterial.transform.GetChild(0).gameObject;
-			if (myMaterialChild.GetComponent<TowerMaterial>().isLanded())
+			if (myMaterial.GetComponent<TowerMaterial>().isLanded())
 			{
 				myMaterial = null;
 			}

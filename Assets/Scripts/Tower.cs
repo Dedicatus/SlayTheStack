@@ -8,21 +8,28 @@ public class Tower : MonoBehaviour
 
     private int topIndex;
 
-    private float curHeight;
+	[SerializeField] private int defensePartShield;
+    [SerializeField] private float curHeight;
 
     [SerializeField] private float partYOffset = -7.5f;
+    [SerializeField] private float renderDepthOffset = 0.01f;
 
     [SerializeField] private GameObject attackPartPrefab;
     [SerializeField] private GameObject defensePartPrefab;
     [SerializeField] private GameObject buffPartPrefab;
+	//[SerializeField] private GameObject towerShield;
 
     private GameController myGameController;
+	private TowerShield myTowerShieldScript;
 
     // Start is called before the first frame update
     void Start()
     {
         myGameController = GameObject.FindWithTag("System").transform.Find("GameController").GetComponent<GameController>();
         topIndex = 0;
+        curHeight = transform.GetChild(0).transform.localScale.y;
+
+		myTowerShieldScript = gameObject.transform.Find("TowerShield").GetComponent<TowerShield>();
     }
 
     // Update is called once per frame
@@ -31,9 +38,9 @@ public class Tower : MonoBehaviour
 
     }
 
-    public void setCurHeight(float h)
+    public void addCurHeight(float h)
     {
-        curHeight = h;
+        curHeight += h;
     }
 
     public float getCurHeight()
@@ -66,6 +73,7 @@ public class Tower : MonoBehaviour
             topIndex = 0;
         }
 
+
         myGameController.turnPassed();
     }
 
@@ -97,103 +105,95 @@ public class Tower : MonoBehaviour
 
         if (atkCount >= 2)
         {
-            //Debug.Log("Attack Part");
-            for (int i = 1; i <= 3; ++i)
-            {
-                myObjectList[myObjectList.Count - i] = 4;
-            }
-
-            GameObject attackPart = Instantiate(attackPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(0.01 * (myObjectList.Count - 1))), Quaternion.identity);
-            attackPart.transform.GetChild(0).GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
+            spawnTowerPart(4);
             destoryUsedMaterials();
         }
         else if (defCount >= 2)
         {
-            //Debug.Log("Defense Part");
-            for (int i = 1; i <= 3; ++i)
-            {
-                myObjectList[myObjectList.Count - i] = 5;
-            }
-
-            GameObject defensePart = Instantiate(defensePartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(0.01 * (myObjectList.Count - 1))), Quaternion.identity);
-            defensePart.transform.GetChild(0).GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
+            spawnTowerPart(5);
             destoryUsedMaterials();
         }
         else if (buffCount >= 2)
         {
-            //Debug.Log("Buff Part");
-            for (int i = 1; i <= 3; ++i)
-            {
-                myObjectList[myObjectList.Count - i] = 6;
-            }
-
-            GameObject buffPart = Instantiate(buffPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(0.01 * (myObjectList.Count - 1))), Quaternion.identity);
-            buffPart.transform.GetChild(0).GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
+            spawnTowerPart(6);
             destoryUsedMaterials();
         }
         else
         {
-
             int ran = Random.Range(0, 3);
-            int partType = 0;
 
             if (ran <= 1)
             {
-               // Debug.Log("Random - Attack Part");
-                partType = 4;
-                for (int i = 1; i <= 3; ++i)
-                {
-                    myObjectList[myObjectList.Count - i] = partType;
-                }
-                GameObject attackPart = Instantiate(attackPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(0.01 * (myObjectList.Count - 1))), Quaternion.identity);
-                attackPart.transform.GetChild(0).GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
+                spawnTowerPart(4);
             }
             else if (ran <= 2)
             {
-                //Debug.Log("Random - Defense Part");
-                partType = 5;
-                for (int i = 1; i <= 3; ++i)
-                {
-                    myObjectList[myObjectList.Count - i] = partType;
-                }
-                GameObject defensePart = Instantiate(defensePartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(0.01 * (myObjectList.Count - 1))), Quaternion.identity);
-                defensePart.transform.GetChild(0).GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
+                spawnTowerPart(5);
             }
             else
             {
-                //Debug.Log("Random - Buff Part");
-                partType = 6;
-                for (int i = 1; i <= 3; ++i)
-                {
-                    myObjectList[myObjectList.Count - i] = partType;
-                }
-                GameObject buffPart = Instantiate(buffPartPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(0.01 * (myObjectList.Count - 1))), Quaternion.identity);
-                buffPart.transform.GetChild(0).GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
+                spawnTowerPart(6);
             }
             
             
 
             destoryUsedMaterials();
         }
+    }
+
+    private void spawnTowerPart(int type)
+    {
+        for (int i = 1; i <= 3; ++i)
+        {
+            myObjectList[myObjectList.Count - i] = type;
+        }
+
+        GameObject partPrefab;
+        switch (type)
+        {
+            case 4:
+                partPrefab = attackPartPrefab;
+                break;
+            case 5:
+                partPrefab = defensePartPrefab;
+				myTowerShieldScript.armorUp(defensePartShield);
+                break;
+            case 6:
+                partPrefab = buffPartPrefab;
+                break;
+            default:
+                partPrefab = null;
+                Debug.LogError("Invalid Type Code");
+                break;
+        }
+        GameObject part = Instantiate(partPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(renderDepthOffset * (myObjectList.Count - 1))), Quaternion.identity);
+        part.transform.parent = transform;
+        part.GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
+        curHeight += (float)part.GetComponent<BoxCollider>().size.y;
     }
 
     private void destoryUsedMaterials()
     {
         foreach (Transform matTransform in transform)
         {
-            if (matTransform.GetChild(0).tag == "TowerMaterial")
+            if (matTransform.tag == "TowerMaterial")
             {
-                if (matTransform.GetChild(0).GetComponent<TowerMaterial>().getIndex() >= myObjectList.Count - 3 )
+                if (matTransform.GetComponent<TowerMaterial>().getIndex() >= myObjectList.Count - 3)
                 {
+                    curHeight -= (float)matTransform.gameObject.GetComponent<BoxCollider>().size.y;
                     Destroy(matTransform.gameObject);
                 }
+            }
+            else
+            {
+                continue;
             }
         }
     }
 
     public int getCurrentIndex()
     {
-        return myObjectList.Count - 1;
+        return myObjectList.Count;
     }
 
 	public void listRemoveElement()
@@ -201,4 +201,10 @@ public class Tower : MonoBehaviour
 		int currentSize = myObjectList.Count;
 		myObjectList.RemoveAt(currentSize - 1);
 	}
+
+    public float getRenderDepthOffset()
+    {
+        return renderDepthOffset;
+    }
+
 }
