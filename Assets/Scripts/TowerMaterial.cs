@@ -24,6 +24,8 @@ public class TowerMaterial : MonoBehaviour
 
     private float[] towersHeight;
 
+    private float[] towersScrolledHeight;
+
     private float fallingSpeed;
 
     [SerializeField] private float normalSpeed = 20.0f;
@@ -42,6 +44,7 @@ public class TowerMaterial : MonoBehaviour
         mySpawnController = GameObject.FindWithTag("System").transform.Find("SpawnController").GetComponent<SpawnController>();
         towersX = mySpawnController.getTowersX();
         towersHeight = mySpawnController.getTowersHeight();
+        towersScrolledHeight = mySpawnController.getTowersScrolledHeight();
         fallingSpeed = normalSpeed;
         moved = false;
     }
@@ -61,7 +64,7 @@ public class TowerMaterial : MonoBehaviour
         {
             if (curCol > 0)
             {
-                if ((transform.position.y > towersHeight[curCol - 1] + transform.localScale.y) && !moved)
+                if ((transform.position.y > towersHeight[curCol - 1] - towersScrolledHeight[curCol - 1] + transform.localScale.y) && !moved)
                 {
                     curCol--;
                     gameObject.transform.position = new Vector3(towersX[curCol], transform.position.y, transform.position.z);
@@ -75,7 +78,7 @@ public class TowerMaterial : MonoBehaviour
         {
             if (curCol < 2)
             {
-                if ((transform.position.y > towersHeight[curCol + 1] + transform.localScale.y) && !moved)
+                if ((transform.position.y > towersHeight[curCol + 1] - towersScrolledHeight[curCol + 1] + transform.localScale.y) && !moved)
                 {
                     ++curCol;
                     gameObject.transform.position = new Vector3(towersX[curCol], transform.position.y, transform.position.z);

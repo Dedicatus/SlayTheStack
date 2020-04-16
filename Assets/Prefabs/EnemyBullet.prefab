@@ -76,7 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropSpeed: 40
-  attack: 50
+  attack: 10
 --- !u!1 &1572829968115323347
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,6 +6,8 @@ public class TowerShield : MonoBehaviour
 {
 	[SerializeField] private int currentArmor;
 	[SerializeField] private float yOffset;
+
+	[SerializeField] private float thornDamage;
 	//[SerializeField] private GameObject tower;
 	private Tower myTowerScript;
 	private TowerScroll myTowerScrollScript;
@@ -16,6 +18,7 @@ public class TowerShield : MonoBehaviour
 	void Start()
     {
 		currentArmor = 0;
+		thornDamage = 0;
 		myTowerScript = transform.parent.GetComponent<Tower>();
 		myTowerScrollScript = transform.parent.GetComponent<TowerScroll>();
 	}

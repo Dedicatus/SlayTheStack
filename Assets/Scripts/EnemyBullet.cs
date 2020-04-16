@@ -123,6 +123,7 @@ public class EnemyBullet : MonoBehaviour
 		if (collision.gameObject.tag == "TowerBase")
 		{
 			Destroy(gameObject);
+			myTowerScript.addCurHeight(-1 * (float)(collision.gameObject.transform.localScale.y / 2.0f + collision.gameObject.transform.position.y));
 			Destroy(collision.gameObject);
 			myEnemy.resetAttackMaterial();
 			myGameController.gameSuspended = false;

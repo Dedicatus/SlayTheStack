@@ -24,6 +24,7 @@ public class SpawnController : MonoBehaviour
 
 	private float[] towersX = new float[3];
 	private float[] towersHeight = new float[3];
+	private float[] towersScrolledHeight = new float[3];
 	[SerializeField] GameObject myMaterial;
 	GameObject myMaterialChild;
 
@@ -114,6 +115,7 @@ public class SpawnController : MonoBehaviour
 			for (int i = 0; i < towers.Length; ++i)
 			{
 				towersHeight[i] = towers[i].GetComponent<Tower>().getCurHeight();
+				towersScrolledHeight[i] = towers[i].GetComponent<TowerScroll>().getScrolledHeight();
 			}
 			nextBlock = spawnQueue.Dequeue();
 			fillSpawnQueue();
@@ -183,6 +185,11 @@ public class SpawnController : MonoBehaviour
 	public float[] getTowersHeight()
 	{
 		return towersHeight;
+	}
+
+	public float[] getTowersScrolledHeight()
+	{
+		return towersScrolledHeight;
 	}
 
 	public int[] getSpawnQueueElements()

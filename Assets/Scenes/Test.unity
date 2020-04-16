@@ -598,6 +598,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4392240180532193291, guid: 10ac8a74782a72e4cb53ad2a17614e82,
+        type: 3}
+      propertyPath: attackBuffAmount
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6952624726336200019, guid: 10ac8a74782a72e4cb53ad2a17614e82,
         type: 3}
       propertyPath: m_Name

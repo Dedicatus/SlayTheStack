@@ -8,18 +8,19 @@ public class TowerPart : MonoBehaviour
     [SerializeField] PartType myType;
 
     private Tower myTowerScript;
+    private TowerShield myTowerShieldScript;
+    private Enemy myEnemy;
 
     [SerializeField] private int health;
     [SerializeField] private int attack;
 
     [SerializeField] private int index;
-	private Tower myTowerScipt;
-	private TowerShield myTowerShieldScript;
-	private Enemy myEnemy;
+
+	
 
     private void Start()
     {
-		myTowerScipt = transform.parent.GetComponent<Tower>();
+		myTowerScript = transform.parent.GetComponent<Tower>();
 		myTowerShieldScript = transform.parent.Find("TowerShield").GetComponent<TowerShield>();
 
 		myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
@@ -29,7 +30,7 @@ public class TowerPart : MonoBehaviour
                 attackEnemy();
                 break;
             case PartType.Defense:
-				myTowerShieldScript.armorUp(myTowerScipt.getDefensePartShield());
+				myTowerShieldScript.armorUp(myTowerScript.getShieldAmount() + myTowerScript.getDefenseBuffAmount());
 				break;
             case PartType.Buff:
                 myEnemy.addTimer(2);
@@ -39,7 +40,7 @@ public class TowerPart : MonoBehaviour
 
     private void attackEnemy()
     {
-        myEnemy.underAttack(attack);
+        myEnemy.underAttack(attack + myTowerScript.getAttackBuffAmount());
     }
 
     public int getHealth()

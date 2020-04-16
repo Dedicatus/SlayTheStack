@@ -23,7 +23,18 @@ public class TowerLevel : MonoBehaviour
             myTower = transform.parent.GetComponent<Tower>();
         }
         myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
-        attackEnemy();
+        switch (myType)
+        {
+            case PartType.Attack:
+                attackEnemy();
+                break;
+            case PartType.Defense:
+                //myTowerShieldScript.armorUp(myTowerScript.getShieldAmount() + myTowerScript.getDefenseBuffAmount());
+                break;
+            case PartType.Buff:
+                myEnemy.addTimer(2);
+                break;
+        }
     }
 
     private void Update()

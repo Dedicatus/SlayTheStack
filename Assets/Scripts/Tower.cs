@@ -8,8 +8,11 @@ public class Tower : MonoBehaviour
 
     private int searchIndex;
 
-	[SerializeField] private int defensePartShield;
+	[SerializeField] private int shieldAmount;
     [SerializeField] private float curHeight;
+    [SerializeField] private int attackBuffAmount;
+    [SerializeField] private int defenseBuffAmount;
+    [SerializeField] private int addMaterialAttack;
 
     [SerializeField] private float renderDepthOffset = 0.01f;
 
@@ -22,7 +25,7 @@ public class Tower : MonoBehaviour
 	[SerializeField] private GameObject atkDefenseLevelPrefab;
 	[SerializeField] private GameObject atkBuffLevelPrefab;
 	[SerializeField] private GameObject defBuffLevelPrefabl;
-
+    
 	//[SerializeField] private GameObject towerShield;
 
     private GameController myGameController;
@@ -33,9 +36,8 @@ public class Tower : MonoBehaviour
     {
         myGameController = GameObject.FindWithTag("System").transform.Find("GameController").GetComponent<GameController>();
         searchIndex = 0;
+        shieldAmount = 0;
         curHeight = transform.Find("Base").transform.localScale.y / 2.0f + transform.Find("Base").transform.position.y;
-
-
     }
 
     // Update is called once per frame
@@ -336,8 +338,28 @@ public class Tower : MonoBehaviour
     {
         return renderDepthOffset;
     }
-	public int getDefensePartShield()
+	public int getShieldAmount()
 	{
-		return defensePartShield;
+		return shieldAmount;
 	}
+
+    public int getAttackBuffAmount()
+    {
+        return attackBuffAmount;
+    }
+
+    public int getDefenseBuffAmount()
+    {
+        return defenseBuffAmount;
+    }
+
+    public void setAttackBuffAmount(int n)
+    {
+        attackBuffAmount = n;
+    }
+
+    public void setDefenseBuffAmount(int n)
+    {
+        defenseBuffAmount = n;
+    }
 }
