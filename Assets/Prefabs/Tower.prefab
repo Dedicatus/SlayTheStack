@@ -152,7 +152,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 888176867}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
   m_Name: 
@@ -714,7 +714,7 @@ PrefabInstance:
     - target: {fileID: 2674580620999864015, guid: 33493877545a0f144af4a10957377560,
         type: 3}
       propertyPath: yOffset
-      value: 2.1
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 2915619236928659043, guid: 33493877545a0f144af4a10957377560,
         type: 3}
@@ -775,6 +775,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TowerShield
+      objectReference: {fileID: 0}
+    - target: {fileID: 8087867019346988799, guid: 33493877545a0f144af4a10957377560,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33493877545a0f144af4a10957377560, type: 3}

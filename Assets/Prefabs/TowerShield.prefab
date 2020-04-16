@@ -179,4 +179,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentArmor: 0
-  yOffset: 2.1
+  yOffset: 0.6
