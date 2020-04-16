@@ -70,6 +70,8 @@ public class Enemy : MonoBehaviour
 
 	public void underAttack(int damage)
 	{
+		if (damage > 0) { Debug.Log("DMG: " + damage); }
+		
 		if (health > damage)
 		{
 			health -= damage;
@@ -77,6 +79,7 @@ public class Enemy : MonoBehaviour
 
 		else
 		{
+			health = 0;
 			defeat();
 		}
 

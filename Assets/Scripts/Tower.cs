@@ -8,15 +8,18 @@ public class Tower : MonoBehaviour
 
     private int searchIndex;
 
-	[SerializeField] private int shieldAmount;
+    [Header("Tower Attributes")]
     [SerializeField] private float curHeight;
+    [SerializeField] private float renderDepthOffset = 0.01f;
+
+
+    [Header("Power Ups")]
     [SerializeField] private int attackBuffAmount;
     [SerializeField] private int defenseBuffAmount;
     [SerializeField] private int addMaterialAttackAmount;
     [SerializeField] private int thornDamageAmount;
 
-    [SerializeField] private float renderDepthOffset = 0.01f;
-
+    [Header("Prefabs")]
     [SerializeField] private GameObject attackPartPrefab;
     [SerializeField] private GameObject defensePartPrefab;
     [SerializeField] private GameObject buffPartPrefab;
@@ -38,7 +41,6 @@ public class Tower : MonoBehaviour
         myGameController = GameObject.FindWithTag("System").transform.Find("GameController").GetComponent<GameController>();
         myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
         searchIndex = 0;
-        shieldAmount = 0;
         curHeight = transform.Find("Base").transform.localScale.y / 2.0f + transform.Find("Base").transform.position.y;
     }
 
@@ -340,10 +342,6 @@ public class Tower : MonoBehaviour
     {
         return renderDepthOffset;
     }
-	public int getShieldAmount()
-	{
-		return shieldAmount;
-	}
 
     public int getAttackBuffAmount()
     {

@@ -61,6 +61,7 @@ MonoBehaviour:
   myType: 1
   health: 30
   attack: 0
+  armor: 40
   index: 0
 --- !u!1 &1738351934690102176
 GameObject:
