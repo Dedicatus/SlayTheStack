@@ -148,4 +148,9 @@ public class EnemyBullet : MonoBehaviour
 		}
 	}
 
+	public void addAttack(int n)
+	{
+		attack += n;
+		if (attack < 0) { attack = 0; }
+	}
 }
