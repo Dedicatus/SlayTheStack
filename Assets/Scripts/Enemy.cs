@@ -9,8 +9,8 @@ public class Enemy : MonoBehaviour
 	[SerializeField] private float dropHeight;
 	GameObject attackMaterial;
 	float[] towerX = new float[3];
-	int lastAttacknumber = -1;
-	int thisAttackNumber = -1;
+	int nextAttackNumber;
+	int thisAttackNumber;
 
 	[SerializeField] private int attackGap = 5;
 	[SerializeField] private int attackTimer;
@@ -27,6 +27,9 @@ public class Enemy : MonoBehaviour
 		attackMaterial = null;
 		towerX = mySpawnController.getTowersX();
 		attackTimer = attackGap;
+
+		nextAttackNumber = Random.Range(0, 3);
+
 	}
 
 	// Update is called once per frame
@@ -42,13 +45,8 @@ public class Enemy : MonoBehaviour
 
 	void attack()
 	{
+		thisAttackNumber = nextAttackNumber;
 		//enemy cannot attack a tower twice consecutively
-		while (thisAttackNumber == lastAttacknumber)
-		{
-			thisAttackNumber = Random.Range(0, 3);
-		}
-
-
 		Vector3 startPosition = new Vector3(towerX[thisAttackNumber], dropHeight, 0);
 
 		if (attackMaterial == null)
@@ -56,7 +54,10 @@ public class Enemy : MonoBehaviour
 			attackMaterial = GameObject.Instantiate(attackMaterialPreafab, startPosition, Quaternion.identity);
 		}
 
-		lastAttacknumber = thisAttackNumber;
+		while (nextAttackNumber == thisAttackNumber)
+		{
+			nextAttackNumber = Random.Range(0, 3);
+		}
 	}
 
 	public void underAttack(int damage)
