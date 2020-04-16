@@ -9,6 +9,10 @@ public class TowerLevel : MonoBehaviour
 
     [SerializeField] private int health;
     [SerializeField] private int attack;
+    [SerializeField] private int attackBuffAmount = 20;
+    [SerializeField] private int defenseBuffAmount = 20;
+    [SerializeField] private int addMaterialAttackAmount = 1;
+    [SerializeField] private int thornDamageAmount = 10;
 
     [SerializeField] private int index;
 
@@ -26,13 +30,20 @@ public class TowerLevel : MonoBehaviour
         switch (myType)
         {
             case PartType.Attack:
-                attackEnemy();
+                myTower.addAddMaterialAttackAmount(addMaterialAttackAmount);
                 break;
             case PartType.Defense:
-                //myTowerShieldScript.armorUp(myTowerScript.getShieldAmount() + myTowerScript.getDefenseBuffAmount());
                 break;
             case PartType.Buff:
-                myEnemy.addTimer(2);
+                break;
+            case PartType.AttackBuff:
+                myTower.addDefenseBuffAmount(attackBuffAmount);
+                break;
+            case PartType.DefenseBuff:
+                myTower.addDefenseBuffAmount(defenseBuffAmount);
+                break;
+            case PartType.AttackDefense:
+                myTower.addThornDamageAmount(thornDamageAmount);
                 break;
         }
     }
