@@ -22,6 +22,16 @@ public class TowerShield : MonoBehaviour
     {
 		currentHeight = myTowerScript.getCurHeight() + transform.GetComponent<BoxCollider>().size.y + yOffset;
 		gameObject.transform.position = new Vector3(transform.position.x, currentHeight, transform.position.z);
+
+		if (currentArmor > 0)
+		{
+			gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
+		}
+		else
+		{
+			gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
+		}
+
 	}
 
 

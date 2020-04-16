@@ -58,7 +58,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0f4aa531fc7fd94c83fa1a67ff4f936, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myType: 1
+  myType: 2
   health: 30
   attack: 0
   index: 0
@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 4698050130370383802}
   - component: {fileID: 8195556498350736546}
   - component: {fileID: 5453845680466537616}
-  - component: {fileID: 4509910693557869189}
+  - component: {fileID: 5643065681834695138}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -142,17 +142,16 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!64 &4509910693557869189
-MeshCollider:
+--- !u!65 &5643065681834695138
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8780238777707412312}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.000005, y: 1, z: 10.000002}
+  m_Center: {x: 0, y: 0, z: 0}

@@ -41,6 +41,7 @@ public class EnemyBullet : MonoBehaviour
 			{
 				myTowerShieldScript.underAttack(attack);
 				Destroy(gameObject);
+				myGameController.gameSuspended = false;
 			}
 			else
 			{
@@ -66,6 +67,7 @@ public class EnemyBullet : MonoBehaviour
 			else
 			{
 				Destroy(gameObject);
+				myGameController.gameSuspended = false;
 			}
 
 			
@@ -94,6 +96,29 @@ public class EnemyBullet : MonoBehaviour
 			}
 
 		}
+
+		if (collision.gameObject.tag == "TowerLevel")
+		{
+			int currentTowerHealth = collision.gameObject.GetComponent<TowerLevel>().getHealth();
+			if (attack >= currentTowerHealth)
+			{
+				myTowerScript.addCurHeight(-1 * (float)collision.gameObject.GetComponent<BoxCollider>().size.y);
+				Destroy(collision.gameObject);
+				//remove tower part from tower list
+				for (int i = 0; i < 6; i++)
+				{
+					myTowerScript.listRemoveElement();
+				}
+				attack -= currentTowerHealth;
+			}
+			else
+			{
+				Destroy(gameObject);
+				myGameController.gameSuspended = false;
+			}
+
+		}
+
 
 		if (collision.gameObject.tag == "TowerBase")
 		{

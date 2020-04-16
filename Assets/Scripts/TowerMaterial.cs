@@ -112,7 +112,7 @@ public class TowerMaterial : MonoBehaviour
     {
         if (!landed)
         {
-            if (collision.gameObject.tag == "TowerMaterial" || collision.gameObject.tag == "TowerPart" || collision.gameObject.tag == "TowerBase")
+            if (collision.gameObject.tag == "TowerMaterial" || collision.gameObject.tag == "TowerPart" || collision.gameObject.tag == "TowerBase" || collision.gameObject.tag == "TowerLevel")
             {
                 landed = true;
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
@@ -120,16 +120,16 @@ public class TowerMaterial : MonoBehaviour
                 switch (myType)
                 {
                     case MaterialType.Attack:
-                        myTowerScript.addMaterial(1);
                         myTowerScript.addCurHeight((float)gameObject.GetComponent<BoxCollider>().size.y);
+                        myTowerScript.addMaterial(1);
                         break;
                     case MaterialType.Defense:
-                        myTowerScript.addMaterial(2);
                         myTowerScript.addCurHeight((float)gameObject.GetComponent<BoxCollider>().size.y);
+                        myTowerScript.addMaterial(2);
                         break;
                     case MaterialType.Buff:
-                        myTowerScript.addMaterial(3);
                         myTowerScript.addCurHeight((float)gameObject.GetComponent<BoxCollider>().size.y);
+                        myTowerScript.addMaterial(3);
                         break;
                 }
             }
