@@ -18,15 +18,23 @@ public class TowerPart : MonoBehaviour
     private void Start()
     {
         myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
-        attackEnemy();
+        switch (myType)
+        {
+            case PartType.Attack:
+                attackEnemy();
+                break;
+            case PartType.Defense:
+               
+                break;
+            case PartType.Buff:
+                myEnemy.addTimer(2);
+                break;
+        }
     }
 
     private void attackEnemy()
     {
-        if (myType == PartType.Attack)
-        {
-            myEnemy.underAttack(attack);
-        }
+        myEnemy.underAttack(attack);
     }
 
     public int getHealth()

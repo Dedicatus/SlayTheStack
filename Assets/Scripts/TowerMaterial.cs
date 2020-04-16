@@ -112,7 +112,7 @@ public class TowerMaterial : MonoBehaviour
     {
         if (!landed)
         {
-            if (collision.gameObject.tag == "TowerMaterial" || collision.gameObject.tag == "TowerPart" || collision.gameObject.tag == "TowerBase" || collision.gameObject.tag == "TowerLevel")
+            if (collision.gameObject.tag == "TowerMaterial" || collision.gameObject.tag == "TowerPart" || collision.gameObject.tag == "TowerFloor" || collision.gameObject.tag == "TowerLevel" || collision.gameObject.tag == "TowerBase")
             {
                 landed = true;
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;

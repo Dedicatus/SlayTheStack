@@ -97,4 +97,9 @@ public class Enemy : MonoBehaviour
 	{
 		return attackTimer; 
 	}
+
+	public void addTimer(int n)
+	{
+		attackTimer += n;
+	}
 }

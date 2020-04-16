@@ -123,8 +123,16 @@ public class EnemyBullet : MonoBehaviour
 		if (collision.gameObject.tag == "TowerBase")
 		{
 			Destroy(gameObject);
+			Destroy(collision.gameObject);
 			myEnemy.resetAttackMaterial();
 			myGameController.gameSuspended = false;
 		}
+		
+		if (collision.gameObject.tag == "TowerFloor")
+		{
+			Destroy(gameObject);
+			myGameController.gameFail();
+		}
+		
 	}
 }
