@@ -560,6 +560,7 @@ GameObject:
   - component: {fileID: 6952624726336200021}
   - component: {fileID: 1197831193937504005}
   - component: {fileID: 4392240180532193291}
+  - component: {fileID: 7229683580646558484}
   m_Layer: 0
   m_Name: Tower
   m_TagString: TowerArea
@@ -679,6 +680,25 @@ MonoBehaviour:
     type: 3}
   defBuffLevelPrefabl: {fileID: 5209201506183653229, guid: 06fe3f891c6df6344b1299fe28efba3b,
     type: 3}
+--- !u!114 &7229683580646558484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6952624726336200019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad585034d8c39314e9cd2038dbeba483, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPos: {x: 0, y: 0, z: 0}
+  endPos: {x: 0, y: 0, z: 0}
+  speed: 8
+  screenHeight: 0
+  scrolledHeight: 0
+  maxHeight: 25
+  minHeight: 10
 --- !u!1001 &3399701672625168258
 PrefabInstance:
   m_ObjectHideFlags: 0

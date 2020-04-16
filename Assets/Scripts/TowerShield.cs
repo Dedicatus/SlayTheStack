@@ -23,8 +23,8 @@ public class TowerShield : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		currentHeight = myTowerScript.getCurHeight() + transform.GetComponent<BoxCollider>().size.y + yOffset - myTowerScrollScript.getScrolledHeight();
-		gameObject.transform.position = new Vector3(transform.position.x, currentHeight, transform.position.z);
+		currentHeight = myTowerScript.getCurHeight() + transform.GetComponent<BoxCollider>().size.y + yOffset;
+		gameObject.transform.localPosition = new Vector3(transform.localPosition.x, currentHeight, transform.localPosition.z);
 
 		if (currentArmor > 0)
 		{
