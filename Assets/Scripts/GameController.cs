@@ -41,4 +41,15 @@ public class GameController : MonoBehaviour
         myEnemy.countTurn();
     }
 
+    public void gameSucceed()
+    {
+        gameStart = false;
+        Debug.Log("Game Succeed");
+    }
+
+    public void gameFail()
+    {
+        gameStart = false;
+        Debug.Log("Game Failed");
+    }
 }

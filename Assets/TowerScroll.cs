@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class TowerScroll : MonoBehaviour
 {
+    private GameController myGameController;
+
     // Transforms to act as start and end markers for the journey.
     [SerializeField] private Vector3 startPos;
     [SerializeField] private Vector3 endPos;
@@ -28,6 +30,7 @@ public class TowerScroll : MonoBehaviour
 
     void Start()
     {
+        myGameController = GameObject.FindWithTag("System").transform.Find("GameController").GetComponent<GameController>();
         isLerping = false;
         scrolledHeight = 0f;
     }
@@ -46,6 +49,7 @@ public class TowerScroll : MonoBehaviour
         if (screenHeight > maxHeight)
         {
             startScroll();
+            myGameController.gameSuspended = true;
             scrolledHeight += (maxHeight - minHeight);
         }
     }
@@ -64,6 +68,7 @@ public class TowerScroll : MonoBehaviour
         if (transform.position == endPos)
         {
             isLerping = false;
+            myGameController.gameSuspended = false;
         }
     }
 
@@ -78,10 +83,15 @@ public class TowerScroll : MonoBehaviour
         startTime = Time.time;
 
         startPos = transform.position;
-        endPos = startPos + new Vector3(0f, -10f, 0f);
+        endPos = startPos + new Vector3(0f, -(maxHeight - minHeight), 0f);
         // Keep a note of the time the movement started.
 
         // Calculate the journey length.
         journeyLength = Vector3.Distance(startPos, endPos);
+    }
+
+    public float getScrolledHeight()
+    {
+        return scrolledHeight;
     }
 }

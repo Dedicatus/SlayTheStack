@@ -33,9 +33,9 @@ public class Tower : MonoBehaviour
     {
         myGameController = GameObject.FindWithTag("System").transform.Find("GameController").GetComponent<GameController>();
         searchIndex = 0;
-        curHeight = transform.GetChild(0).transform.localScale.y;
+        curHeight = transform.Find("Base").transform.localScale.y / 2.0f + transform.Find("Base").transform.position.y;
 
-		myTowerShieldScript = gameObject.transform.Find("TowerShield").GetComponent<TowerShield>();
+        myTowerShieldScript = gameObject.transform.Find("TowerShield").GetComponent<TowerShield>();
     }
 
     // Update is called once per frame
@@ -179,9 +179,9 @@ public class Tower : MonoBehaviour
                 break;
         }
 
-        Debug.Log("curHeight: " + curHeight + "size.y / 2: " + (float)((partPrefab.transform.GetChild(0).GetComponent<BoxCollider>().size.z * partPrefab.transform.GetChild(0).transform.localScale.z) / 2.0f));
+		Debug.Log("CH: " + curHeight);
 
-        GameObject part = Instantiate(partPrefab, new Vector3(transform.position.x, curHeight + (float)(((partPrefab.transform.GetChild(0).GetComponent<BoxCollider>().size.z * partPrefab.transform.GetChild(0).transform.localScale.z) / 2.0f) - partPrefab.GetComponent<BoxCollider>().center.y), (float)(renderDepthOffset * (myObjectList.Count - 1))), Quaternion.identity);
+		GameObject part = Instantiate(partPrefab, new Vector3(transform.position.x, curHeight + (float)(((partPrefab.transform.GetChild(0).GetComponent<BoxCollider>().size.z * partPrefab.transform.GetChild(0).transform.localScale.z) / 2.0f) - gameObject.GetComponent<TowerScroll>().getScrolledHeight()), (float)(renderDepthOffset * (myObjectList.Count - 1))), Quaternion.identity);
         part.transform.parent = transform;
         part.GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
         curHeight += (float)(partPrefab.transform.GetChild(0).GetComponent<BoxCollider>().size.z * partPrefab.transform.GetChild(0).transform.localScale.z);
@@ -275,10 +275,11 @@ public class Tower : MonoBehaviour
 				Debug.LogError("Invalid Type Code");
 				break;
 		}
-		GameObject part = Instantiate(partPrefab, new Vector3(transform.position.x, curHeight + partPrefab.GetComponent<BoxCollider>().size.y / 2, (float)(renderDepthOffset * (myObjectList.Count - 1))), Quaternion.identity);
+		Debug.Log("CH: " + curHeight);
+		GameObject part = Instantiate(partPrefab, new Vector3(transform.position.x, (float)(curHeight + partPrefab.GetComponent<BoxCollider>().size.y / 2 - gameObject.GetComponent<TowerScroll>().getScrolledHeight()), (float)(renderDepthOffset * (myObjectList.Count - 1))), Quaternion.identity);
 		part.transform.parent = transform;
 		part.GetComponent<TowerLevel>().setIndex(myObjectList.Count - 1);
-		curHeight += (float)part.GetComponent<BoxCollider>().size.y;
+		curHeight += (float)partPrefab.GetComponent<BoxCollider>().size.y;
 	}
 
 
@@ -309,7 +310,7 @@ public class Tower : MonoBehaviour
 		{
 			if (matTransform.tag == "TowerPart")
 			{
-				curHeight -= (float)matTransform.gameObject.GetComponent<BoxCollider>().size.y;
+				curHeight -= (float)matTransform.GetChild(0).GetComponent<BoxCollider>().size.z * matTransform.GetChild(0).transform.localScale.z;
 				Destroy(matTransform.gameObject);
 
 			}

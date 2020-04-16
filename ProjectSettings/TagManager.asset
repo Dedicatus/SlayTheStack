@@ -12,6 +12,7 @@ TagManager:
   - TowerArea
   - TowerShield
   - TowerLevel
+  - TowerFloor
   layers:
   - Default
   - TransparentFX
