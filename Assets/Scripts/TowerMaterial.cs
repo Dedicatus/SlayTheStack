@@ -69,7 +69,7 @@ public class TowerMaterial : MonoBehaviour
                     curCol--;
                     gameObject.transform.position = new Vector3(towersX[curCol], transform.position.y, transform.position.z);
                     moved = true;
-                    index = myTowerScript.getCurrentIndex() + 1;
+                    if (myTowerScript != null) { index = myTowerScript.getCurrentIndex() + 1; }
                     RenderOffset();
                 }
             }
@@ -83,7 +83,7 @@ public class TowerMaterial : MonoBehaviour
                     ++curCol;
                     gameObject.transform.position = new Vector3(towersX[curCol], transform.position.y, transform.position.z);
                     moved = true;
-                    index = myTowerScript.getCurrentIndex() + 1;
+                    if (myTowerScript != null) { index = myTowerScript.getCurrentIndex() + 1; }
                     RenderOffset();
                 }
             }

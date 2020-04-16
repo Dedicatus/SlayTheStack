@@ -10,6 +10,7 @@ public class TowerPart : MonoBehaviour
     private Tower myTowerScript;
     private TowerShield myTowerShieldScript;
     private Enemy myEnemy;
+    private bool triggered = false;
 
     [SerializeField] private int health;
     [SerializeField] private int attack;
@@ -21,23 +22,42 @@ public class TowerPart : MonoBehaviour
 
     private void Start()
     {
-		myTowerScript = transform.parent.GetComponent<Tower>();
-		myTowerShieldScript = transform.parent.Find("TowerShield").GetComponent<TowerShield>();
+        towerPartHandler();
+    }
 
-		myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
-        switch (myType)
+    private void towerPartHandler()
+    {
+        myTowerScript = transform.parent.GetComponent<Tower>();
+        myTowerShieldScript = transform.parent.Find("TowerShield").GetComponent<TowerShield>();
+
+        myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
+
+        if (!triggered)
         {
-            case PartType.Attack:
-                attackEnemy();
-                break;
-            case PartType.Defense:
-                Debug.Log("Aseryo");
-				myTowerShieldScript.armorUp(armor + myTowerScript.getDefenseBuffAmount());
-				break;
-            case PartType.Buff:
-                myEnemy.addTimer(2);
-                break;
+            switch (myType)
+            {
+                case PartType.Attack:
+                    attackEnemy();
+                    break;
+                case PartType.Defense:
+                    myTowerShieldScript.armorUp(armor + myTowerScript.getDefenseBuffAmount());
+                    break;
+                case PartType.Buff:
+                    myEnemy.addTimer(2);
+                    break;
+            }
+            triggered = true;
         }
+    }
+
+    private void Update()
+    {
+
+    }
+
+    private void OnDestroy()
+    {
+        towerPartHandler();
     }
 
     private void attackEnemy()

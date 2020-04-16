@@ -7,10 +7,11 @@ public class TowerShield : MonoBehaviour
 	[SerializeField] private int currentArmor;
 	[SerializeField] private float yOffset;
 
-	[SerializeField] private float thornDamage;
+	[SerializeField] private int thornDamage;
 	//[SerializeField] private GameObject tower;
 	private Tower myTowerScript;
 	private TowerScroll myTowerScrollScript;
+	private Enemy myEnemyScript;
 	private float currentHeight;
 
 
@@ -21,6 +22,7 @@ public class TowerShield : MonoBehaviour
 		thornDamage = 0;
 		myTowerScript = transform.parent.GetComponent<Tower>();
 		myTowerScrollScript = transform.parent.GetComponent<TowerScroll>();
+		myEnemyScript = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
 	}
 
     // Update is called once per frame
@@ -52,5 +54,18 @@ public class TowerShield : MonoBehaviour
 	public void underAttack(int attack)
 	{
 		currentArmor -= attack;
+	}
+
+	public void addThornDamage(int n)
+	{
+		thornDamage += n;
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.tag == "EnemyBullet")
+		{
+			myEnemyScript.underAttack(thornDamage);
+		}
 	}
 }
