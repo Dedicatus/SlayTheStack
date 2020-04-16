@@ -15,6 +15,8 @@ public class GameController : MonoBehaviour
 	private StartScreenTextController myStartTextController;
 	private ResultTextController myResultTextController;
 
+	private bool isFailed = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -41,6 +43,7 @@ public class GameController : MonoBehaviour
 				gameStart = true;
 				myStartTextController.startTextHide();
 				myResultTextController.resultTextHide();
+				myEnemy.gameStartWarning();
 			}
         }
     }
@@ -61,7 +64,14 @@ public class GameController : MonoBehaviour
     public void gameFail()
     {
         gameStart = false;
+		isFailed = true;
 		myResultTextController.showLose();
         Debug.Log("Game Failed");
     }
+
+	public bool isGameFailed()
+	{
+		return isFailed;
+	}
+
 }

@@ -9,7 +9,7 @@ public class Enemy : MonoBehaviour
 	[SerializeField] private float dropHeight;
 	GameObject attackMaterial;
 	float[] towerX = new float[3];
-	int nextAttackNumber;
+	int nextAttackNumber = -1;
 	int thisAttackNumber;
 
 	[SerializeField] private int attackGap = 5;
@@ -19,16 +19,18 @@ public class Enemy : MonoBehaviour
 
 	private SpawnController mySpawnController;
 
+	private AttackWarningController myWarningController;
+
 	// Start is called before the first frame update
 	void Start()
 	{
 		myGameController = GameObject.FindWithTag("System").transform.Find("GameController").GetComponent<GameController>();
 		mySpawnController = GameObject.FindWithTag("System").transform.Find("SpawnController").GetComponent<SpawnController>();
+		myWarningController = GameObject.FindWithTag("System").transform.Find("UIController").transform.Find("UI-World").GetChild(0).GetComponent<AttackWarningController>();
 		attackMaterial = null;
 		towerX = mySpawnController.getTowersX();
 		attackTimer = attackGap;
-
-		nextAttackNumber = Random.Range(0, 3);
+		
 
 	}
 
@@ -45,6 +47,11 @@ public class Enemy : MonoBehaviour
 
 	void attack()
 	{
+		if(nextAttackNumber == -1)
+		{
+			nextAttackNumber = Random.Range(0, 3);
+		}
+
 		thisAttackNumber = nextAttackNumber;
 		//enemy cannot attack a tower twice consecutively
 		Vector3 startPosition = new Vector3(towerX[thisAttackNumber], dropHeight, 0);
@@ -58,6 +65,7 @@ public class Enemy : MonoBehaviour
 		{
 			nextAttackNumber = Random.Range(0, 3);
 		}
+		myWarningController.isImageDisplay(false);
 	}
 
 	public void underAttack(int damage)
@@ -102,5 +110,15 @@ public class Enemy : MonoBehaviour
 	public void addTimer(int n)
 	{
 		attackTimer += n;
+	}
+	public int getNextAttackNumber()
+	{
+		return nextAttackNumber;
+	}
+
+	public void gameStartWarning()
+	{
+		nextAttackNumber = Random.Range(0, 3);
+		myWarningController.nextAttackWarning(nextAttackNumber);
 	}
 }
