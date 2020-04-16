@@ -11,7 +11,6 @@ public class Tower : MonoBehaviour
 	[SerializeField] private int defensePartShield;
     [SerializeField] private float curHeight;
 
-    [SerializeField] private float partYOffset = -7.5f;
     [SerializeField] private float renderDepthOffset = 0.01f;
 
     [SerializeField] private GameObject attackPartPrefab;
@@ -179,15 +178,18 @@ public class Tower : MonoBehaviour
                 Debug.LogError("Invalid Type Code");
                 break;
         }
-        GameObject part = Instantiate(partPrefab, new Vector3(transform.position.x, curHeight + (float)partPrefab.GetComponent<BoxCollider>().size.y, (float)(renderDepthOffset * (myObjectList.Count - 1))), Quaternion.identity);
+
+        Debug.Log("curHeight: " + curHeight + "size.y / 2: " + (float)((partPrefab.transform.GetChild(0).GetComponent<BoxCollider>().size.z * partPrefab.transform.GetChild(0).transform.localScale.z) / 2.0f));
+
+        GameObject part = Instantiate(partPrefab, new Vector3(transform.position.x, curHeight + (float)(((partPrefab.transform.GetChild(0).GetComponent<BoxCollider>().size.z * partPrefab.transform.GetChild(0).transform.localScale.z) / 2.0f) - partPrefab.GetComponent<BoxCollider>().center.y), (float)(renderDepthOffset * (myObjectList.Count - 1))), Quaternion.identity);
         part.transform.parent = transform;
         part.GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
-        curHeight += (float)part.GetComponent<BoxCollider>().size.y;
-		//GameObject part = Instantiate(partPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(renderDepthOffset * (myObjectList.Count - 1))), Quaternion.identity);
-		//part.transform.parent = transform;
-		//part.GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
-		//curHeight += (float)part.GetComponent<BoxCollider>().size.y;
-	}
+        curHeight += (float)(partPrefab.transform.GetChild(0).GetComponent<BoxCollider>().size.z * partPrefab.transform.GetChild(0).transform.localScale.z);
+        //GameObject part = Instantiate(partPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(renderDepthOffset * (myObjectList.Count - 1))), Quaternion.identity);
+        //part.transform.parent = transform;
+        //part.GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
+        //curHeight += (float)part.GetComponent<BoxCollider>().size.y;
+    }
 
 	private void generateLevel()
 	{
@@ -273,7 +275,7 @@ public class Tower : MonoBehaviour
 				Debug.LogError("Invalid Type Code");
 				break;
 		}
-		GameObject part = Instantiate(partPrefab, new Vector3(transform.position.x, curHeight + partPrefab.GetComponent<BoxCollider>().size.y, (float)(renderDepthOffset * (myObjectList.Count - 1))), Quaternion.identity);
+		GameObject part = Instantiate(partPrefab, new Vector3(transform.position.x, curHeight + partPrefab.GetComponent<BoxCollider>().size.y / 2, (float)(renderDepthOffset * (myObjectList.Count - 1))), Quaternion.identity);
 		part.transform.parent = transform;
 		part.GetComponent<TowerLevel>().setIndex(myObjectList.Count - 1);
 		curHeight += (float)part.GetComponent<BoxCollider>().size.y;
