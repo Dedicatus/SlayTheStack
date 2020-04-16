@@ -8,14 +8,18 @@ public class Tower : MonoBehaviour
 
     private int searchIndex;
 
-	[SerializeField] private int shieldAmount;
+    [Header("Tower Attributes")]
     [SerializeField] private float curHeight;
-    [SerializeField] private int attackBuffAmount;
-    [SerializeField] private int defenseBuffAmount;
-    [SerializeField] private int addMaterialAttack;
-
     [SerializeField] private float renderDepthOffset = 0.01f;
 
+
+    [Header("Power Ups")]
+    [SerializeField] private int attackBuffAmount;
+    [SerializeField] private int defenseBuffAmount;
+    [SerializeField] private int addMaterialAttackAmount;
+    [SerializeField] private int thornDamageAmount;
+
+    [Header("Prefabs")]
     [SerializeField] private GameObject attackPartPrefab;
     [SerializeField] private GameObject defensePartPrefab;
     [SerializeField] private GameObject buffPartPrefab;
@@ -29,14 +33,14 @@ public class Tower : MonoBehaviour
 	//[SerializeField] private GameObject towerShield;
 
     private GameController myGameController;
-	
+    private Enemy myEnemy;
 
     // Start is called before the first frame update
     void Start()
     {
         myGameController = GameObject.FindWithTag("System").transform.Find("GameController").GetComponent<GameController>();
+        myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
         searchIndex = 0;
-        shieldAmount = 0;
         curHeight = transform.Find("Base").transform.localScale.y / 2.0f + transform.Find("Base").transform.position.y;
     }
 
@@ -59,6 +63,8 @@ public class Tower : MonoBehaviour
     public void addMaterial(int typeCode)
     {
         myObjectList.Add(typeCode);
+
+        myEnemy.underAttack(addMaterialAttackAmount);
 		// check two blocks below the current one
         int materialCount = 1;
         while (searchIndex < 2 && myObjectList.Count >= 3)
@@ -321,8 +327,6 @@ public class Tower : MonoBehaviour
 		}
 	}
 
-
-
     public int getCurrentIndex()
     {
         return myObjectList.Count;
@@ -338,10 +342,6 @@ public class Tower : MonoBehaviour
     {
         return renderDepthOffset;
     }
-	public int getShieldAmount()
-	{
-		return shieldAmount;
-	}
 
     public int getAttackBuffAmount()
     {
@@ -353,13 +353,33 @@ public class Tower : MonoBehaviour
         return defenseBuffAmount;
     }
 
-    public void setAttackBuffAmount(int n)
+    public void addAttackBuffAmount(int n)
     {
-        attackBuffAmount = n;
+        attackBuffAmount += n;
     }
 
-    public void setDefenseBuffAmount(int n)
+    public void addDefenseBuffAmount(int n)
     {
-        defenseBuffAmount = n;
+        defenseBuffAmount += n;
+    }
+
+    public int getAddMaterialAttackAmount()
+    {
+        return addMaterialAttackAmount;
+    }
+
+    public int getThornDamageAmount()
+    {
+        return thornDamageAmount;
+    }
+
+    public void addAddMaterialAttackAmount(int n)
+    {
+        addMaterialAttackAmount += n;
+    }
+
+    public void addThornDamageAmount(int n)
+    {
+        thornDamageAmount += n;
     }
 }

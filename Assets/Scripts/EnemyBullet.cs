@@ -12,12 +12,13 @@ public class EnemyBullet : MonoBehaviour
 	[SerializeField] private int attack = 30;
 
 	private GameController myGameController;
-
+	private AttackWarningController myWarningController;
 	// Start is called before the first frame update
 	void Start()
     {
 		myGameController = GameObject.FindWithTag("System").transform.Find("GameController").GetComponent<GameController>();
 		myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
+		myWarningController = GameObject.FindWithTag("System").transform.Find("UIController").transform.Find("UI-World").GetChild(0).GetComponent<AttackWarningController>();
 	}
 
     // Update is called once per frame
@@ -41,7 +42,7 @@ public class EnemyBullet : MonoBehaviour
 			{
 				myTowerShieldScript.underAttack(attack);
 				Destroy(gameObject);
-				myGameController.gameSuspended = false;
+				//myGameController.gameSuspended = false;
 			}
 			else
 			{
@@ -67,7 +68,7 @@ public class EnemyBullet : MonoBehaviour
 			else
 			{
 				Destroy(gameObject);
-				myGameController.gameSuspended = false;
+				//myGameController.gameSuspended = false;
 			}
 
 			
@@ -92,7 +93,7 @@ public class EnemyBullet : MonoBehaviour
 			else
 			{
 				Destroy(gameObject);
-				myGameController.gameSuspended = false;
+				//myGameController.gameSuspended = false;
 			}
 
 		}
@@ -114,7 +115,7 @@ public class EnemyBullet : MonoBehaviour
 			else
 			{
 				Destroy(gameObject);
-				myGameController.gameSuspended = false;
+				//myGameController.gameSuspended = false;
 			}
 
 		}
@@ -126,7 +127,7 @@ public class EnemyBullet : MonoBehaviour
 			myTowerScript.addCurHeight(-1 * (float)(collision.gameObject.transform.localScale.y / 2.0f + collision.gameObject.transform.position.y));
 			Destroy(collision.gameObject);
 			myEnemy.resetAttackMaterial();
-			myGameController.gameSuspended = false;
+			//myGameController.gameSuspended = false;
 		}
 		
 		if (collision.gameObject.tag == "TowerFloor")
@@ -136,4 +137,15 @@ public class EnemyBullet : MonoBehaviour
 		}
 		
 	}
+
+	private void OnDestroy()
+	{
+		if (!myGameController.isGameFailed())
+		{
+			myGameController.gameSuspended = false;
+			myWarningController.isImageDisplay(true);
+			myWarningController.nextAttackWarning(myEnemy.getNextAttackNumber());
+		}
+	}
+
 }

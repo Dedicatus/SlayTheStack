@@ -13,6 +13,7 @@ public class TowerPart : MonoBehaviour
 
     [SerializeField] private int health;
     [SerializeField] private int attack;
+    [SerializeField] private int armor;
 
     [SerializeField] private int index;
 
@@ -30,7 +31,8 @@ public class TowerPart : MonoBehaviour
                 attackEnemy();
                 break;
             case PartType.Defense:
-				myTowerShieldScript.armorUp(myTowerScript.getShieldAmount() + myTowerScript.getDefenseBuffAmount());
+                Debug.Log("Aseryo");
+				myTowerShieldScript.armorUp(armor + myTowerScript.getDefenseBuffAmount());
 				break;
             case PartType.Buff:
                 myEnemy.addTimer(2);
