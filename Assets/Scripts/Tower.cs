@@ -26,7 +26,7 @@ public class Tower : MonoBehaviour
 	//[SerializeField] private GameObject towerShield;
 
     private GameController myGameController;
-	private TowerShield myTowerShieldScript;
+	
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +35,7 @@ public class Tower : MonoBehaviour
         searchIndex = 0;
         curHeight = transform.Find("Base").transform.localScale.y / 2.0f + transform.Find("Base").transform.position.y;
 
-        myTowerShieldScript = gameObject.transform.Find("TowerShield").GetComponent<TowerShield>();
+
     }
 
     // Update is called once per frame
@@ -168,7 +168,6 @@ public class Tower : MonoBehaviour
                 break;
             case 5:
                 partPrefab = defensePartPrefab;
-				myTowerShieldScript.armorUp(defensePartShield);
                 break;
             case 6:
                 partPrefab = buffPartPrefab;
@@ -179,7 +178,6 @@ public class Tower : MonoBehaviour
                 break;
         }
 
-		Debug.Log("CH: " + curHeight);
 
 		GameObject part = Instantiate(partPrefab, new Vector3(transform.position.x, curHeight + (float)(((partPrefab.transform.GetChild(0).GetComponent<BoxCollider>().size.z * partPrefab.transform.GetChild(0).transform.localScale.z) / 2.0f) - gameObject.GetComponent<TowerScroll>().getScrolledHeight()), (float)(renderDepthOffset * (myObjectList.Count - 1))), Quaternion.identity);
         part.transform.parent = transform;
@@ -275,7 +273,6 @@ public class Tower : MonoBehaviour
 				Debug.LogError("Invalid Type Code");
 				break;
 		}
-		Debug.Log("CH: " + curHeight);
 		GameObject part = Instantiate(partPrefab, new Vector3(transform.position.x, (float)(curHeight + partPrefab.GetComponent<BoxCollider>().size.y / 2 - gameObject.GetComponent<TowerScroll>().getScrolledHeight()), (float)(renderDepthOffset * (myObjectList.Count - 1))), Quaternion.identity);
 		part.transform.parent = transform;
 		part.GetComponent<TowerLevel>().setIndex(myObjectList.Count - 1);
@@ -339,5 +336,8 @@ public class Tower : MonoBehaviour
     {
         return renderDepthOffset;
     }
-
+	public int getDefensePartShield()
+	{
+		return defensePartShield;
+	}
 }

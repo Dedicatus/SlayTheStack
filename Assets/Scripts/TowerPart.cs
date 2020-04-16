@@ -13,19 +13,24 @@ public class TowerPart : MonoBehaviour
     [SerializeField] private int attack;
 
     [SerializeField] private int index;
+	private Tower myTowerScipt;
+	private TowerShield myTowerShieldScript;
+	private Enemy myEnemy;
 
-    private Enemy myEnemy;
     private void Start()
     {
-        myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
+		myTowerScipt = transform.parent.GetComponent<Tower>();
+		myTowerShieldScript = transform.parent.Find("TowerShield").GetComponent<TowerShield>();
+
+		myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
         switch (myType)
         {
             case PartType.Attack:
                 attackEnemy();
                 break;
             case PartType.Defense:
-               
-                break;
+				myTowerShieldScript.armorUp(myTowerScipt.getDefensePartShield());
+				break;
             case PartType.Buff:
                 myEnemy.addTimer(2);
                 break;

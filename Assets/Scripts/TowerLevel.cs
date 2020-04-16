@@ -7,18 +7,31 @@ public class TowerLevel : MonoBehaviour
     enum PartType { Attack, Defense, Buff, AttackDefense, AttackBuff, DefenseBuff };
     [SerializeField] PartType myType;
 
-    private Tower myTowerScript;
-
     [SerializeField] private int health;
     [SerializeField] private int attack;
 
     [SerializeField] private int index;
 
     private Enemy myEnemy;
+    private Tower myTower;
+
+
     private void Start()
     {
+        if (transform.parent != null)
+        {
+            myTower = transform.parent.GetComponent<Tower>();
+        }
         myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
         attackEnemy();
+    }
+
+    private void Update()
+    {
+        if (transform.parent != null)
+        {
+            myTower = transform.parent.GetComponent<Tower>();
+        }
     }
 
     private void attackEnemy()
