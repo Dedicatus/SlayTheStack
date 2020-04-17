@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -52,6 +53,10 @@ public class GameController : MonoBehaviour
 				myResultTextController.resultTextHide();
 				myEnemy.gameStartWarning();
 			}
+			if (isFailed)
+			{
+				hardRestartGame();
+			}
         }
     }
 
@@ -91,5 +96,10 @@ public class GameController : MonoBehaviour
 	public int getCurrentTurn()
 	{
 		return turnCount;
+	}
+
+	private void hardRestartGame()
+	{
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 }
