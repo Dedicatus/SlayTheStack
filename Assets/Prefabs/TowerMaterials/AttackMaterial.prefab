@@ -180,6 +180,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myType: 0
   index: 0
-  normalSpeed: 15
+  normalSpeed: 10
   accelerateSpeed: 60
   health: 3
