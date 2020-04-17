@@ -17,7 +17,7 @@ public class GameController : MonoBehaviour
 	private StartScreenTextController myStartTextController;
 	private ResultTextController myResultTextController;
 
-	private bool isFailed = false;
+	private bool isEnded = false;
 
     public bool isScrolling = false;
 
@@ -57,7 +57,7 @@ public class GameController : MonoBehaviour
 				myResultTextController.resultTextHide();
 				myEnemy.gameStartWarning();
 			}
-			if (isFailed)
+			if (isEnded)
 			{
 				hardRestartGame();
 			}
@@ -86,6 +86,7 @@ public class GameController : MonoBehaviour
     public void gameSucceed()
     {
         gameStart = false;
+		isEnded = true;
 		myResultTextController.showWin();
         Debug.Log("Game Succeed");
     }
@@ -93,14 +94,14 @@ public class GameController : MonoBehaviour
     public void gameFail()
     {
         gameStart = false;
-		isFailed = true;
+		isEnded = true;
 		myResultTextController.showLose();
         Debug.Log("Game Failed");
     }
 
 	public bool isGameFailed()
 	{
-		return isFailed;
+		return isEnded;
 	}
 	public int getCurrentTurn()
 	{
