@@ -182,4 +182,4 @@ MonoBehaviour:
   index: 0
   normalSpeed: 15
   accelerateSpeed: 60
-  health: 20
+  health: 3

@@ -19,6 +19,8 @@ public class GameController : MonoBehaviour
 
 	private bool isFailed = false;
 
+    public bool isScrolling = false;
+
     private List<GameObject> myTowerShields = new List<GameObject>();
 
     // Start is called before the first frame update

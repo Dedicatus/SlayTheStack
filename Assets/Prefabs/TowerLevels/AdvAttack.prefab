@@ -59,14 +59,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myType: 0
-  health: 50
+  health: 20
   attack: 0
   attackBuffAmount: 0
   defenseBuffAmount: 0
   addMaterialAttackAmount: 1
-  addMaterialShieldAmount: 2
+  addMaterialShieldAmount: 0
   thornDamageAmount: 0
-  permanentShirldAmount: 20
+  permanentShieldAmount: 0
   index: 0
 --- !u!1 &3611956068887190686
 GameObject:

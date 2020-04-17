@@ -155,7 +155,7 @@ public class EnemyBullet : MonoBehaviour
 	{
 		if (!myGameController.isGameFailed())
 		{
-			myGameController.gameSuspended = false;
+			if (!myGameController.isScrolling) { myGameController.gameSuspended = false; }
 			myGameController.afterAttack();
 			myWarningController.isImageDisplay(true);
 			myWarningController.nextAttackWarning(myEnemy.getNextAttackNumber());

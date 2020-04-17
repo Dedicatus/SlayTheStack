@@ -14,7 +14,7 @@ public class TowerLevel : MonoBehaviour
     [SerializeField] private int addMaterialAttackAmount = 1;
     [SerializeField] private int addMaterialShieldAmount = 2;
     [SerializeField] private int thornDamageAmount = 10;
-    [SerializeField] private int permanentShirldAmount = 20;
+    [SerializeField] private int permanentShieldAmount = 20;
 
     [SerializeField] private int index;
 
@@ -38,10 +38,10 @@ public class TowerLevel : MonoBehaviour
                 myTower.addAddMaterialShieldAmount(addMaterialShieldAmount);
                 break;
             case PartType.Buff:
-                myTower.addPermanentShieldAmount(permanentShirldAmount);
+                myTower.addPermanentShieldAmount(permanentShieldAmount);
                 break;
             case PartType.AttackBuff:
-                myTower.addDefenseBuffAmount(attackBuffAmount);
+                myTower.addAttackBuffAmount(attackBuffAmount);
                 break;
             case PartType.DefenseBuff:
                 myTower.addDefenseBuffAmount(defenseBuffAmount);

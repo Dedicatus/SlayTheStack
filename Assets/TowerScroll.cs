@@ -48,7 +48,9 @@ public class TowerScroll : MonoBehaviour
     {
         if (isLerping)
         {
+            myGameController.isScrolling = true;
             towerLerp();
+            
         }
 
         if (!isScrollingBack)
@@ -78,11 +80,13 @@ public class TowerScroll : MonoBehaviour
         if (transform.position == endPos)
         {
             isLerping = false;
+            myGameController.isScrolling = false;
             myGameController.gameSuspended = false;
         }
         else if (isScrollingBack && transform.position.y >= initPos.y)
         {
             isLerping = false;
+            myGameController.isScrolling = false;
             myGameController.gameSuspended = false;
             scrolledHeight = startPos.y - transform.position.y;
             if (scrolledHeight <= 0f) { scrolledHeight = 0f; }
