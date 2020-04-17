@@ -8,7 +8,7 @@ public class SpawnController : MonoBehaviour
 	Queue<int> spawnQueue = new Queue<int>();
 	Queue<int> preQueue = new Queue<int>();
 
-	int[] previewQueueCopy = new int[5];
+	int[] previewQueueCopy = new int[3];
 
 	int blockRandomizer = -1;
 	int attackCount = 3;
@@ -54,7 +54,7 @@ public class SpawnController : MonoBehaviour
 		myMaterial = null;
 
 		//put elements from bag to spawnQueue
-		while (spawnQueue.Count < 5)
+		while (spawnQueue.Count < 3)
 		{
 			fillSpawnQueue();
 		}

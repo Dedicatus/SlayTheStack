@@ -209,7 +209,11 @@ public class Enemy : MonoBehaviour
 	public void underAttack(int damage)
 	{
 		//if (damage > 0) { Debug.Log("DMG: " + damage); }
-		
+		if(damage > 0)
+		{
+			myBossFieldUIController.bossGetHurt(damage);
+		}
+
 		if (health > damage)
 		{
 			health -= damage;

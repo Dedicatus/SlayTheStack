@@ -14,11 +14,13 @@ public class BossFieldUIController : MonoBehaviour
 	[SerializeField] private Image powerUpState;
 	[SerializeField] private Image speedUpState;
 	[SerializeField] private Text attackNumber;
+	[SerializeField] private Image bossUnderAttack;
+	[SerializeField] private Text bossUnderAttackText;
 	private Enemy myEnemy;
 
 	private int attackGap;
 	private int attackTimer;
-
+	private float damageTimer = 3.0f;
 	// Start is called before the first frame update
 	void Start()
     {
@@ -33,6 +35,18 @@ public class BossFieldUIController : MonoBehaviour
 
 		cdShadow.fillAmount = (float)attackTimer / attackGap;
 		attackNumber.text = "" + myEnemy.getAttackDamage();
+
+		if(bossUnderAttack.enabled == true && bossUnderAttackText.enabled == true)
+		{
+			damageTimer -= Time.deltaTime;
+		}
+		if(damageTimer <= 0.0f)
+		{
+			bossUnderAttack.enabled = false;
+			bossUnderAttackText.enabled = false;
+			damageTimer = 3.0f;
+		}
+
 	}
 
 	public void actionState(int state)
@@ -84,6 +98,13 @@ public class BossFieldUIController : MonoBehaviour
 		powerUpState.enabled = false;
 		speedUpState.enabled = true;
 		attackNumber.enabled = false;
+	}
+
+	public void bossGetHurt(int damage)
+	{
+		bossUnderAttack.enabled = true;
+		bossUnderAttackText.enabled = true;
+		bossUnderAttackText.text = "-" + damage;
 	}
 
 }
