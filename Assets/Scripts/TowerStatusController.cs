@@ -15,7 +15,7 @@ public class TowerStatusController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		for( int i =1; i < towerNumbers.Length; i++)
+		for( int i = 0; i < towerNumbers.Length; i++)
 		{
 			GameObject imageObject = transform.GetChild(0).GetChild(0).GetChild(i).gameObject;
 			Image iconImage = imageObject.GetComponent<Image>();
