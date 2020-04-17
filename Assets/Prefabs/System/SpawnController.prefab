@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d00ffeab4a9fc6c43973ace920c98f30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dropHeight: 60
+  dropHeight: 50
   towers:
   - {fileID: 0}
   - {fileID: 0}

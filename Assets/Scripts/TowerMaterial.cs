@@ -20,6 +20,8 @@ public class TowerMaterial : MonoBehaviour
 
     private SpawnController mySpawnController;
 
+    private GameController myGameController;
+
     private float[] towersX;
 
     private float[] towersHeight;
@@ -42,6 +44,7 @@ public class TowerMaterial : MonoBehaviour
         zMoved = false;
         curCol = 1;
         mySpawnController = GameObject.FindWithTag("System").transform.Find("SpawnController").GetComponent<SpawnController>();
+        myGameController = GameObject.FindWithTag("System").transform.Find("GameController").GetComponent<GameController>();
         towersX = mySpawnController.getTowersX();
         towersHeight = mySpawnController.getTowersHeight();
         towersScrolledHeight = mySpawnController.getTowersScrolledHeight();
@@ -119,9 +122,11 @@ public class TowerMaterial : MonoBehaviour
         {
             if (collision.gameObject.tag == "TowerMaterial" || collision.gameObject.tag == "TowerPart" || collision.gameObject.tag == "TowerFloor" || collision.gameObject.tag == "TowerLevel" || collision.gameObject.tag == "TowerBase")
             {
+                myGameController.gameSuspended = true;
                 landed = true;
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 gameObject.GetComponent<Rigidbody>().isKinematic = true;
+
                 switch (myType)
                 {
                     case MaterialType.Attack:

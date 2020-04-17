@@ -44,8 +44,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 5.5, y: 8.3, z: 5}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 5.5, y: 10.37214, z: 5}
+  m_Center: {x: 0, y: -0.31102514, z: 0}
 --- !u!114 &7606720236324752602
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,12 +59,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myType: 2
-  health: 50
+  health: 20
   attack: 0
   attackBuffAmount: 0
   defenseBuffAmount: 0
   addMaterialAttackAmount: 0
+  addMaterialShieldAmount: 0
   thornDamageAmount: 0
+  permanentShieldAmount: 10
   index: 0
 --- !u!1 &4997729431695521315
 GameObject:
@@ -78,6 +80,7 @@ GameObject:
   - component: {fileID: 7748583291983004879}
   - component: {fileID: 2389403084461712356}
   - component: {fileID: 3624188385710724184}
+  - component: {fileID: 4916694865910815635}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -94,7 +97,7 @@ Transform:
   m_GameObject: {fileID: 4997729431695521315}
   m_LocalRotation: {x: -0, y: -0.7071068, z: 0.7071068, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: -2.5}
-  m_LocalScale: {x: 0.5499999, y: 0.5, z: 0.83300006}
+  m_LocalScale: {x: 0.5499999, y: 0.5, z: 1.1}
   m_Children: []
   m_Father: {fileID: 4955018948491395553}
   m_RootOrder: 0
@@ -160,3 +163,16 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &4916694865910815635
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4997729431695521315}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 10.000005, y: 1, z: 10.000002}
+  m_Center: {x: 0, y: 0, z: 0}

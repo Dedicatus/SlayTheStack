@@ -11,6 +11,7 @@ public class HPBarController : MonoBehaviour
 
 	private Enemy myEnemy;
 	[SerializeField] private Image hpBar;
+	[SerializeField] private Text hpNumber;
 
     // Start is called before the first frame update
     void Start()
@@ -25,5 +26,6 @@ public class HPBarController : MonoBehaviour
 		currentHealth = myEnemy.getHealth();
 
 		hpBar.fillAmount = (float) currentHealth / fullHealth;
+		hpNumber.text = currentHealth + "/" + fullHealth;
     }
 }

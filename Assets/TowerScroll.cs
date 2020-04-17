@@ -25,6 +25,10 @@ public class TowerScroll : MonoBehaviour
 
     bool isLerping;
 
+    bool isScrollingBack;
+
+    private Vector3 initPos;
+
     [SerializeField] private float maxHeight = 45.0f;
     [SerializeField] private float minHeight = 5.0f;
 
@@ -32,7 +36,9 @@ public class TowerScroll : MonoBehaviour
     {
         myGameController = GameObject.FindWithTag("System").transform.Find("GameController").GetComponent<GameController>();
         isLerping = false;
+        isScrollingBack = false;
         scrolledHeight = 0f;
+        initPos = transform.position;
     }
 
     
@@ -42,16 +48,22 @@ public class TowerScroll : MonoBehaviour
     {
         if (isLerping)
         {
+            myGameController.isScrolling = true;
             towerLerp();
+            
         }
 
-        screenHeight = transform.GetComponent<Tower>().getCurHeight() - scrolledHeight;
-        if (screenHeight > maxHeight)
+        if (!isScrollingBack)
         {
-            startScroll();
-            myGameController.gameSuspended = true;
-            scrolledHeight += (maxHeight - minHeight);
+            screenHeight = transform.GetComponent<Tower>().getCurHeight() - scrolledHeight;
+            if (screenHeight > maxHeight)
+            {
+                startScroll();
+                myGameController.gameSuspended = true;
+                scrolledHeight += (maxHeight - minHeight);
+            }
         }
+
     }
 
     private void towerLerp()
@@ -68,7 +80,19 @@ public class TowerScroll : MonoBehaviour
         if (transform.position == endPos)
         {
             isLerping = false;
+            myGameController.isScrolling = false;
             myGameController.gameSuspended = false;
+        }
+        else if (isScrollingBack && transform.position.y >= initPos.y)
+        {
+            isLerping = false;
+            myGameController.isScrolling = false;
+            myGameController.gameSuspended = false;
+            scrolledHeight = startPos.y - transform.position.y;
+            if (scrolledHeight <= 0f) { scrolledHeight = 0f; }
+            isScrollingBack = false;
+            screenHeight = 0f;
+            transform.GetComponent<Tower>().setCurHeight(0f);
         }
     }
 
@@ -76,6 +100,23 @@ public class TowerScroll : MonoBehaviour
     {
         initialize();
         isLerping = true;
+    }
+
+    public void scrollBack(float height)
+    {
+        isScrollingBack = true;
+
+        startTime = Time.time;
+
+        startPos = transform.position;
+        endPos = startPos + new Vector3(0f, height, 0f);
+        // Keep a note of the time the movement started.
+
+        // Calculate the journey length.
+        journeyLength = Vector3.Distance(startPos, endPos);
+        isLerping = true;
+
+        myGameController.gameSuspended = true;
     }
 
     private void initialize()

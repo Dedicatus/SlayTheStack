@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour
 {
@@ -12,10 +13,15 @@ public class GameController : MonoBehaviour
 
     private Enemy myEnemy;
 
+    private SpawnController mySpawnController;
 	private StartScreenTextController myStartTextController;
 	private ResultTextController myResultTextController;
 
 	private bool isFailed = false;
+
+    public bool isScrolling = false;
+
+    private List<GameObject> myTowerShields = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
@@ -24,14 +30,25 @@ public class GameController : MonoBehaviour
         gameSuspended = false;
         turnCount = 0;
         myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
-		myStartTextController = GameObject.FindWithTag("System").transform.Find("UIController").transform.GetChild(0).Find("StartScreen").GetChild(0).GetComponent<StartScreenTextController>();
+        mySpawnController = GameObject.FindWithTag("System").transform.Find("SpawnController").GetComponent<SpawnController>();
+        myStartTextController = GameObject.FindWithTag("System").transform.Find("UIController").transform.GetChild(0).Find("StartScreen").GetChild(0).GetComponent<StartScreenTextController>();
 		myResultTextController = GameObject.FindWithTag("System").transform.Find("UIController").transform.GetChild(0).Find("Result").GetChild(0).GetComponent<ResultTextController>();
+
+        foreach (GameObject shield in GameObject.FindGameObjectsWithTag("TowerShield"))
+        {
+            myTowerShields.Add(shield);
+        }
 	}
 
     // Update is called once per frame
     void Update()
     {
         inputHandler();
+
+        if (gameStart && !gameSuspended)
+        {
+            mySpawnController.spawnMaterial();
+        }
     }
 
     void inputHandler()
@@ -45,13 +62,27 @@ public class GameController : MonoBehaviour
 				myResultTextController.resultTextHide();
 				myEnemy.gameStartWarning();
 			}
+			if (isFailed)
+			{
+				hardRestartGame();
+			}
         }
+
     }
 
     public void turnPassed()
     {
         ++turnCount;
         myEnemy.countTurn();
+
+    }
+
+    public void afterAttack()
+    {
+        foreach (GameObject shield in myTowerShields)
+        {
+            shield.GetComponent<TowerShield>().reChargeShield();
+        }
     }
 
     public void gameSucceed()
@@ -76,5 +107,10 @@ public class GameController : MonoBehaviour
 	public int getCurrentTurn()
 	{
 		return turnCount;
+	}
+
+	private void hardRestartGame()
+	{
+		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 }

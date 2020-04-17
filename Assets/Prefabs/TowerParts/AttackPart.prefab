@@ -59,8 +59,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myType: 0
-  health: 30
-  attack: 20
+  health: 10
+  attack: 3
+  armor: 0
   index: 0
 --- !u!1 &8853214724244303593
 GameObject:

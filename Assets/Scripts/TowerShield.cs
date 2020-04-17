@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class TowerShield : MonoBehaviour
 {
+	enum ShieldType { Normal, Permanent };
+
+	[SerializeField] private ShieldType myType = ShieldType.Normal;
 	[SerializeField] private int currentArmor;
-	[SerializeField] private float yOffset;
 
 	[SerializeField] private int thornDamage;
 	//[SerializeField] private GameObject tower;
@@ -14,13 +16,28 @@ public class TowerShield : MonoBehaviour
 	private Enemy myEnemyScript;
 	private float currentHeight;
 
+	private Transform myTansform;
+	private GameObject myTowerShield;
+	private float offset = 0f;
+
 
 	// Start is called before the first frame update
 	void Start()
     {
 		currentArmor = 0;
 		thornDamage = 0;
-		myTowerScript = transform.parent.GetComponent<Tower>();
+		if (myType == ShieldType.Normal)
+		{
+			myTowerScript = transform.parent.GetComponent<Tower>();
+		}
+		else
+		{
+			myTowerScript = transform.parent.parent.GetComponent<Tower>();
+			myTowerShield = transform.parent.gameObject;
+			//offset = transform.localPosition.y - myTowerShield.transform.localPosition.y;
+			offset = -1.0f;
+			myTansform = transform;
+		}
 		myTowerScrollScript = transform.parent.GetComponent<TowerScroll>();
 		myEnemyScript = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
 	}
@@ -28,8 +45,11 @@ public class TowerShield : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		currentHeight = myTowerScript.getCurHeight() + transform.GetComponent<BoxCollider>().size.y + yOffset;
-		gameObject.transform.localPosition = new Vector3(transform.localPosition.x, currentHeight, transform.localPosition.z);
+		if (myType == ShieldType.Normal)
+		{
+			currentHeight = myTowerScript.getCurHeight() + transform.GetComponent<BoxCollider>().size.y;
+			gameObject.transform.localPosition = new Vector3(transform.localPosition.x, currentHeight, transform.localPosition.z);
+		}
 
 		if (currentArmor > 0)
 		{
@@ -38,6 +58,18 @@ public class TowerShield : MonoBehaviour
 		else
 		{
 			gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
+		}
+
+		if (myType == ShieldType.Permanent)
+		{
+			if (myTowerShield.GetComponent<TowerShield>().getCurrentArmor() == 0)
+			{
+				transform.localPosition = new Vector3(0f, 0f, 0f);
+			}
+			else
+			{
+				transform.localPosition = new Vector3(0f, -1, 0f);
+			}
 		}
 
 	}
@@ -59,6 +91,14 @@ public class TowerShield : MonoBehaviour
 	public void addThornDamage(int n)
 	{
 		thornDamage += n;
+	}
+
+	public void reChargeShield()
+	{
+		if (myType == ShieldType.Permanent)
+		{
+			currentArmor = myTowerScript.getPermanentShieldAmount();
+		}
 	}
 
 	private void OnTriggerEnter(Collider other)

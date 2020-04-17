@@ -8,9 +8,12 @@ public class EnemyBullet : MonoBehaviour
 
 	private Tower myTowerScript;
 
+	private TowerScroll myTowerScrollScript;
+
 	[SerializeField] private float dropSpeed = 40.0f;
 	private int attack;
 
+	private float destoriedHeight;
 	private GameController myGameController;
 	private AttackWarningController myWarningController;
 	// Start is called before the first frame update
@@ -20,6 +23,7 @@ public class EnemyBullet : MonoBehaviour
 		myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
 		myWarningController = GameObject.FindWithTag("System").transform.Find("UIController").transform.Find("UI-World").GetChild(0).GetComponent<AttackWarningController>();
 		attack = myEnemy.getAttackDamage();
+		destoriedHeight = 0f;
 	}
 
     // Update is called once per frame
@@ -33,6 +37,7 @@ public class EnemyBullet : MonoBehaviour
 		if (other.gameObject.tag == "TowerArea")
 		{
 			myTowerScript = other.GetComponent<Tower>();
+			myTowerScrollScript = other.GetComponent<TowerScroll>();
 		}
 
 		if (other.gameObject.tag == "TowerShield")
@@ -41,7 +46,7 @@ public class EnemyBullet : MonoBehaviour
 			int currentArmor = myTowerShieldScript.getCurrentArmor();
 			if (currentArmor >= attack)
 			{
-				Debug.Log("armor: " + currentArmor + " attack: " + attack);
+				//Debug.Log("armor: " + currentArmor + " attack: " + attack);
 				myTowerShieldScript.underAttack(attack);
 				Destroy(gameObject);
 				//myGameController.gameSuspended = false;
@@ -51,6 +56,7 @@ public class EnemyBullet : MonoBehaviour
 				myTowerShieldScript.underAttack(currentArmor);
 				attack -= currentArmor;
 			}
+
 		}
 	}
 
@@ -62,6 +68,7 @@ public class EnemyBullet : MonoBehaviour
 			if(attack >= currentTowerHealth)
 			{
 				myTowerScript.addCurHeight(-1 * (float)collision.gameObject.GetComponent<BoxCollider>().size.y);
+				destoriedHeight += (float)collision.gameObject.GetComponent<BoxCollider>().size.y;
 				Destroy(collision.gameObject);
 				//remove tower material form tower list;
 				myTowerScript.listRemoveElement();
@@ -84,6 +91,7 @@ public class EnemyBullet : MonoBehaviour
 			if (attack >= currentTowerHealth)
 			{
 				myTowerScript.addCurHeight(-1 * (float)collision.gameObject.GetComponent<BoxCollider>().size.y);
+				destoriedHeight += (float)collision.gameObject.GetComponent<BoxCollider>().size.y;
 				Destroy(collision.gameObject);
 				//remove tower part from tower list
 				for(int i = 0; i < 3; i++)
@@ -106,6 +114,7 @@ public class EnemyBullet : MonoBehaviour
 			if (attack >= currentTowerHealth)
 			{
 				myTowerScript.addCurHeight(-1 * (float)collision.gameObject.GetComponent<BoxCollider>().size.y);
+				destoriedHeight += (float)collision.gameObject.GetComponent<BoxCollider>().size.y;
 				Destroy(collision.gameObject);
 				//remove tower part from tower list
 				for (int i = 0; i < 6; i++)
@@ -126,7 +135,9 @@ public class EnemyBullet : MonoBehaviour
 		if (collision.gameObject.tag == "TowerBase")
 		{
 			Destroy(gameObject);
-			myTowerScript.addCurHeight(-1 * (float)(collision.gameObject.transform.localScale.y / 2.0f + collision.gameObject.transform.position.y));
+			//myTowerScript.addCurHeight(-1 * (float)(collision.gameObject.transform.localScale.y / 2.0f + collision.gameObject.transform.localPosition.y));
+			myTowerScript.setCurHeight(0f);
+			destoriedHeight += (float)collision.gameObject.GetComponent<BoxCollider>().size.y;
 			Destroy(collision.gameObject);
 			myEnemy.resetAttackMaterial();
 			//myGameController.gameSuspended = false;
@@ -144,9 +155,14 @@ public class EnemyBullet : MonoBehaviour
 	{
 		if (!myGameController.isGameFailed())
 		{
-			myGameController.gameSuspended = false;
+			if (!myGameController.isScrolling) { myGameController.gameSuspended = false; }
+			myGameController.afterAttack();
 			myWarningController.isImageDisplay(true);
 			myWarningController.nextAttackWarning(myEnemy.getNextAttackNumber());
+			if (transform.position.y < 0f)
+			{
+				myTowerScrollScript.scrollBack(destoriedHeight);
+			}
 		}
 	}
 
