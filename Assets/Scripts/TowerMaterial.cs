@@ -107,7 +107,9 @@ public class TowerMaterial : MonoBehaviour
 
     private void RenderOffset()
     {
-        float offset = myTowerScript.getRenderDepthOffset();
+        float offset = 0f;
+        if (myTowerScript != null) { offset = myTowerScript.getRenderDepthOffset(); }
+        
         transform.position = new Vector3(transform.position.x, transform.position.y, (float)(offset * index));
     }
 

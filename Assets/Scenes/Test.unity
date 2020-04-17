@@ -133,11 +133,47 @@ PrefabInstance:
       propertyPath: m_TagString
       value: TowerBase
       objectReference: {fileID: 0}
+    - target: {fileID: 1235606253470544441, guid: 10ac8a74782a72e4cb53ad2a17614e82,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 9db949e249bfe7e4bb02d11994a65344,
+        type: 3}
     - target: {fileID: 5208518428958420857, guid: 10ac8a74782a72e4cb53ad2a17614e82,
         type: 3}
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1870159843}
+    - target: {fileID: 5826693317727550927, guid: 10ac8a74782a72e4cb53ad2a17614e82,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5826693317727550927, guid: 10ac8a74782a72e4cb53ad2a17614e82,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5826693317727550927, guid: 10ac8a74782a72e4cb53ad2a17614e82,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5826693317727550927, guid: 10ac8a74782a72e4cb53ad2a17614e82,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5826693317727550927, guid: 10ac8a74782a72e4cb53ad2a17614e82,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5826693317727550927, guid: 10ac8a74782a72e4cb53ad2a17614e82,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6952624726336200019, guid: 10ac8a74782a72e4cb53ad2a17614e82,
         type: 3}
       propertyPath: m_Name
@@ -598,9 +634,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1235606253470544441, guid: 10ac8a74782a72e4cb53ad2a17614e82,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 647f031df9d766e48a9f8486f951a986,
+        type: 3}
     - target: {fileID: 4392240180532193291, guid: 10ac8a74782a72e4cb53ad2a17614e82,
         type: 3}
       propertyPath: attackBuffAmount
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5826693317727550927, guid: 10ac8a74782a72e4cb53ad2a17614e82,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6952624726336200019, guid: 10ac8a74782a72e4cb53ad2a17614e82,
@@ -678,6 +725,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1235606253470544441, guid: 10ac8a74782a72e4cb53ad2a17614e82,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8da00cd36f762ad4fb8eaa78d9d936e3,
+        type: 3}
+    - target: {fileID: 5826693317727550927, guid: 10ac8a74782a72e4cb53ad2a17614e82,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6952624726336200019, guid: 10ac8a74782a72e4cb53ad2a17614e82,
         type: 3}
       propertyPath: m_Name
@@ -891,6 +949,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UIController
+      objectReference: {fileID: 0}
+    - target: {fileID: 7358786337836206323, guid: 41914054c32fe5b44a365bf8eaa14440,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41914054c32fe5b44a365bf8eaa14440, type: 3}
