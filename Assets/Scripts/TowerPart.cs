@@ -30,7 +30,10 @@ public class TowerPart : MonoBehaviour
         myTowerScript = transform.parent.GetComponent<Tower>();
         myTowerShieldScript = transform.parent.Find("TowerShield").GetComponent<TowerShield>();
 
-        myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
+        if (GameObject.FindWithTag("Enemy") != null)
+        {
+            myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
+        }
 
         if (!triggered)
         {

@@ -634,6 +634,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 529303348175847905, guid: 10ac8a74782a72e4cb53ad2a17614e82,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1235606253470544441, guid: 10ac8a74782a72e4cb53ad2a17614e82,
         type: 3}
       propertyPath: m_Sprite
@@ -712,6 +717,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10ac8a74782a72e4cb53ad2a17614e82, type: 3}
+--- !u!1 &1345279963 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2646225960755932544, guid: 41914054c32fe5b44a365bf8eaa14440,
+    type: 3}
+  m_PrefabInstance: {fileID: 2747643561463364579}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1401097675 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2747643560112862760, guid: 41914054c32fe5b44a365bf8eaa14440,
@@ -890,6 +901,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 320857622}
     m_Modifications:
+    - target: {fileID: 858413162, guid: 41914054c32fe5b44a365bf8eaa14440, type: 3}
+      propertyPath: height
+      value: 42
+      objectReference: {fileID: 0}
     - target: {fileID: 2747643560112862760, guid: 41914054c32fe5b44a365bf8eaa14440,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1056,7 +1071,7 @@ PrefabInstance:
     - target: {fileID: 3052956241277213138, guid: 22dbf204bb6eff749917c5ee24ac872b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 24
+      value: 24.2
       objectReference: {fileID: 0}
     - target: {fileID: 3052956241277213138, guid: 22dbf204bb6eff749917c5ee24ac872b,
         type: 3}
@@ -1195,6 +1210,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 5391350594969883603, guid: dba1c388c3462814d8d40955713f747f,
+        type: 3}
+      propertyPath: bossField
+      value: 
+      objectReference: {fileID: 1345279963}
+    - target: {fileID: 5391350594969883603, guid: dba1c388c3462814d8d40955713f747f,
+        type: 3}
+      propertyPath: attackIncrement
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5391350595945701633, guid: dba1c388c3462814d8d40955713f747f,
         type: 3}

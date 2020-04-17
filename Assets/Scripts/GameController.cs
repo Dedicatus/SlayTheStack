@@ -17,6 +17,8 @@ public class GameController : MonoBehaviour
 
 	private bool isFailed = false;
 
+    private List<GameObject> myTowerShields = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +28,11 @@ public class GameController : MonoBehaviour
         myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
 		myStartTextController = GameObject.FindWithTag("System").transform.Find("UIController").transform.GetChild(0).Find("StartScreen").GetChild(0).GetComponent<StartScreenTextController>();
 		myResultTextController = GameObject.FindWithTag("System").transform.Find("UIController").transform.GetChild(0).Find("Result").GetChild(0).GetComponent<ResultTextController>();
+
+        foreach (GameObject shield in GameObject.FindGameObjectsWithTag("TowerShield"))
+        {
+            myTowerShields.Add(shield);
+        }
 	}
 
     // Update is called once per frame
@@ -52,6 +59,14 @@ public class GameController : MonoBehaviour
     {
         ++turnCount;
         myEnemy.countTurn();
+    }
+
+    public void afterAttack()
+    {
+        foreach (GameObject shield in myTowerShields)
+        {
+            shield.GetComponent<TowerShield>().reChargeShield();
+        }
     }
 
     public void gameSucceed()

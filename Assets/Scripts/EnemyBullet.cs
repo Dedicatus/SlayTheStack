@@ -41,7 +41,7 @@ public class EnemyBullet : MonoBehaviour
 			int currentArmor = myTowerShieldScript.getCurrentArmor();
 			if (currentArmor >= attack)
 			{
-				Debug.Log("armor: " + currentArmor + " attack: " + attack);
+				//Debug.Log("armor: " + currentArmor + " attack: " + attack);
 				myTowerShieldScript.underAttack(attack);
 				Destroy(gameObject);
 				//myGameController.gameSuspended = false;
@@ -51,6 +51,7 @@ public class EnemyBullet : MonoBehaviour
 				myTowerShieldScript.underAttack(currentArmor);
 				attack -= currentArmor;
 			}
+
 		}
 	}
 
@@ -145,6 +146,7 @@ public class EnemyBullet : MonoBehaviour
 		if (!myGameController.isGameFailed())
 		{
 			myGameController.gameSuspended = false;
+			myGameController.afterAttack();
 			myWarningController.isImageDisplay(true);
 			myWarningController.nextAttackWarning(myEnemy.getNextAttackNumber());
 		}

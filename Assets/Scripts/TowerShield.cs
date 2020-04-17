@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class TowerShield : MonoBehaviour
 {
+	enum ShieldType { Normal, Permanent };
+
+	[SerializeField] private ShieldType myType = ShieldType.Normal;
 	[SerializeField] private int currentArmor;
-	[SerializeField] private float yOffset;
 
 	[SerializeField] private int thornDamage;
 	//[SerializeField] private GameObject tower;
@@ -20,7 +22,14 @@ public class TowerShield : MonoBehaviour
     {
 		currentArmor = 0;
 		thornDamage = 0;
-		myTowerScript = transform.parent.GetComponent<Tower>();
+		if (myType == ShieldType.Normal)
+		{
+			myTowerScript = transform.parent.GetComponent<Tower>();
+		}
+		else
+		{
+			myTowerScript = transform.parent.parent.GetComponent<Tower>();
+		}
 		myTowerScrollScript = transform.parent.GetComponent<TowerScroll>();
 		myEnemyScript = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
 	}
@@ -28,8 +37,11 @@ public class TowerShield : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-		currentHeight = myTowerScript.getCurHeight() + transform.GetComponent<BoxCollider>().size.y + yOffset;
-		gameObject.transform.localPosition = new Vector3(transform.localPosition.x, currentHeight, transform.localPosition.z);
+		if (myType == ShieldType.Normal)
+		{
+			currentHeight = myTowerScript.getCurHeight() + transform.GetComponent<BoxCollider>().size.y;
+			gameObject.transform.localPosition = new Vector3(transform.localPosition.x, currentHeight, transform.localPosition.z);
+		}
 
 		if (currentArmor > 0)
 		{
@@ -59,6 +71,14 @@ public class TowerShield : MonoBehaviour
 	public void addThornDamage(int n)
 	{
 		thornDamage += n;
+	}
+
+	public void reChargeShield()
+	{
+		if (myType == ShieldType.Permanent)
+		{
+			currentArmor = myTowerScript.getPermanentShieldAmount();
+		}
 	}
 
 	private void OnTriggerEnter(Collider other)

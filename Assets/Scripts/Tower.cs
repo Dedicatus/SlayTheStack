@@ -17,7 +17,9 @@ public class Tower : MonoBehaviour
     [SerializeField] private int attackBuffAmount;
     [SerializeField] private int defenseBuffAmount;
     [SerializeField] private int addMaterialAttackAmount;
+    [SerializeField] private int addMaterialShieldAmount;
     [SerializeField] private int thornDamageAmount;
+    [SerializeField] private int permanentShieldAmount;
 
     [Header("Prefabs")]
     [SerializeField] private GameObject attackPartPrefab;
@@ -28,13 +30,14 @@ public class Tower : MonoBehaviour
 	[SerializeField] private GameObject advBuffLevelPrefab;
 	[SerializeField] private GameObject atkDefenseLevelPrefab;
 	[SerializeField] private GameObject atkBuffLevelPrefab;
-	[SerializeField] private GameObject defBuffLevelPrefabl;
+	[SerializeField] private GameObject defBuffLevelPrefab;
     
 	//[SerializeField] private GameObject towerShield;
 
     private GameController myGameController;
     private Enemy myEnemy;
     private TowerShield myTowerShield;
+    private TowerShield myPermanentShield;
 
     // Start is called before the first frame update
     void Start()
@@ -42,6 +45,7 @@ public class Tower : MonoBehaviour
         myGameController = GameObject.FindWithTag("System").transform.Find("GameController").GetComponent<GameController>();
         myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
         myTowerShield = transform.Find("TowerShield").GetComponent<TowerShield>();
+        myPermanentShield = transform.Find("TowerShield").Find("GoldShield").GetComponent<TowerShield>();
         searchIndex = 0;
         curHeight = transform.Find("Base").transform.localScale.y / 2.0f + transform.Find("Base").transform.position.y;
     }
@@ -67,7 +71,9 @@ public class Tower : MonoBehaviour
         myObjectList.Add(typeCode);
 
         myEnemy.underAttack(addMaterialAttackAmount);
-		// check two blocks below the current one
+
+        myTowerShield.armorUp(addMaterialShieldAmount);
+        // check two blocks below the current one
         int materialCount = 1;
         while (searchIndex < 2 && myObjectList.Count >= 3)
         {
@@ -192,7 +198,7 @@ public class Tower : MonoBehaviour
 		GameObject part = Instantiate(partPrefab, new Vector3(transform.position.x, curHeight + (float)(((partPrefab.transform.GetChild(0).GetComponent<BoxCollider>().size.z * partPrefab.transform.GetChild(0).transform.localScale.z) / 2.0f) - gameObject.GetComponent<TowerScroll>().getScrolledHeight()), (float)(renderDepthOffset * (myObjectList.Count - 1))), Quaternion.identity);
         part.transform.parent = transform;
         part.GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
-        curHeight += (float)(partPrefab.transform.GetChild(0).GetComponent<BoxCollider>().size.z * partPrefab.transform.GetChild(0).transform.localScale.z);
+        curHeight += (float)(partPrefab.GetComponent<BoxCollider>().size.y);
         //GameObject part = Instantiate(partPrefab, new Vector3(transform.position.x, curHeight + partYOffset, (float)(renderDepthOffset * (myObjectList.Count - 1))), Quaternion.identity);
         //part.transform.parent = transform;
         //part.GetComponent<TowerPart>().setIndex(myObjectList.Count - 1);
@@ -256,38 +262,38 @@ public class Tower : MonoBehaviour
 		{
 			myObjectList[myObjectList.Count - i] = type;
 		}
-		GameObject partPrefab;
+		GameObject levelPrefab;
 		switch (type)
 		{
 			case 7:
-				partPrefab = advAttackLevelPrefab;
+				levelPrefab = advAttackLevelPrefab;
 				break;
 			case 8:
-				partPrefab = advDefenseLevelPrefab;
+                levelPrefab = advDefenseLevelPrefab;
 				break;
 			case 9:
-				partPrefab = advBuffLevelPrefab;
+                levelPrefab = advBuffLevelPrefab;
 				break;
 			case 10:
-				partPrefab = atkDefenseLevelPrefab;
+                levelPrefab = atkDefenseLevelPrefab;
 				break;
 			case 11:
-				partPrefab = atkBuffLevelPrefab;
+                levelPrefab = atkBuffLevelPrefab;
 				break;
 			case 12:
-				partPrefab = defBuffLevelPrefabl;
+                levelPrefab = defBuffLevelPrefab;
 				break;
 
 			default:
-				partPrefab = null;
+                levelPrefab = null;
 				Debug.LogError("Invalid Type Code");
 				break;
 		}
-		GameObject part = Instantiate(partPrefab, new Vector3(transform.position.x, (float)(curHeight + partPrefab.GetComponent<BoxCollider>().size.y / 2 - gameObject.GetComponent<TowerScroll>().getScrolledHeight()), (float)(renderDepthOffset * (myObjectList.Count - 1))), Quaternion.identity);
-		part.transform.parent = transform;
-		part.GetComponent<TowerLevel>().setIndex(myObjectList.Count - 1);
-		curHeight += (float)partPrefab.GetComponent<BoxCollider>().size.y;
-	}
+		GameObject level = Instantiate(levelPrefab, new Vector3(transform.position.x, curHeight + (float)(((levelPrefab.transform.GetChild(0).GetComponent<BoxCollider>().size.z * levelPrefab.transform.GetChild(0).transform.localScale.z) / 2.0f) - gameObject.GetComponent<TowerScroll>().getScrolledHeight()), (float)(renderDepthOffset * (myObjectList.Count - 1))), Quaternion.identity);
+        level.transform.parent = transform;
+        level.GetComponent<TowerLevel>().setIndex(myObjectList.Count - 1);
+		curHeight += (float)(levelPrefab.GetComponent<BoxCollider>().size.y);
+    }
 
 
     private void destoryUsedMaterials()
@@ -317,7 +323,7 @@ public class Tower : MonoBehaviour
 		{
 			if (matTransform.tag == "TowerPart")
 			{
-				curHeight -= (float)matTransform.GetChild(0).GetComponent<BoxCollider>().size.z * matTransform.GetChild(0).transform.localScale.z;
+				curHeight -= (float)matTransform.gameObject.GetComponent<BoxCollider>().size.y;
 				Destroy(matTransform.gameObject);
 			}
 			else
@@ -369,6 +375,11 @@ public class Tower : MonoBehaviour
         return addMaterialAttackAmount;
     }
 
+    public int getAddMaterialShieldAmount()
+    {
+        return addMaterialShieldAmount;
+    }
+
     public int getThornDamageAmount()
     {
         return thornDamageAmount;
@@ -379,9 +390,25 @@ public class Tower : MonoBehaviour
         addMaterialAttackAmount += n;
     }
 
+    public void addAddMaterialShieldAmount(int n)
+    {
+        addMaterialShieldAmount += n;
+    }
+
     public void addThornDamageAmount(int n)
     {
         thornDamageAmount += n;
         myTowerShield.addThornDamage(n);
     }
+
+    public int getPermanentShieldAmount()
+    {
+        return permanentShieldAmount;
+    }
+    public void addPermanentShieldAmount(int n)
+    {
+        permanentShieldAmount += n;
+        myPermanentShield.armorUp(permanentShieldAmount);
+    }
+
 }
