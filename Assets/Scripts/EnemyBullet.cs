@@ -41,6 +41,7 @@ public class EnemyBullet : MonoBehaviour
 			int currentArmor = myTowerShieldScript.getCurrentArmor();
 			if (currentArmor >= attack)
 			{
+				Debug.Log("armor: " + currentArmor + " attack: " + attack);
 				myTowerShieldScript.underAttack(attack);
 				Destroy(gameObject);
 				//myGameController.gameSuspended = false;
