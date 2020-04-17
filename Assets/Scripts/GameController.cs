@@ -13,6 +13,7 @@ public class GameController : MonoBehaviour
 
     private Enemy myEnemy;
 
+    private SpawnController mySpawnController;
 	private StartScreenTextController myStartTextController;
 	private ResultTextController myResultTextController;
 
@@ -27,7 +28,8 @@ public class GameController : MonoBehaviour
         gameSuspended = false;
         turnCount = 0;
         myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
-		myStartTextController = GameObject.FindWithTag("System").transform.Find("UIController").transform.GetChild(0).Find("StartScreen").GetChild(0).GetComponent<StartScreenTextController>();
+        mySpawnController = GameObject.FindWithTag("System").transform.Find("SpawnController").GetComponent<SpawnController>();
+        myStartTextController = GameObject.FindWithTag("System").transform.Find("UIController").transform.GetChild(0).Find("StartScreen").GetChild(0).GetComponent<StartScreenTextController>();
 		myResultTextController = GameObject.FindWithTag("System").transform.Find("UIController").transform.GetChild(0).Find("Result").GetChild(0).GetComponent<ResultTextController>();
 
         foreach (GameObject shield in GameObject.FindGameObjectsWithTag("TowerShield"))
@@ -40,6 +42,11 @@ public class GameController : MonoBehaviour
     void Update()
     {
         inputHandler();
+
+        if (gameStart && !gameSuspended)
+        {
+            mySpawnController.spawnMaterial();
+        }
     }
 
     void inputHandler()
@@ -58,12 +65,14 @@ public class GameController : MonoBehaviour
 				hardRestartGame();
 			}
         }
+
     }
 
     public void turnPassed()
     {
         ++turnCount;
         myEnemy.countTurn();
+
     }
 
     public void afterAttack()

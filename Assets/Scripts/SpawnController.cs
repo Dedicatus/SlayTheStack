@@ -96,6 +96,7 @@ public class SpawnController : MonoBehaviour
 
 		}
 
+		/*
 		if (myGameController.gameStart) 
 		{ 
 			if (!myGameController.gameSuspended)
@@ -103,9 +104,10 @@ public class SpawnController : MonoBehaviour
 				spawnMaterial();
 			}
 		}
+		*/
 	}
 
-	void spawnMaterial()
+	public void spawnMaterial()
 	{
 		// set the start position of nextblock
 		Vector3 startPosition = new Vector3(towers[1].position.x, dropHeight, 0);

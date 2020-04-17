@@ -61,6 +61,11 @@ public class Tower : MonoBehaviour
 
     }
 
+    public void setCurHeight(float h)
+    {
+        curHeight = h;
+    }
+
     public void addCurHeight(float h)
     {
         curHeight += h;
@@ -88,6 +93,7 @@ public class Tower : MonoBehaviour
             }
             else
             {
+                myGameController.gameSuspended = false;
                 myGameController.turnPassed();
                 return;
             }
@@ -107,6 +113,7 @@ public class Tower : MonoBehaviour
             searchIndex = 0;
         }
 
+        myGameController.gameSuspended = false;
         myGameController.turnPassed();
     }
 

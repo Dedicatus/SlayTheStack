@@ -20,7 +20,7 @@ public class BossFieldUIController : MonoBehaviour
 
 	private int attackGap;
 	private int attackTimer;
-	private float damageTimer = 1.0f;
+	private float damageTimer = 1.5f;
 	// Start is called before the first frame update
 	void Start()
     {
@@ -44,7 +44,7 @@ public class BossFieldUIController : MonoBehaviour
 		{
 			bossUnderAttack.enabled = false;
 			bossUnderAttackText.enabled = false;
-			damageTimer = 1.0f;
+			damageTimer = 1.5f;
 		}
 
 	}
