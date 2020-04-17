@@ -47,5 +47,8 @@ MonoBehaviour:
   attackMaterialPreafab: {fileID: 711694364396277555, guid: ef17b8a5dbf85fb4c8728b4d5102908e,
     type: 3}
   dropHeight: 60
+  attackDamange: 0
+  attackIncrement: 0
   attackGap: 5
   attackTimer: 0
+  bossField: {fileID: 0}

@@ -17,6 +17,9 @@ public class Enemy : MonoBehaviour
 	[SerializeField] private int attackGap = 5;
 	[SerializeField] private int attackTimer;
 
+	[SerializeField] private GameObject bossField;
+	private BossFieldUIController myBossFieldUIController;
+
 	private GameController myGameController;
 
 	private SpawnController mySpawnController;
@@ -25,6 +28,7 @@ public class Enemy : MonoBehaviour
 	private int actionTurnCount = 0;
 	private int actionType = 0;
 	private int turn1Action = -1;
+	private int turn2Action = -1;
 	private int turn3Action = -1;
 	private int speedUpTimes = 2;
 
@@ -34,6 +38,8 @@ public class Enemy : MonoBehaviour
 		myGameController = GameObject.FindWithTag("System").transform.Find("GameController").GetComponent<GameController>();
 		mySpawnController = GameObject.FindWithTag("System").transform.Find("SpawnController").GetComponent<SpawnController>();
 		myWarningController = GameObject.FindWithTag("System").transform.Find("UIController").transform.Find("UI-World").GetChild(0).GetComponent<AttackWarningController>();
+		myBossFieldUIController = bossField.GetComponent<BossFieldUIController>();
+
 		attackMaterial = null;
 		towerX = mySpawnController.getTowersX();
 		attackGap = 10;
@@ -60,37 +66,75 @@ public class Enemy : MonoBehaviour
 				case 0:
 					attackGap = 5;
 					action(0);
+
+					//determine next turn1 action
+					if (turn3Action == -1)
+					{
+						turn1Action = Random.Range(0, 2);
+						
+					}
+					myBossFieldUIController.actionState(turn1Action);
 					break;
 				case 1:
 					//check last turn 3 action type
-					if (turn3Action == -1)
+					//if (turn3Action == -1)
+					//{
+					//	turn1Action = Random.Range(0, 2);
+					//}
+					//else
+					//{
+					//	turn1Action = 1 - turn3Action;
+					//}
+					action(turn1Action);
+
+					//determine next turn2action
+					turn2Action = 1 - turn1Action;
+					myBossFieldUIController.actionState(turn2Action);
+					break;
+				case 2:
+					action(turn2Action);
+
+					// determine next turn3 action
+
+					if(speedUpTimes > 0)
 					{
+						turn3Action = 2;
+						speedUpTimes--;
+
+					}
+					else
+					{
+						turn3Action = Random.Range(0, 2);
+
+					}
+					myBossFieldUIController.actionState(turn3Action);
+					break;
+				case 3:
+					action(turn3Action);
+
+					//determin next turn 1 action 
+					// remember >=
+					if(speedUpTimes >= 0){
 						turn1Action = Random.Range(0, 2);
 					}
 					else
 					{
 						turn1Action = 1 - turn3Action;
 					}
-					action(turn1Action);
-					break;
-				case 2:
-					//check last turn 1 action type
-					action(1 - turn1Action);
-					break;
-				case 3:
-					//check current count to active speedup
-					if(speedUpTimes > 0)
-					{
-						action(2);
-						speedUpTimes--;
-						turn3Action = -1;
+					myBossFieldUIController.actionState(turn1Action);
+//					if(speedUpTimes > 0)
+//					{
+//						action(2);
+//;
+//						speedUpTimes--;
+//						turn3Action = -1;
 						
-					}
-					else
-					{
-						turn3Action = Random.Range(0, 2);
-						action(turn3Action);
-					}
+//					}
+//					else
+//					{
+//						turn3Action = Random.Range(0, 2);
+//						action(turn3Action);
+//					}
 					break;
 
 			}
@@ -222,5 +266,10 @@ public class Enemy : MonoBehaviour
 	{
 		nextAttackNumber = Random.Range(0, 3);
 		myWarningController.nextAttackWarning(nextAttackNumber);
+	}
+
+	public int getAttackGap()
+	{
+		return attackGap;
 	}
 }
