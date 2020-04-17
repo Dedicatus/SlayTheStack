@@ -73,5 +73,8 @@ public class GameController : MonoBehaviour
 	{
 		return isFailed;
 	}
-
+	public int getCurrentTurn()
+	{
+		return turnCount;
+	}
 }

@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
 	[SerializeField] private int health;
 	[SerializeField] private GameObject attackMaterialPreafab;
 	[SerializeField] private float dropHeight;
+	[SerializeField] private int attackDamange;
+	[SerializeField] private int attackIncrement;
 	GameObject attackMaterial;
 	float[] towerX = new float[3];
 	int nextAttackNumber = -1;
@@ -20,6 +22,11 @@ public class Enemy : MonoBehaviour
 	private SpawnController mySpawnController;
 
 	private AttackWarningController myWarningController;
+	private int actionTurnCount = 0;
+	private int actionType = 0;
+	private int turn1Action = -1;
+	private int turn3Action = -1;
+	private int speedUpTimes = 2;
 
 	// Start is called before the first frame update
 	void Start()
@@ -29,6 +36,7 @@ public class Enemy : MonoBehaviour
 		myWarningController = GameObject.FindWithTag("System").transform.Find("UIController").transform.Find("UI-World").GetChild(0).GetComponent<AttackWarningController>();
 		attackMaterial = null;
 		towerX = mySpawnController.getTowersX();
+		attackGap = 10;
 		attackTimer = attackGap;
 		
 
@@ -37,13 +45,85 @@ public class Enemy : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
+		if(actionTurnCount > 3)
+		{
+			actionTurnCount = 1;
+			
+		}
+
 		if (attackTimer <= 0)
 		{
-			myGameController.gameSuspended = true;
-			attack();
-			attackTimer = attackGap;
+			switch (actionTurnCount)
+			{
+				default:
+					break;
+				case 0:
+					attackGap = 5;
+					action(0);
+					break;
+				case 1:
+					//check last turn 3 action type
+					if (turn3Action == -1)
+					{
+						turn1Action = Random.Range(0, 2);
+					}
+					else
+					{
+						turn1Action = 1 - turn3Action;
+					}
+					action(turn1Action);
+					break;
+				case 2:
+					//check last turn 1 action type
+					action(1 - turn1Action);
+					break;
+				case 3:
+					//check current count to active speedup
+					if(speedUpTimes > 0)
+					{
+						action(2);
+						speedUpTimes--;
+						turn3Action = -1;
+						
+					}
+					else
+					{
+						turn3Action = Random.Range(0, 2);
+						action(turn3Action);
+					}
+					break;
+
+			}
+			actionTurnCount++;
 		}
 	}
+
+	void action(int actionType)
+	{
+
+		switch (actionType)
+		{
+			default:
+				Debug.Log("Invalid Enemy Action");
+				break;
+			case 0:
+				Debug.Log("Enemy Attacked " + attackDamange + " CurrentTurn " + myGameController.getCurrentTurn() + " Turn Count " + actionTurnCount);
+				myGameController.gameSuspended = true;
+				attack();
+				break;
+			case 1:
+				Debug.Log("Charged" + " CurrentTurn " + myGameController.getCurrentTurn() + " Turn Count " + actionTurnCount);
+				charge();
+				break;
+			case 2:
+				Debug.Log("Speed Up" + " CurrentTurn " + myGameController.getCurrentTurn() + " Turn Count " + actionTurnCount);
+				speedUp();
+				break;
+
+		}
+		attackTimer = attackGap;
+	}
+
 
 	void attack()
 	{
@@ -68,9 +148,23 @@ public class Enemy : MonoBehaviour
 		myWarningController.isImageDisplay(false);
 	}
 
+	void speedUp()
+	{
+		attackGap--;
+		if(attackGap < 3)
+		{
+			attackGap = 3;
+		}
+	}
+
+	void charge()
+	{
+		attackDamange += attackIncrement;
+	}
+
 	public void underAttack(int damage)
 	{
-		if (damage > 0) { Debug.Log("DMG: " + damage); }
+		//if (damage > 0) { Debug.Log("DMG: " + damage); }
 		
 		if (health > damage)
 		{
@@ -103,6 +197,11 @@ public class Enemy : MonoBehaviour
 	public int getHealth()
 	{
 		return health;
+	}
+
+	public int getAttackDamage()
+	{
+		return attackDamange;
 	}
 
 	public int getTimer()

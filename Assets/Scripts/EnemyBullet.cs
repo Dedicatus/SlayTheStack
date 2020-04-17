@@ -9,7 +9,7 @@ public class EnemyBullet : MonoBehaviour
 	private Tower myTowerScript;
 
 	[SerializeField] private float dropSpeed = 40.0f;
-	[SerializeField] private int attack = 30;
+	private int attack;
 
 	private GameController myGameController;
 	private AttackWarningController myWarningController;
@@ -19,6 +19,7 @@ public class EnemyBullet : MonoBehaviour
 		myGameController = GameObject.FindWithTag("System").transform.Find("GameController").GetComponent<GameController>();
 		myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
 		myWarningController = GameObject.FindWithTag("System").transform.Find("UIController").transform.Find("UI-World").GetChild(0).GetComponent<AttackWarningController>();
+		attack = myEnemy.getAttackDamage();
 	}
 
     // Update is called once per frame
