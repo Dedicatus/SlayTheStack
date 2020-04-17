@@ -41,6 +41,7 @@ public class PreviewController : MonoBehaviour
 		for (int i = 0; i < newSlot.Length; i++)
 		{
 			newSlot[i] = (GameObject)Instantiate(previewSlot, transform);
+			newSlot[i].GetComponent<Image>().color = new Color(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 0f / 255.0f);
 		}
 	}
 
@@ -51,6 +52,7 @@ public class PreviewController : MonoBehaviour
 		for (int i = 0; i < newSlot.Length; i++)
 		{
 			newSlot[i].GetComponent<Image>().sprite = towerSprites[spawnQueueElement[i]];
+			newSlot[i].GetComponent<Image>().color = new Color(255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f, 255.0f / 255.0f);
 		}
 
 	}

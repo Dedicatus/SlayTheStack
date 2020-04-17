@@ -234,7 +234,7 @@ public class Enemy : MonoBehaviour
 
 	public void defeat()
 	{
-
+		myGameController.gameSucceed();
 	}
 
 	public void countTurn()

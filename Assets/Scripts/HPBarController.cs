@@ -26,6 +26,6 @@ public class HPBarController : MonoBehaviour
 		currentHealth = myEnemy.getHealth();
 
 		hpBar.fillAmount = (float) currentHealth / fullHealth;
-		hpNumber.text = currentHealth + " / " + fullHealth;
+		hpNumber.text = currentHealth + "/" + fullHealth;
     }
 }

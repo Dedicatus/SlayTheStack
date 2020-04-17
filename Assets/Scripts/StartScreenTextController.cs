@@ -23,7 +23,7 @@ public class StartScreenTextController : MonoBehaviour
 	public void startTextShow()
 	{
 		start.enabled = true;
-		start.text = "Press 'Enter'";
+		start.text = "Press Enter to Start";
 	}
 	public void startTextHide()
 	{

@@ -901,10 +901,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 320857622}
     m_Modifications:
-    - target: {fileID: 858413162, guid: 41914054c32fe5b44a365bf8eaa14440, type: 3}
-      propertyPath: height
-      value: 42
-      objectReference: {fileID: 0}
     - target: {fileID: 2747643560112862760, guid: 41914054c32fe5b44a365bf8eaa14440,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -965,10 +961,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UIController
       objectReference: {fileID: 0}
-    - target: {fileID: 7358786337836206323, guid: 41914054c32fe5b44a365bf8eaa14440,
+    - target: {fileID: 8435112729216062978, guid: 41914054c32fe5b44a365bf8eaa14440,
         type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 300
+      propertyPath: m_AnchoredPosition.y
+      value: -33.899902
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41914054c32fe5b44a365bf8eaa14440, type: 3}
@@ -1220,6 +1216,16 @@ PrefabInstance:
         type: 3}
       propertyPath: attackIncrement
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5391350594969883603, guid: dba1c388c3462814d8d40955713f747f,
+        type: 3}
+      propertyPath: attackDamage
+      value: 999
+      objectReference: {fileID: 0}
+    - target: {fileID: 5391350594969883603, guid: dba1c388c3462814d8d40955713f747f,
+        type: 3}
+      propertyPath: health
+      value: 99999
       objectReference: {fileID: 0}
     - target: {fileID: 5391350595945701633, guid: dba1c388c3462814d8d40955713f747f,
         type: 3}

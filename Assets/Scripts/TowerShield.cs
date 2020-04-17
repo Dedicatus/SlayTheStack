@@ -16,6 +16,10 @@ public class TowerShield : MonoBehaviour
 	private Enemy myEnemyScript;
 	private float currentHeight;
 
+	private Transform myTansform;
+	private GameObject myTowerShield;
+	private float offset = 0f;
+
 
 	// Start is called before the first frame update
 	void Start()
@@ -29,6 +33,10 @@ public class TowerShield : MonoBehaviour
 		else
 		{
 			myTowerScript = transform.parent.parent.GetComponent<Tower>();
+			myTowerShield = transform.parent.gameObject;
+			//offset = transform.localPosition.y - myTowerShield.transform.localPosition.y;
+			offset = -1.0f;
+			myTansform = transform;
 		}
 		myTowerScrollScript = transform.parent.GetComponent<TowerScroll>();
 		myEnemyScript = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
@@ -50,6 +58,18 @@ public class TowerShield : MonoBehaviour
 		else
 		{
 			gameObject.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = false;
+		}
+
+		if (myType == ShieldType.Permanent)
+		{
+			if (myTowerShield.GetComponent<TowerShield>().getCurrentArmor() == 0)
+			{
+				transform.localPosition = new Vector3(0f, 0f, 0f);
+			}
+			else
+			{
+				transform.localPosition = new Vector3(0f, -1, 0f);
+			}
 		}
 
 	}
