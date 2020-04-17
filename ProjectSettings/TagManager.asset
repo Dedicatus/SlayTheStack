@@ -13,6 +13,7 @@ TagManager:
   - TowerShield
   - TowerLevel
   - TowerFloor
+  - EnemyBullet
   layers:
   - Default
   - TransparentFX
