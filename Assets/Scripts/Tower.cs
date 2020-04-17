@@ -31,13 +31,17 @@ public class Tower : MonoBehaviour
 	[SerializeField] private GameObject atkDefenseLevelPrefab;
 	[SerializeField] private GameObject atkBuffLevelPrefab;
 	[SerializeField] private GameObject defBuffLevelPrefab;
-    
+
+	[Header("Others")]
+	[SerializeField] private GameObject towerUI;
+
 	//[SerializeField] private GameObject towerShield;
 
-    private GameController myGameController;
+	private GameController myGameController;
     private Enemy myEnemy;
     private TowerShield myTowerShield;
     private TowerShield myPermanentShield;
+	private TowerStateController myTowerStateController;
 
     // Start is called before the first frame update
     void Start()
@@ -48,6 +52,7 @@ public class Tower : MonoBehaviour
         myPermanentShield = transform.Find("TowerShield").Find("GoldShield").GetComponent<TowerShield>();
         searchIndex = 0;
         curHeight = transform.Find("Base").transform.localScale.y / 2.0f + transform.Find("Base").transform.position.y;
+		myTowerStateController = towerUI.GetComponent<TowerStateController>();
     }
 
     // Update is called once per frame
@@ -262,6 +267,7 @@ public class Tower : MonoBehaviour
 		{
 			myObjectList[myObjectList.Count - i] = type;
 		}
+
 		GameObject levelPrefab;
 		switch (type)
 		{
@@ -293,6 +299,8 @@ public class Tower : MonoBehaviour
         level.transform.parent = transform;
         level.GetComponent<TowerLevel>().setIndex(myObjectList.Count - 1);
 		curHeight += (float)(levelPrefab.GetComponent<BoxCollider>().size.y);
+
+		myTowerStateController.showTower(type - 7);
     }
 
 
