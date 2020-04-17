@@ -34,12 +34,14 @@ public class Tower : MonoBehaviour
 
     private GameController myGameController;
     private Enemy myEnemy;
+    private TowerShield myTowerShield;
 
     // Start is called before the first frame update
     void Start()
     {
         myGameController = GameObject.FindWithTag("System").transform.Find("GameController").GetComponent<GameController>();
         myEnemy = GameObject.FindWithTag("Enemy").GetComponent<Enemy>();
+        myTowerShield = transform.Find("TowerShield").GetComponent<TowerShield>();
         searchIndex = 0;
         curHeight = transform.Find("Base").transform.localScale.y / 2.0f + transform.Find("Base").transform.position.y;
     }
@@ -212,32 +214,32 @@ public class Tower : MonoBehaviour
 		switch (upperPartType * lowerPartType)
 		{
 			case 16:
-				destoryUsedLevels();
+				destoryUsedParts();
 				spawnTowerLevel(7);
 
 				break;
 			case 20:
-				destoryUsedLevels();
+                destoryUsedParts();
 				spawnTowerLevel(10);
 
 				break;
 			case 24:
-				destoryUsedLevels();
+                destoryUsedParts();
 				spawnTowerLevel(11);
 
 				break;
 			case 25:
-				destoryUsedLevels();
+                destoryUsedParts();
 				spawnTowerLevel(8);
 
 				break;
 			case 30:
-				destoryUsedLevels();
+                destoryUsedParts();
 				spawnTowerLevel(12);
 
 				break;
 			case 36:
-				destoryUsedLevels();
+                destoryUsedParts();
 				spawnTowerLevel(9);
 
 				break;
@@ -309,7 +311,7 @@ public class Tower : MonoBehaviour
 
         }
 	}
-	private void destoryUsedLevels()
+	private void destoryUsedParts()
 	{
 		foreach (Transform matTransform in transform)
 		{
@@ -317,7 +319,6 @@ public class Tower : MonoBehaviour
 			{
 				curHeight -= (float)matTransform.GetChild(0).GetComponent<BoxCollider>().size.z * matTransform.GetChild(0).transform.localScale.z;
 				Destroy(matTransform.gameObject);
-
 			}
 			else
 			{
@@ -381,5 +382,6 @@ public class Tower : MonoBehaviour
     public void addThornDamageAmount(int n)
     {
         thornDamageAmount += n;
+        myTowerShield.addThornDamage(n);
     }
 }
