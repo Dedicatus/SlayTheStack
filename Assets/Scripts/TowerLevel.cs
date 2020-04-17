@@ -77,4 +77,29 @@ public class TowerLevel : MonoBehaviour
     {
         index = i;
     }
+
+    private void OnDestroy()
+    {
+        switch (myType)
+        {
+            case PartType.Attack:
+                myTower.addAddMaterialAttackAmount(-1 * addMaterialAttackAmount);
+                break;
+            case PartType.Defense:
+                myTower.addAddMaterialShieldAmount(-1 * addMaterialShieldAmount);
+                break;
+            case PartType.Buff:
+                myTower.addPermanentShieldAmount(-1 * permanentShieldAmount);
+                break;
+            case PartType.AttackBuff:
+                myTower.addAttackBuffAmount(-1 * attackBuffAmount);
+                break;
+            case PartType.DefenseBuff:
+                myTower.addDefenseBuffAmount(-1 * defenseBuffAmount);
+                break;
+            case PartType.AttackDefense:
+                myTower.addThornDamageAmount(-1 * thornDamageAmount);
+                break;
+        }
+    }
 }

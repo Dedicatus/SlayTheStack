@@ -44,11 +44,6 @@ public class GameController : MonoBehaviour
     void Update()
     {
         inputHandler();
-
-        if (gameStart && !gameSuspended)
-        {
-            mySpawnController.spawnMaterial();
-        }
     }
 
     void inputHandler()
@@ -67,7 +62,10 @@ public class GameController : MonoBehaviour
 				hardRestartGame();
 			}
         }
-
+        if (Input.GetKey(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
     public void turnPassed()
@@ -113,4 +111,12 @@ public class GameController : MonoBehaviour
 	{
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
+
+    public void spwanIfNotScrolling()
+    {
+        if (gameStart && !gameSuspended)
+        {
+            mySpawnController.spawnMaterial();
+        }
+    }
 }

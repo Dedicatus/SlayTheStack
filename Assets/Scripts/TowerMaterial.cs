@@ -124,6 +124,7 @@ public class TowerMaterial : MonoBehaviour
             {
                 myGameController.gameSuspended = true;
                 landed = true;
+                
                 gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 gameObject.GetComponent<Rigidbody>().isKinematic = true;
 
@@ -142,6 +143,7 @@ public class TowerMaterial : MonoBehaviour
                         myTowerScript.addMaterial(3);
                         break;
                 }
+
             }
         }
     }

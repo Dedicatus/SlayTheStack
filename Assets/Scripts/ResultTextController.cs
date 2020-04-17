@@ -26,18 +26,18 @@ public class ResultTextController : MonoBehaviour
 	{
 		result.enabled = true;
 		result.text = "You Win!";
-		result.color = Color.red;
+		result.color = new Color(255.0f / 255.0f, 83.0f / 255.0f, 83.0f / 255.0f);
 		instruction.enabled = true;
-		instruction.text = "Press Press Enter to Continue";
+		instruction.text = "Press Enter to Continue";
 	}
 
 	public void showLose()
 	{
 		result.enabled = true;
 		result.text = "You Lose";
-		result.color = Color.black;
+		result.color = new Color(173.0f / 255.0f, 82.0f / 255.0f, 37.0f / 255.0f);
 		instruction.enabled = true;
-		instruction.text = "Press Press Enter to Continue";
+		instruction.text = "Press Enter to Continue";
 	}
 
 	public void resultTextHide()

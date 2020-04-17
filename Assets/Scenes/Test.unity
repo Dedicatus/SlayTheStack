@@ -1613,6 +1613,16 @@ PrefabInstance:
       propertyPath: towers.Array.data[2]
       value: 
       objectReference: {fileID: 299675734}
+    - target: {fileID: 2973501107750360485, guid: f464e5d58fb047241aa9ff254b539b48,
+        type: 3}
+      propertyPath: spawnWaitTime
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2973501107750360485, guid: f464e5d58fb047241aa9ff254b539b48,
+        type: 3}
+      propertyPath: spawnWaitTimer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2973501107750360487, guid: f464e5d58fb047241aa9ff254b539b48,
         type: 3}
       propertyPath: m_Name
@@ -1780,6 +1790,11 @@ PrefabInstance:
       propertyPath: bossField
       value: 
       objectReference: {fileID: 1345279963}
+    - target: {fileID: 5391350594969883603, guid: dba1c388c3462814d8d40955713f747f,
+        type: 3}
+      propertyPath: attackDamage
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5391350595945701633, guid: dba1c388c3462814d8d40955713f747f,
         type: 3}
       propertyPath: m_LocalPosition.x

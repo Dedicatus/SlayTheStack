@@ -15,7 +15,10 @@ public class SpawnController : MonoBehaviour
 	int buffCount = 3;
 	int defenseCount = 3;
 	int nextBlock = -1;
+	bool isCounting;
 
+	[SerializeField] private float spawnWaitTime = 0.5f;
+	[SerializeField] private float spawnWaitTimer = 0.0f;
 	[SerializeField] private float dropHeight;
 	[SerializeField] private Transform[] towers = new Transform[3];
 	[SerializeField] private GameObject attackMaterials;
@@ -33,6 +36,8 @@ public class SpawnController : MonoBehaviour
 	private PreviewController myPreviewController;
 
 	private GameController myGameController;
+
+	
 
 	// Start is called before the first frame update
 	void Start()
@@ -88,12 +93,17 @@ public class SpawnController : MonoBehaviour
 
 		if (myMaterial != null)
 		{
-
 			if (myMaterial.GetComponent<TowerMaterial>().isLanded())
 			{
-				myMaterial = null;
+				if(spawnWaitTimer<=0)
+					spawnWaitTimer = spawnWaitTime;
 			}
-
+		}
+		if (spawnWaitTimer>0)
+		{
+			spawnWaitTimer -= Time.deltaTime;
+			if(spawnWaitTimer<=0)
+				myMaterial = null;
 		}
 
 		/*

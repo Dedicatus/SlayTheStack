@@ -50,7 +50,10 @@ public class TowerScroll : MonoBehaviour
         {
             myGameController.isScrolling = true;
             towerLerp();
-            
+        }
+        else
+        {
+            myGameController.spwanIfNotScrolling();
         }
 
         if (!isScrollingBack)
@@ -85,6 +88,7 @@ public class TowerScroll : MonoBehaviour
         }
         else if (isScrollingBack && transform.position.y >= initPos.y)
         {
+            transform.position = initPos;
             isLerping = false;
             myGameController.isScrolling = false;
             myGameController.gameSuspended = false;

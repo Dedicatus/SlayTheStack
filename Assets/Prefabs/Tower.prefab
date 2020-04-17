@@ -287,7 +287,7 @@ RectTransform:
   m_GameObject: {fileID: 6798967089280457051}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 3.88}
-  m_LocalScale: {x: 0.041, y: 0.041, z: 1}
+  m_LocalScale: {x: 0.0245, y: 0.0245, z: 1}
   m_Children:
   - {fileID: 5826693317727550927}
   m_Father: {fileID: 6952624726336200023}
@@ -295,8 +295,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 35.8}
-  m_SizeDelta: {x: 295, y: 2048}
+  m_AnchoredPosition: {x: 0, y: 94.31}
+  m_SizeDelta: {x: 492, y: 8192}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &5208518428958420857
 Canvas:
@@ -475,6 +475,7 @@ MonoBehaviour:
   attackBuffAmount: 0
   defenseBuffAmount: 0
   addMaterialAttackAmount: 0
+  addMaterialShieldAmount: 0
   thornDamageAmount: 0
   permanentShieldAmount: 0
   attackPartPrefab: {fileID: 7779858500460932063, guid: 36a2f36a52e945847a27f5409ad3fa51,
@@ -495,6 +496,7 @@ MonoBehaviour:
     type: 3}
   defBuffLevelPrefab: {fileID: 5209201506183653229, guid: 06fe3f891c6df6344b1299fe28efba3b,
     type: 3}
+  towerUI: {fileID: 0}
 --- !u!114 &7229683580646558484
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -513,7 +515,7 @@ MonoBehaviour:
   screenHeight: 0
   scrolledHeight: 0
   maxHeight: 25
-  minHeight: 10
+  minHeight: 13
 --- !u!1001 &3399701672625168258
 PrefabInstance:
   m_ObjectHideFlags: 0

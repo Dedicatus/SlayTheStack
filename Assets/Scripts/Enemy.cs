@@ -54,7 +54,6 @@ public class Enemy : MonoBehaviour
 		if(actionTurnCount > 3)
 		{
 			actionTurnCount = 1;
-			
 		}
 
 		if (attackTimer <= 0)
@@ -70,8 +69,7 @@ public class Enemy : MonoBehaviour
 					//determine next turn1 action
 					if (turn3Action == -1)
 					{
-						turn1Action = Random.Range(0, 2);
-						
+						turn1Action = Random.Range(0, 2);					
 					}
 					myBossFieldUIController.actionState(turn1Action);
 					break;
