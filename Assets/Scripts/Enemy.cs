@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
 	[SerializeField] private int health;
 	[SerializeField] private GameObject attackMaterialPreafab;
 	[SerializeField] private float dropHeight;
-	[SerializeField] private int attackDamange;
+	[SerializeField] private int attackDamage = 10;
 	[SerializeField] private int attackIncrement;
 	GameObject attackMaterial;
 	float[] towerX = new float[3];
@@ -104,19 +104,19 @@ public class Enemy : MonoBehaviour
 		switch (actionType)
 		{
 			default:
-				Debug.Log("Invalid Enemy Action");
+				//Debug.Log("Invalid Enemy Action");
 				break;
 			case 0:
-				Debug.Log("Enemy Attacked " + attackDamange + " CurrentTurn " + myGameController.getCurrentTurn() + " Turn Count " + actionTurnCount);
+				//Debug.Log("Enemy Attacked " + attackDamage + " CurrentTurn " + myGameController.getCurrentTurn() + " Turn Count " + actionTurnCount);
 				myGameController.gameSuspended = true;
 				attack();
 				break;
 			case 1:
-				Debug.Log("Charged" + " CurrentTurn " + myGameController.getCurrentTurn() + " Turn Count " + actionTurnCount);
+				//Debug.Log("Charged" + " CurrentTurn " + myGameController.getCurrentTurn() + " Turn Count " + actionTurnCount);
 				charge();
 				break;
 			case 2:
-				Debug.Log("Speed Up" + " CurrentTurn " + myGameController.getCurrentTurn() + " Turn Count " + actionTurnCount);
+				//Debug.Log("Speed Up" + " CurrentTurn " + myGameController.getCurrentTurn() + " Turn Count " + actionTurnCount);
 				speedUp();
 				break;
 
@@ -159,7 +159,7 @@ public class Enemy : MonoBehaviour
 
 	void charge()
 	{
-		attackDamange += attackIncrement;
+		attackDamage += attackIncrement;
 	}
 
 	public void underAttack(int damage)
@@ -201,7 +201,7 @@ public class Enemy : MonoBehaviour
 
 	public int getAttackDamage()
 	{
-		return attackDamange;
+		return attackDamage;
 	}
 
 	public int getTimer()
