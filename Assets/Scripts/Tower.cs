@@ -7,6 +7,7 @@ public class Tower : MonoBehaviour
     [SerializeField] private List<int> myObjectList = new List<int>();
 
     private int searchIndex;
+	private int towerStateCounter = 0;
 
     [Header("Tower Attributes")]
     [SerializeField] private float curHeight;
@@ -41,7 +42,7 @@ public class Tower : MonoBehaviour
     private Enemy myEnemy;
     private TowerShield myTowerShield;
     private TowerShield myPermanentShield;
-	private TowerStateController myTowerStateController;
+	private TowerStatusController myTowerStatusController;
 
     // Start is called before the first frame update
     void Start()
@@ -52,7 +53,7 @@ public class Tower : MonoBehaviour
         myPermanentShield = transform.Find("TowerShield").Find("GoldShield").GetComponent<TowerShield>();
         searchIndex = 0;
         curHeight = transform.Find("Base").transform.localScale.y / 2.0f + transform.Find("Base").transform.position.y;
-		myTowerStateController = towerUI.GetComponent<TowerStateController>();
+		myTowerStatusController = towerUI.GetComponent<TowerStatusController>();
     }
 
     // Update is called once per frame
@@ -300,7 +301,7 @@ public class Tower : MonoBehaviour
         level.GetComponent<TowerLevel>().setIndex(myObjectList.Count - 1);
 		curHeight += (float)(levelPrefab.GetComponent<BoxCollider>().size.y);
 
-		myTowerStateController.showTower(type - 7);
+		myTowerStatusController.towerIncresed(type - 7);
     }
 
 
@@ -350,6 +351,14 @@ public class Tower : MonoBehaviour
 	public void listRemoveElement()
 	{
 		int currentSize = myObjectList.Count;
+		if(myObjectList[currentSize -1] >= 7) 
+		{
+			if(towerStateCounter % 6 == 0)
+			{
+				myTowerStatusController.towerDecreased(myObjectList[currentSize - 1] - 7);
+			}
+			towerStateCounter++;
+		}
 		myObjectList.RemoveAt(currentSize - 1);
 	}
 
